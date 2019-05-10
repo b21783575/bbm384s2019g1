@@ -22,13 +22,10 @@ public class Address{
     @Id @GeneratedValue
     private Long id;
     
-    private String firstname;
-    private String lastname;
+    private String name;
     private String country;
-    private String state;
-    private String district;
+    private String region;
     private String address;
-    private String phone;
 
 
     @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
