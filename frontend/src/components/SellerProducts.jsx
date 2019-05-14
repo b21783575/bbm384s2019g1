@@ -7,7 +7,18 @@ export class SellerProducts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
+      products: [
+        {
+          brand: 'bellona',
+          stock: '1000',
+          name: 'Chair',
+          price: 200,
+          description: 'Comfort',
+          category: 'Home',
+          discount: '5',
+          color: 'Brown'
+        }
+      ],
       selected: [],
       mProduct: {},
       loading: true,
@@ -107,7 +118,7 @@ export class SellerProducts extends React.Component {
 
   render() {
     var products = this.state.products.map((element, index) => (
-      <div key={element.id} className='row border'>
+      <div key={index} className='row border'>
         <input
           style={{ width: 20, height: 20, margin: 7 }}
           type='checkbox'

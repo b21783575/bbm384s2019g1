@@ -9,16 +9,16 @@ export class SellerAddress extends React.Component {
     this.state = {
       addresses: [
         {
-          name: 'deneme',
+          name: 'Home',
           country: 'Turkey',
           region: 'Ankara',
-          description: 'denemee'
+          description: 'Neighborhood / Street / Apartment'
         },
         {
-          name: 'deneme2',
+          name: 'Work',
           country: 'Turkey',
           region: 'Istanbul',
-          description: 'deneme2'
+          description: 'Neighborhood / Street / Apartment'
         }
       ],
       selected: [],

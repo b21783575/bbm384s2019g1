@@ -109,7 +109,6 @@ class Products extends React.Component {
         ) : null}
       </div>
     ));
-    console.log(this.state.products);
     return (
       <div style={{ backgroundColor: '#F8F3EF' }} className='py-4 px-4'>
         <div
@@ -132,7 +131,9 @@ class Products extends React.Component {
                 SORTINGGGGGGGG
               </div>
               <div style={{ backgroundColor: '#fff' }} className='border '>
-                <div className='row justify-content-center'>{products}</div>
+                <div className='row justify-content-center'>
+                  {products.length > 0 ? products : 'No products found'}
+                </div>
               </div>
             </div>
           </div>

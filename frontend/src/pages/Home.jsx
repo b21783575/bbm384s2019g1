@@ -2,6 +2,8 @@ import React from 'react';
 
 import { SlideLabel } from '../components/SlideLabel';
 import { getUser, logout } from '../helpers/authHelper';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const slideContext = [
   {
@@ -92,6 +94,17 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
+        <Modal show={this.state.isLogin}>
+          <Modal.Body
+            className='text-center'
+            style={{ color: '#090', fontSize: 25 }}
+          >
+            Successfully Edited
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='primary'>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </React.Fragment>
     );
   }

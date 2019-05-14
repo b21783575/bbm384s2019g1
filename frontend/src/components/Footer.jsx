@@ -7,7 +7,7 @@ export class Footer extends React.Component {
         <React.Fragment>
           <div className='footer sticky-bottom'>
             <div
-              style={{ backgroundColor: '#4566c1', width: '100%' }}
+              style={{ backgroundColor: '#283A54', width: '100%' }}
               className='d-flex justify-content-around'
             >
               <div

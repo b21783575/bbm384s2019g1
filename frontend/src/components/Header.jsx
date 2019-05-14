@@ -16,7 +16,7 @@ export class Header extends React.Component {
           <div className='row mr-5 align-items-center'>
             <IoMdPerson className='my-auto' color={'#fff'} size={'30px'} />
             <div className='my-auto' style={{ color: '#fff' }}>
-              {this.props.user.firstName}
+              {this.props.user.email}
             </div>
           </div>
           <button
@@ -26,6 +26,7 @@ export class Header extends React.Component {
               backgroundColor: '#F16530',
               borderColor: '#F16530'
             }}
+            onClick={this.props.logout}
           >
             <IoMdCart className='my-auto' size={'20px'} />
             <h4>Cart</h4>
