@@ -16,7 +16,7 @@ export class Header extends React.Component {
           <div className='row mr-5 align-items-center'>
             <IoMdPerson className='my-auto' color={'#fff'} size={'30px'} />
             <div className='my-auto' style={{ color: '#fff' }}>
-              {this.props.user.firstName}
+              {this.props.user.email}
             </div>
           </div>
           <button
@@ -26,6 +26,7 @@ export class Header extends React.Component {
               backgroundColor: '#F16530',
               borderColor: '#F16530'
             }}
+            onClick={this.props.logout}
           >
             <IoMdCart className='my-auto' size={'20px'} />
             <h4>Cart</h4>
@@ -117,13 +118,13 @@ export class Header extends React.Component {
             style={{ backgroundColor: '#384E6E', width: '100%' }}
             className='d-flex justify-content-around'
           >
-            <a style={{ color: '#fff', fontSize: '25px' }} className='bd-highlight' href='/'>
-              Electronic
+            <a style={{ color: '#fff', fontSize: 20 }} className='bd-highlight' href='/'>
+              Electronic Devices
             </a>
-            <a style={{ color: '#fff', fontSize: '25px' }} className='bd-highlight' href='/'>
+            <a style={{ color: '#fff', fontSize: 20 }} className='bd-highlight' href='/'>
               Book
             </a>
-            <a style={{ color: '#fff', fontSize: '25px' }} className='bd-highlight' href='/'>
+            <a style={{ color: '#fff', fontSize: 20 }} className='bd-highlight' href='/'>
               Sofa
             </a>
           </Nav>
@@ -131,9 +132,7 @@ export class Header extends React.Component {
             style={{ backgroundColor: '#fff', width: '100%' }}
             className='row mx-0'
           >
-            <div className='col text-center'>
-              Free Shipping, in order min 150 tl
-            </div>
+            <div className='col text-center'>Free Shipping, in order min 150 tl</div>
             <div className='col text-center'>24/7 Support</div>
           </div>
         </React.Fragment>

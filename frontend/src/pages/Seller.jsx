@@ -40,7 +40,7 @@ class Seller extends React.Component {
       case 'addresses':
         return <SellerAddress />;
       case 'products':
-        return <SellerProducts seller={this.state.seller.email} />;
+        return <SellerProducts seller={'umut@gmail.com'} />; //TODO fix it
       case 'help':
         return <SellerHelp />;
       default:
@@ -50,7 +50,7 @@ class Seller extends React.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: '#dfdcd3' }}>
+      <div style={{ backgroundColor: '#ccc' }}>
         <div className='container pt-4 pb-5'>
           <div className='row'>
             <div

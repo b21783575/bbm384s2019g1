@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Admin from './pages/Admin';
 import Seller from './pages/Seller';
+import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
@@ -16,7 +16,7 @@ import Product from './pages/Product';
 import Demo from './pages/Demo';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { getUser } from './helpers/authHelper';
+import { getUser, logout } from './helpers/authHelper';
 
 const headerlessPages = ['Login'];
 
@@ -30,6 +30,7 @@ export default class Routes extends React.Component {
 
     this.routeChange = this.routeChange.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +46,11 @@ export default class Routes extends React.Component {
     this.initialize();
   }
 
+  logout() {
+    logout();
+    this.initialize();
+  }
+
   routeChange(page) {
     if (headerlessPages.includes(page)) this.setState({ isHeader: false });
     else if (!this.state.isHeader) this.setState({ isHeader: true });
@@ -55,7 +61,11 @@ export default class Routes extends React.Component {
       <div>
         <Router>
           <div>
-            <Header user={this.state.user} isHeader={this.state.isHeader} />
+            <Header
+              user={this.state.user}
+              logout={this.logout}
+              isHeader={this.state.isHeader}
+            />
             <Switch>
               <Route
                 exact

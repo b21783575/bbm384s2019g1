@@ -20,9 +20,15 @@ class Products extends React.Component {
 
   componentDidMount() {
     this.props.routeChange('Products');
-    fetch('api/products')
-      .then(response => response.json())
-      .then(responseJson => this.setState({ products: responseJson }))
+    fetch('http://localhost:8080/api/products')
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(products => {
+        console.log(products);
+        this.setState({ products });
+      })
       .catch(err => console.log(err));
   }
 
@@ -109,7 +115,6 @@ class Products extends React.Component {
         ) : null}
       </div>
     ));
-    console.log(this.state.products);
     return (
       <div style={{ backgroundColor: '#F8F3EF' }} className='py-4 px-4'>
         <div
@@ -132,7 +137,9 @@ class Products extends React.Component {
                 SORTINGGGGGGGG
               </div>
               <div style={{ backgroundColor: '#fff' }} className='border '>
-                <div className='row justify-content-center'>{products}</div>
+                <div className='row justify-content-center'>
+                  {products.length > 0 ? products : 'No products found'}
+                </div>
               </div>
             </div>
           </div>

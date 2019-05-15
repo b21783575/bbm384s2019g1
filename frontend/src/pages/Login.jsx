@@ -67,6 +67,12 @@ class Login extends React.Component {
                   let errors = {};
                   if (!values.email) {
                     errors.email = 'Required';
+                  } else if (
+                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                      values.email
+                    )
+                  ) {
+                    errors.email = 'Invalid email address';
                   }
                   if (values.password.length < 6) {
                     errors.password = 'Minimum 6 characters';
@@ -141,11 +147,6 @@ class Login extends React.Component {
               <div className='d-flex justify-content-around'>
                 <button type='button' className='btn btn-primary'>
                   Sell Stuff
-                  <div>
-                    <Link to={'/register/seller' + this.state.other}>
-                    Go to {this.state.other} register page
-                    </Link>
-                  </div>
                 </button>
                 <button type='button' className='btn btn-primary'>
                   Buy Stuff
