@@ -20,9 +20,15 @@ class Products extends React.Component {
 
   componentDidMount() {
     this.props.routeChange('Products');
-    fetch('api/products')
-      .then(response => response.json())
-      .then(responseJson => this.setState({ products: responseJson }))
+    fetch('http://localhost:8080/api/products')
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(products => {
+        console.log(products);
+        this.setState({ products });
+      })
       .catch(err => console.log(err));
   }
 

@@ -27,7 +27,7 @@ export class Footer extends React.Component {
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  FOO
                 </a>
                 <a
                   style={{ color: 'white' }}
@@ -46,9 +46,9 @@ export class Footer extends React.Component {
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
-                  href='/'
+                  href='/aaa'
                 >
-                  FOOTER
+                  Ftaaaaff
                 </a>
               </div>
               <div

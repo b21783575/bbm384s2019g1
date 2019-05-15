@@ -1,5 +1,7 @@
 import React from 'react';
 
+import StarRatingComponent from 'react-star-rating-component';
+
 class Product extends React.Component {
   constructor(props) {
     super(props);
@@ -14,12 +16,37 @@ class Product extends React.Component {
         id: 55,
         name: 'name',
         price: 555,
-        stock: 1
-      }
+        stock: 1,
+        seller: {}
+      },
+      branch: []
     };
 
     this.addToCart = this.addToCart.bind(this);
     this.renderPrice = this.renderPrice.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.routeChange('Product');
+    console.log(this.props);
+    this.setState({ id: this.props.match.params.id });
+    fetch('http://localhost:8080/api/product/' + this.props.match.params.id)
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(product => {
+        console.log(product);
+        var category = product.category;
+        var branch = [];
+        while (category) {
+          branch.push(category.name);
+          category = category.parent;
+        }
+        console.log(branch.reverse());
+        this.setState({ branch, product });
+      })
+      .catch(err => console.log(err));
   }
 
   addToCart() {
@@ -35,7 +62,9 @@ class Product extends React.Component {
             className='text-center py-3 px-3'
             style={{ backgroundColor: '#c33', color: '#fff' }}
           >
-            <div>%{product.discount}</div>
+            <div>
+              %<b>{product.discount}</b>
+            </div>
             <div>Sale</div>
           </div>
           <div className='col py-auto ml-2'>
@@ -57,27 +86,20 @@ class Product extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.props.routeChange('Product');
-    console.log(this.props);
-    this.setState({ id: this.props.match.params.id });
-    fetch('api/product/' + this.props.match.params.id)
-      .then(response => {
-        console.log(response);
-        return response.json();
-      })
-      .then(responseJson => {
-        this.setState({ product: responseJson });
-        console.log(responseJson);
-      })
-      .catch(err => console.log(err));
-  }
-
   render() {
     const { product } = this.state;
+    var branch = this.state.branch.map((element, index) => (
+      <div key={index} className='d-flex inline'>
+        <div>{'/'}</div>
+        <div className='px-1' style={{ color: '#37c', cursor: 'pointer' }}>
+          {element}
+        </div>
+      </div>
+    ));
     return (
       <div>
         <div className='w-100 px-4 py-3' style={{ backgroundColor: '#F8F3EF' }}>
+          <div className='row px-3 my-2'>{branch}</div>
           <div
             className='w-100 px-3 py-3 border'
             style={{ backgroundColor: '#F2EEEE' }}
@@ -92,13 +114,18 @@ class Product extends React.Component {
                 </div>
                 <div className='col'>
                   <div
-                    className='row border mb-2 pl-2'
+                    className='row border mb-2 pl-2 inline'
                     style={{ backgroundColor: '#fff' }}
                   >
-                    <div style={{ fontSize: 40 }}>{product.name} </div>
+                    <div style={{ fontSize: 40 - product.name.length / 7 }}>
+                      {product.name}
+                    </div>
                     <div
                       className='my-auto'
-                      style={{ color: '#aaa', fontSize: 25 }}
+                      style={{
+                        color: '#aaa',
+                        fontSize: 25 - product.name.length / 20
+                      }}
                     >
                       (#{product.id})
                     </div>
@@ -161,7 +188,29 @@ class Product extends React.Component {
                         </button>
                       </div>
                     </div>
-                    <div className='col border'>Seller information</div>
+                    <div className='col border'>
+                      <div className='row' style={{ fontSize: 30 }}>
+                        <StarRatingComponent
+                          value={this.state.product.seller.avg_rating}
+                          editing={false}
+                        />
+                        <div
+                          className='pt-1'
+                          style={{ fontSize: 23, color: '#aaa' }}
+                        >
+                          ({this.state.product.seller.avg_rating})
+                        </div>
+                      </div>
+                      <div className='row' style={{ fontSize: 18 }}>
+                        Seller: {this.state.product.seller.name}
+                      </div>
+                      <div className='row' style={{ fontSize: 18 }}>
+                        Email: {this.state.product.seller.email}
+                      </div>
+                      <div className='row' style={{ fontSize: 18 }}>
+                        Phone: {this.state.product.seller.phone}
+                      </div>
+                    </div>
                   </div>
                   <div className='row'>OTHER SELLERS</div>
                 </div>
