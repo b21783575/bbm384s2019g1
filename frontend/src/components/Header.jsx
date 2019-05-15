@@ -117,17 +117,14 @@ export class Header extends React.Component {
             style={{ backgroundColor: '#384E6E', width: '100%' }}
             className='d-flex justify-content-around'
           >
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 1
+            <a style={{ color: '#fff', fontSize: '25px' }} className='bd-highlight' href='/'>
+              Electronic
             </a>
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 2
+            <a style={{ color: '#fff', fontSize: '25px' }} className='bd-highlight' href='/'>
+              Book
             </a>
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 3
-            </a>
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 4
+            <a style={{ color: '#fff', fontSize: '25px' }} className='bd-highlight' href='/'>
+              Sofa
             </a>
           </Nav>
           <div

@@ -7,23 +7,20 @@ const slideContext = [
   {
     href: '/seller',
     src:
-      'https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    title: 'birrrrrrrrrrrr',
-    info: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      'https://www.androidguys.com/wp-content/uploads/2019/02/galaxy_s10_trio.png',
+    title: 'Samsung S10 Family',
   },
   {
     href: '/seller',
     src:
-      'https://png.pngtree.com/thumb_back/fw800/back_pic/03/87/17/0857d1192214be1.jpg',
-    title: 'ikiiiiiiiiii',
-    info: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      'https://www.furniturenation.com/uploads/28327_6870218.jpg',
+    title: 'Bellona Sofa',
   },
   {
     href: '/seller',
     src:
-      'https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252__340.jpg',
-    title: 'üüüüüüüüüçççççç',
-    info: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      'https://www.shanethegamer.com/wp-content/uploads/2017/10/frametv_fd_main_visual_03.jpg',
+    title: 'Samsung Frame TV',
   }
 ];
 
@@ -47,7 +44,8 @@ class Home extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div style={{ backgroundColor: '#dfdcd3' }}>
+        <React.Fragment>
         <div className='container mt-md-2'>
           <a href='/demo'>Demo</a>
           <button type='button' onClick={this.toggleLogin}>
@@ -69,11 +67,21 @@ class Home extends React.Component {
           >
             Products
           </button>
-          <div className='w-75 mx-auto'>
+          <button
+            type='button'
+            onClick={() => {
+              this.props.history.push('/admin');
+            }}
+          >
+            Admin Account Page
+          </button>
+          <div style={{ marginTop: 20 }} className='w-75 mx-auto'>
             <SlideLabel slideContext={slideContext} />
           </div>
-          <div style={{ height: '600px' }} className='row w-100 mx-auto mt-2'>
-            <div className='col text-center bg-dark'>PRODUCT</div>
+          <div style={{ height: '600px', marginBottom: 30 }} className='row w-100 mx-auto mt-2'>
+            <div className='col w-25'>
+              {/*<Image src='https://www.isoladicomunicazione.com/wp-content/uploads/2018/07/google_ads.jpg'></Image>*/}
+            </div>
             <div className='col w-100 bg-light'>
               <div className='row-4 h-25 w-100 text-center align-middle bg-success'>
                 CAT1
@@ -93,6 +101,7 @@ class Home extends React.Component {
           </div>
         </div>
       </React.Fragment>
+      </div>
     );
   }
 }

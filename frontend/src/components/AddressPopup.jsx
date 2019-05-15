@@ -85,7 +85,7 @@ export class AddressPopup extends React.Component {
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Row>
                   <Form.Group>
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label>Address Name</Form.Label>
                     <Form.Control
                       type='text'
                       name='name'

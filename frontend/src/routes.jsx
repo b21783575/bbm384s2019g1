@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Home from './pages/Home';
+import Admin from './pages/Admin';
 import Seller from './pages/Seller';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -98,6 +99,12 @@ export default class Routes extends React.Component {
                 path='/seller'
                 render={props => (
                   <Seller routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/admin'
+                render={props => (
+                  <Admin routeChange={this.routeChange} {...props} />
                 )}
               />
               <Route

@@ -42,17 +42,19 @@ export class ProductPopup extends React.Component {
               if (!values.stock) {
                 errors.stock = 'Required';
               } else if (!(values.stock > 0)) {
-                errors.stock = 'Invalid';
+                errors.stock = 'Must be greater than 0';
               }
               if (!values.price) {
                 errors.price = 'Required';
               } else if (!(values.price > 0)) {
-                errors.price = 'Invalid';
+                errors.price = 'Must be grater than 0';
               }
               if (!values.discount) {
                 errors.discount = 'Required';
-              } else if (!(values.discount >= 0 && values.discount <= 100)) {
-                errors.discount = 'Invalid';
+              } else if (values.discount < 0) {
+                errors.discount = "Can't be negative";
+              } else if (values.discount > 100) {
+                errors.discount = 'Must be lesser than 100';
               }
               return errors;
             }}
@@ -190,7 +192,10 @@ export class ProductPopup extends React.Component {
                       isInvalid={touched.color && !!errors.color}
                     />
 
-                    <Form.Control.Feedback type='invalid'>
+                    <Form.Control.Feedback
+                      type='invalid'
+                      className='text-center'
+                    >
                       {errors.color}
                     </Form.Control.Feedback>
                   </Form.Group>

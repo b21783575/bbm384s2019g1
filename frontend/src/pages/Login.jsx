@@ -141,6 +141,11 @@ class Login extends React.Component {
               <div className='d-flex justify-content-around'>
                 <button type='button' className='btn btn-primary'>
                   Sell Stuff
+                  <div>
+                    <Link to={'/register/seller' + this.state.other}>
+                    Go to {this.state.other} register page
+                    </Link>
+                  </div>
                 </button>
                 <button type='button' className='btn btn-primary'>
                   Buy Stuff

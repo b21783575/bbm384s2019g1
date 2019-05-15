@@ -50,7 +50,7 @@ class Seller extends React.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: '#ccc' }}>
+      <div style={{ backgroundColor: '#dfdcd3' }}>
         <div className='container pt-4 pb-5'>
           <div className='row'>
             <div

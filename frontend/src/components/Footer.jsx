@@ -7,7 +7,7 @@ export class Footer extends React.Component {
         <React.Fragment>
           <div className='footer sticky-bottom'>
             <div
-              style={{ backgroundColor: '#4566c1', width: '100%' }}
+              style={{ backgroundColor: '#384E6E', width: '100%' }}
               className='d-flex justify-content-around'
             >
               <div
@@ -16,39 +16,54 @@ export class Footer extends React.Component {
                 href='/'
               >
                 <a
-                  style={{ color: 'white' }}
+                  style={{ color: '#999999', fontSize: '20px'}}
                   className='p-1 bd-highlight'
-                  href='/'
                 >
-                  FOOTER
+                  HUMBO
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  About Us
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  Contact US
+                  <i style={{ marginLeft: 10 }} className="far fa-envelope"></i>
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  Help
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  Our Policy
+                </a>
+                <a
+                  style={{ color: 'white' }}
+                  className='p-1 bd-highlight'
+                  href='/'
+                >
+                  My Account
+                </a>
+                <a style={{ marginTop: 15 }}>
+                  <i className="fab fa-cc-visa"></i>
+                  <i style={{ marginLeft: 10, fontSize: 10 }} className="fab fa-cc-mastercard"></i>
+                  <i style={{ marginLeft: 10 }} className="far fa-credit-card"></i>
+                  <i style={{ marginLeft: 10 }} className="fab fa-cc-amazon-pay"></i>
+                  <i style={{ marginLeft: 10 }} className="fab fa-cc-amex"></i>
+                  <i style={{ marginLeft: 10 }} className="fab fa-cc-apple-pay"></i>
                 </a>
               </div>
               <div
@@ -57,32 +72,58 @@ export class Footer extends React.Component {
                 href='/'
               >
                 <a
-                  style={{ color: 'white' }}
+                  style={{ color: '#999999', fontSize: '20px' }}
                   className='p-1 bd-highlight'
-                  href='/'
                 >
-                  FOOTER
+                  CATEGORIES
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  Laptop
+                  <i style={{ marginLeft: 10 }} className="fas fa-laptop"></i>
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  TV
+                  <i style={{ marginLeft: 10 }} className="fas fa-desktop"></i>
                 </a>
                 <a
                   style={{ color: 'white' }}
                   className='p-1 bd-highlight'
                   href='/'
                 >
-                  FOOTER
+                  Book
+                  <i style={{ marginLeft: 10 }} className="fas fa-book-open"></i>
+                </a>
+                <a
+                  style={{ color: 'white' }}
+                  className='p-1 bd-highlight'
+                  href='/'
+                >
+                  Smart Phone
+                  <i style={{ marginLeft: 10 }} className="fas fa-mobile"></i>
+                </a>
+                <a
+                  style={{ color: 'white' }}
+                  className='p-1 bd-highlight'
+                  href='/'
+                >
+                  Cell Phone
+                  <i style={{ marginLeft: 10 }} class="fas fa-mobile"></i>
+                </a>
+                <a
+                  style={{ color: 'white' }}
+                  className='p-1 bd-highlight'
+                  href='/'
+                >
+                  Sofa
+                  <i style={{ marginLeft: 10 }} className="fas fa-couch"></i>
                 </a>
               </div>
             </div>
