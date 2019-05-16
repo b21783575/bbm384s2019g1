@@ -8,10 +8,10 @@ class Authentication {
     localStorage.setItem('old_user', JSON.stringify(userInfo));
   }
 
-  executeJwtAuthenticationService(email, password) {
-    console.log(email);
+  executeJwtAuthenticationService(username, password) {
+    console.log(username);
     return axios.post(`${API_URL}/authenticate`, {
-      email,
+      username,
       password
     });
   }
@@ -25,12 +25,6 @@ class Authentication {
     return 'Bearer ' + token;
   }
 
-  createAuthToken(username, password) {
-    var encripted = window.btoa(username + ':' + password);
-    console.log(encripted);
-    return encripted;
-  }
-
   logout() {
     localStorage.removeItem('old_user');
   }
@@ -42,9 +36,12 @@ class Authentication {
   }
 
   getUser() {
-    var user = localStorage.getItem('old_user');
-    if (user) return JSON.parse(user);
-    return null;
+    axios
+      .get(`${API_URL}/api/userinfo`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
   }
 
   isUserLoggedIn() {

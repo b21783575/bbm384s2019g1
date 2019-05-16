@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ProductPopup } from './ProductPopup';
 import { FaPencilAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 export class SellerProducts extends React.Component {
   constructor(props) {
@@ -37,10 +38,10 @@ export class SellerProducts extends React.Component {
   }
 
   async initApp() {
-    await fetch('api/s/products')
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({ products: responseJson });
+    axios
+      .get('api/s/products')
+      .then(response => {
+        this.setState({ products: response.data });
       })
       .catch(err => console.log(err));
     this.setState({ loading: false, showPopup: false });

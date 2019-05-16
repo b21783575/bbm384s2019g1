@@ -26,6 +26,7 @@ class Products extends React.Component {
       .get('http://localhost:8080/api/products')
       .then(res => {
         console.log(res);
+        this.setState({ products: res.data });
       })
       .catch(err => console.log(err));
     /*fetch('http://localhost:8080/api/products')

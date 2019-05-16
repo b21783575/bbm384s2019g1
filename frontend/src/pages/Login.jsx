@@ -7,6 +7,7 @@ import Authentication from '../helpers/Authentication';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { error: '' };
 
     this.submit = this.submit.bind(this);
   }
@@ -25,12 +26,12 @@ class Login extends React.Component {
             userInfo.email,
             response.data.token
           );
+          Authentication.getUser();
           this.props.history.push(`/`);
         })
         .catch(() => {
           console.log('errorrr!!!!!!!!');
-          this.setState({ showSuccessMessage: false });
-          this.setState({ hasLoginFailed: true });
+          this.setState({ error: 'Invalid e-mail or password' });
         });
     this.props.login();
   }
@@ -91,7 +92,7 @@ class Login extends React.Component {
                       values.email
                     )
                   ) {
-                    errors.email = 'Invalid email address';
+                    errors.email = '*Invalid email address';
                   }
                   if (values.password.length < 1) {
                     errors.password = 'Minimum 6 characters';
@@ -106,6 +107,11 @@ class Login extends React.Component {
               >
                 {({ handleSubmit, handleChange, values, touched, errors }) => (
                   <Form noValidate onSubmit={handleSubmit}>
+                    {this.state.error ? (
+                      <div style={{ color: '#f55', paddingBottom: 3 }}>
+                        {this.state.error}
+                      </div>
+                    ) : null}
                     <Form.Group>
                       <Form.Control
                         placeholder='E-mail'

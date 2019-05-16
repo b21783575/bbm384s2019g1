@@ -1,6 +1,7 @@
 import React from 'react';
 
 import StarRatingComponent from 'react-star-rating-component';
+import axios from 'axios';
 
 class Product extends React.Component {
   constructor(props) {
@@ -30,14 +31,10 @@ class Product extends React.Component {
     this.props.routeChange('Product');
     console.log(this.props);
     this.setState({ id: this.props.match.params.id });
-    fetch('http://localhost:8080/api/product/' + this.props.match.params.id)
+    axios('http://localhost:8080/api/product/' + this.props.match.params.id)
       .then(response => {
         console.log(response);
-        return response.json();
-      })
-      .then(product => {
-        console.log(product);
-        var category = product.category;
+        var category = response.data.category;
         var branch = [];
         while (category) {
           branch.push(category.name);
