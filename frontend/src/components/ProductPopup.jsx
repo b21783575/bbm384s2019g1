@@ -13,8 +13,10 @@ export class ProductPopup extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.product) {
-      this.setState({ imagePreviewUrl: props.product.picture });
+    if (!!props.product && !!props.product.picture) {
+      this.setState({
+        imagePreviewUrl: 'http://localhost:8080/files/' + props.product.picture
+      });
     }
   }
 

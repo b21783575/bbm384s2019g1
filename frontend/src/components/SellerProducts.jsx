@@ -96,11 +96,14 @@ export class SellerProducts extends React.Component {
     var oldProduct = this.state.products[this.state.currentIndex];
     for (var key in product) oldProduct[key] = product[key];
     const requestOptions = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(oldProduct)
+      headers: { 'Content-Type': 'multipart/form-data' }
     };
-    fetch('/api/s/product/' + oldProduct.id, requestOptions)
+    axios
+      .put(
+        'http://localhost:8080/api/s/product/' + oldProduct.id,
+        oldProduct,
+        requestOptions
+      )
       .then(result => {
         if (result.ok) {
           this.state.products[this.state.currentIndex] = oldProduct;
