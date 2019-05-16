@@ -2,7 +2,7 @@ import React from 'react';
 
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
-import { login } from '../helpers/authHelper';
+import Authentication from '../helpers/Authentication';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Login extends React.Component {
   }
 
   submit(userInfo) {
-    login(userInfo);
+    Authentication.login();
     this.props.login();
   }
 

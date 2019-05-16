@@ -3,7 +3,7 @@ import React from 'react';
 import { FaPencilAlt, FaCheck } from 'react-icons/fa';
 import Form from 'react-bootstrap/Form';
 
-export class SellerAccount extends React.Component {
+export class AccountInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,31 +102,6 @@ export class SellerAccount extends React.Component {
                 {this.state.errEmail}
               </Form.Control.Feedback>
             </div>
-            {this.state.editEmail ? (
-              <FaCheck
-                style={{
-                  backgroundColor: '#3b3',
-                  borderBottomLeftRadius: 8,
-                  padding: 5,
-                  cursor: 'pointer'
-                }}
-                size={'35px'}
-                onClick={() => {
-                  if (this.validateEmail()) this.setState({ editEmail: false });
-                }}
-              />
-            ) : (
-              <FaPencilAlt
-                style={{
-                  backgroundColor: '#bbb',
-                  borderBottomLeftRadius: 8,
-                  padding: 5,
-                  cursor: 'pointer'
-                }}
-                size={'35px'}
-                onClick={() => this.setState({ editEmail: true })}
-              />
-            )}
           </div>
           <div className='row border pl-3'>
             <div className='col my-2'>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class SellerHelp extends React.Component {
+export class HelpMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = { input: '' };

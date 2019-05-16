@@ -3,7 +3,7 @@ import React from 'react';
 import { AddressPopup } from './AddressPopup';
 import { FaPencilAlt } from 'react-icons/fa';
 
-export class SellerAddress extends React.Component {
+export class AddressInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

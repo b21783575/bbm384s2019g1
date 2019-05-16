@@ -13,24 +13,45 @@ export class Header extends React.Component {
     if (!!this.props.user) {
       return (
         <div className='row align-items-center float-right mr-2'>
-          <div className='row mr-5 align-items-center'>
+          <div
+            style={{
+              color: '#fff',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              cursor: 'pointer'
+            }}
+            className='mr-3'
+            onClick={this.props.logout}
+          >
+            logout
+          </div>
+          <div
+            className='row mr-5 align-items-center'
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              this.props.history.push('/customer');
+            }}
+          >
             <IoMdPerson className='my-auto' color={'#fff'} size={'30px'} />
             <div className='my-auto' style={{ color: '#fff' }}>
               {this.props.user.email}
             </div>
           </div>
-          <button
-            type='button'
-            className='row align-items-center'
-            style={{
-              backgroundColor: '#F16530',
-              borderColor: '#F16530'
-            }}
-            onClick={this.props.logout}
-          >
-            <IoMdCart className='my-auto' size={'20px'} />
-            <h4>Cart</h4>
-          </button>
+          {this.props.cart ? (
+            <button
+              type='button'
+              className='row align-items-center mt-2'
+              style={{
+                backgroundColor: '#F16530',
+                borderColor: '#F16530'
+              }}
+              onClick={this.props.logout}
+            >
+              <IoMdCart className='my-auto' size={'20px'} />
+              <h4>Cart</h4>
+            </button>
+          ) : null}
         </div>
       );
     } else {

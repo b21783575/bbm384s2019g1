@@ -15,21 +15,25 @@ import Product from './pages/Product';
 import Demo from './pages/Demo';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { getUser, logout } from './helpers/authHelper';
+import Authentication from './helpers/Authentication';
+import Customer from './pages/Customer';
+import CartHelper from './helpers/CartHelper';
 
-const headerlessPages = ['Login'];
+const headerlessPages = ['Login', 'seller'];
 
 export default class Routes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isHeader: true,
+      headerCart: true,
       user: {}
     };
 
     this.routeChange = this.routeChange.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +41,7 @@ export default class Routes extends React.Component {
   }
 
   initialize() {
-    var user = getUser();
+    var user = Authentication.getUser();
     this.setState({ user });
   }
 
@@ -46,13 +50,19 @@ export default class Routes extends React.Component {
   }
 
   logout() {
-    logout();
+    Authentication.logout();
     this.initialize();
+  }
+
+  addProductToCart(productId) {
+    CartHelper.addProduct(productId);
   }
 
   routeChange(page) {
     if (headerlessPages.includes(page)) this.setState({ isHeader: false });
     else if (!this.state.isHeader) this.setState({ isHeader: true });
+    if (page.includes('seller')) this.setState({ headerCart: false });
+    else if (!this.state.headerCart) this.setState({ headerCart: true });
   }
 
   render() {
@@ -64,6 +74,7 @@ export default class Routes extends React.Component {
               user={this.state.user}
               logout={this.logout}
               isHeader={this.state.isHeader}
+              cart={this.state.headerCart}
             />
             <Switch>
               <Route
@@ -108,6 +119,12 @@ export default class Routes extends React.Component {
                 path='/seller'
                 render={props => (
                   <Seller routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/customer'
+                render={props => (
+                  <Customer routeChange={this.routeChange} {...props} />
                 )}
               />
               <Route

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.production.config.js --progress --profile --colors",
     "serve:build": "npm run build && node server.js",
-    "start": "webpack-dev-server --progress --profile --colors --hot",
+    "start": "webpack-dev-server --progress --profile --colors",
     "lint": "eslint --ext js --ext jsx src || exit 0",
     "dev": " webpack-dashboard -- webpack-dev-server",
     "test": "export NODE_ENV=test && jest"
@@ -19,6 +19,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ReactJSResources/react-webpack-babel#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "6.26.0",
     "bootstrap": "^4.3.1",
     "formik": "^1.5.4",

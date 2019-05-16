@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
-import { register, getUser } from '../helpers/authHelper';
+import Authentication from '../helpers/Authentication';
 
 const types = { seller: 'seller', customer: 'customer' };
 
@@ -21,7 +21,7 @@ class Register extends React.Component {
       delete userInfo['companyName'];
       delete userInfo['iban'];
     }
-    register(this.state.type, userInfo);
+    Authentication.register(this.state.type, userInfo);
     console.log(getUser());
   }
 

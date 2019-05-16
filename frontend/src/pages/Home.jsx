@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SlideLabel } from '../components/SlideLabel';
-import { getUser, logout } from '../helpers/authHelper';
+import Authentication from '../helpers/Authentication';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -40,7 +40,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.routeChange('Home');
     console.log('home');
-    console.log(getUser());
+    Authentication.getUser();
   }
 
   toggleLogin() {
@@ -62,6 +62,14 @@ class Home extends React.Component {
             }}
           >
             Seller Account Page
+          </button>
+          <button
+            type='button'
+            onClick={() => {
+              this.props.history.push('/customer');
+            }}
+          >
+            Customer Account Page
           </button>
           <button
             type='button'

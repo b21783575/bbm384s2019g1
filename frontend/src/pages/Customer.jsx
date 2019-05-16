@@ -10,24 +10,12 @@ import { HelpMessage } from '../components/HelpMessage';
 
 const selectedColor = '#11f';
 
-class Seller extends React.Component {
+class Customer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       page: 'profile'
     };
-  }
-
-  componentDidMount() {
-    this.props.routeChange('seller');
-    fetch('api/s')
-      .then(response => {
-        return response.json();
-      })
-      .then(seller => {
-        this.setState({ seller });
-      })
-      .catch(err => console.log(err));
   }
 
   renderPage() {
@@ -53,16 +41,15 @@ class Seller extends React.Component {
         style={{
           backgroundColor: '#ccc'
         }}
-        className='pb-5 pt-5'
+        className='pb-5'
       >
-        <div className='container pt-5 pb-5'>
+        <div className='container pt-5'>
           <div className='row'>
             <div
               style={{ backgroundColor: '#fff' }}
               className='col-3 mr-4 pt-4'
             >
               <h4 className='text-center border border-dark'> Name Surname</h4>
-              <h4 className='text-center border border-dark'> Company Name</h4>
               <br />
               <br />
               <h5
@@ -97,9 +84,9 @@ class Seller extends React.Component {
                 style={{
                   color: this.state.page === 'products' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: 'products' })}
+                onClick={() => this.setState({ page: 'profile' })}
               >
-                Products
+                Notifications
               </h5>
               <br />
               <br />
@@ -132,4 +119,4 @@ class Seller extends React.Component {
   }
 }
 
-export default Seller;
+export default Customer;
