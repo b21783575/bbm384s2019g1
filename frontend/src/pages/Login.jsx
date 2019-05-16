@@ -12,7 +12,7 @@ class Login extends React.Component {
   }
 
   submit(userInfo) {
-    Authentication.login();
+    Authentication.login(userInfo);
     this.props.login();
   }
 

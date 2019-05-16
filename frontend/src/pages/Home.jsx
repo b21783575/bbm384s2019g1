@@ -40,7 +40,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.routeChange('Home');
     console.log('home');
-    Authentication.getUser();
+    //Authentication.getUser();
   }
 
   toggleLogin() {

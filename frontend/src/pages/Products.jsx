@@ -93,7 +93,7 @@ class Products extends React.Component {
           <button
             type='button'
             className='btn btn-primary'
-            onClick={() => console.log('button')}
+            onClick={() => this.props.addProductToCart(product.id)}
           >
             Add to Cart
           </button>

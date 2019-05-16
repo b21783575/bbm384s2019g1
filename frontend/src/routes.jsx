@@ -37,12 +37,13 @@ export default class Routes extends React.Component {
   }
 
   componentDidMount() {
+    CartHelper.deleteCart();
     this.initialize();
   }
 
   initialize() {
-    var user = Authentication.getUser();
-    this.setState({ user });
+    //var user = Authentication.getUser();
+    //this.setState({ user });
   }
 
   login() {
@@ -56,6 +57,7 @@ export default class Routes extends React.Component {
 
   addProductToCart(productId) {
     CartHelper.addProduct(productId);
+    CartHelper.getProducts();
   }
 
   routeChange(page) {
@@ -131,7 +133,11 @@ export default class Routes extends React.Component {
                 exact
                 path='/products'
                 render={props => (
-                  <Products routeChange={this.routeChange} {...props} />
+                  <Products
+                    routeChange={this.routeChange}
+                    addProductToCart={this.addProductToCart}
+                    {...props}
+                  />
                 )}
               />
               <Route

@@ -29,14 +29,13 @@ export class Header extends React.Component {
           <div
             className='row mr-5 align-items-center'
             style={{ cursor: 'pointer' }}
-            onClick={() => {
-              this.props.history.push('/customer');
-            }}
           >
-            <IoMdPerson className='my-auto' color={'#fff'} size={'30px'} />
-            <div className='my-auto' style={{ color: '#fff' }}>
-              {this.props.user.email}
-            </div>
+            <Link to='/customer'>
+              <IoMdPerson className='my-auto' color={'#fff'} size={'30px'} />
+              <div className='my-auto' style={{ color: '#fff' }}>
+                {this.props.user.email}
+              </div>
+            </Link>
           </div>
           {this.props.cart ? (
             <button
