@@ -30,9 +30,12 @@ export class Header extends React.Component {
             className='row mr-5 align-items-center'
             style={{ cursor: 'pointer' }}
           >
-            <Link to='/customer'>
+            <Link to='/customer' className='row'>
               <IoMdPerson className='my-auto' color={'#fff'} size={'30px'} />
-              <div className='my-auto' style={{ color: '#fff' }}>
+              <div
+                className='my-auto'
+                style={{ color: '#fff', textDecoration: 'none' }}
+              >
                 {this.props.user.email}
               </div>
             </Link>

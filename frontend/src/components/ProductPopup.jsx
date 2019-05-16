@@ -7,6 +7,17 @@ import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
 
 export class ProductPopup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { file: '', imagePreviewUrl: '' };
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.product) {
+      this.setState({ imagePreviewUrl: props.product.picture });
+    }
+  }
+
   render() {
     return (
       <Modal
@@ -81,16 +92,29 @@ export class ProductPopup extends React.Component {
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Row>
-                  <div
-                    style={{ width: 200, height: 200 }}
-                    className='border mr-3 mb-3'
-                  >
+                  <div>
+                    <img
+                      style={{ width: 250, height: 250 }}
+                      className='border mr-3 mb-3'
+                      src={
+                        this.state.imagePreviewUrl
+                          ? this.state.imagePreviewUrl
+                          : ''
+                      }
+                    />
                     <input
+                      style={{ width: 250 }}
                       id='file'
                       name='file'
                       type='file'
                       onChange={event => {
-                        setFieldValue('file', event.currentTarget.files[0]);
+                        let reader = new FileReader();
+                        let file = event.currentTarget.files[0];
+                        reader.onloadend = () => {
+                          setFieldValue('file', file);
+                          this.setState({ imagePreviewUrl: reader.result });
+                        };
+                        reader.readAsDataURL(file);
                       }}
                       className='form-control'
                     />

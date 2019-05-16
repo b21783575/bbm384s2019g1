@@ -20,14 +20,14 @@ class Login extends React.Component {
         userInfo.email,
         userInfo.password
       )
-        .then(response => {
+        .then(async response => {
           console.log(response);
           console.log('response geliyo da');
           Authentication.registerSuccessfulLoginForJwt(
             userInfo.email,
             response.data.token
           );
-          axios
+          await axios
             .get(`http://localhost:8080/api/userinfo`)
             .then(res => {
               res = res.data;

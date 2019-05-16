@@ -14,9 +14,10 @@ class SellerRegister extends React.Component {
 
   submit(userInfo) {
     delete userInfo['password2'];
+
     axios
-      .post('http://localhost:8080/registeration/seller')
-      .then(response => console.log(response))
+      .post('http://localhost:8080/api/registration/seller', userInfo)
+      .then(response => this.props.history.push('/login'))
       .catch(err => console.log(err));
   }
 
@@ -53,8 +54,8 @@ class SellerRegister extends React.Component {
               onSubmit={this.submit}
               validate={values => {
                 let errors = {};
-                if (!values.firstName) {
-                  errors.firstName = 'Required';
+                if (!values.name) {
+                  errors.name = 'Required';
                 }
                 if (!values.email) {
                   errors.email = 'Required';
@@ -80,8 +81,7 @@ class SellerRegister extends React.Component {
                 return errors;
               }}
               initialValues={{
-                firstName: '',
-                lastName: '',
+                name: '',
                 companyName: '',
                 iban: '',
                 email: '',
@@ -92,33 +92,18 @@ class SellerRegister extends React.Component {
             >
               {({ handleSubmit, handleChange, values, touched, errors }) => (
                 <Form noValidate onSubmit={handleSubmit}>
-                  <Form.Row>
-                    <Form.Group className='mx-1'>
-                      <Form.Label>First Name</Form.Label>
-                      <Form.Control
-                        name='firstName'
-                        value={values.firstName}
-                        onChange={handleChange}
-                        isInvalid={touched.firstName && !!errors.firstName}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.firstName}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className='mx-1'>
-                      <Form.Label>Last Name</Form.Label>
-                      <Form.Control
-                        name='lastName'
-                        value={values.lastName}
-                        onChange={handleChange}
-                        isInvalid={touched.lastName && !!errors.lastName}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.lastName}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </Form.Row>
-
+                  <Form.Group>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      name='name'
+                      value={values.name}
+                      onChange={handleChange}
+                      isInvalid={touched.name && !!errors.name}
+                    />
+                    <Form.Control.Feedback type='invalid'>
+                      {errors.name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
                   <Form.Group>
                     <Form.Label>Company Name</Form.Label>
                     <Form.Control
