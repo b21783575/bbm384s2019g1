@@ -1,6 +1,7 @@
 package com.humbo.humbo2.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
@@ -25,7 +26,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-@ToString(exclude = "address")
+@EqualsAndHashCode(exclude = "address")
 public class CustomUser implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -46,8 +47,8 @@ public class CustomUser implements Serializable{
 
     private String birthdate;
 
-    
     @OneToMany(targetEntity = Address.class, cascade={CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE}, fetch=FetchType.EAGER, mappedBy="user")
+    @JsonIgnore
     private Set<Address> address;
 
     public void setPassword(String password){
