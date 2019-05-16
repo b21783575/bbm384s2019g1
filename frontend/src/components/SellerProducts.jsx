@@ -39,7 +39,7 @@ export class SellerProducts extends React.Component {
 
   async initApp() {
     axios
-      .get('api/s/products')
+      .get('http://localhost:8080/api/s/products')
       .then(response => {
         this.setState({ products: response.data });
       })
@@ -66,13 +66,13 @@ export class SellerProducts extends React.Component {
 
   //add new product to database and reload products
   submitNew(product) {
-    console.log(product);
+    const data = new FormData();
+    for (var attr in product) data.append(attr, product[attr]);
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(product)
+      headers: { 'Content-Type': 'multipart/form-data' }
     };
-    fetch('/api/s/product', requestOptions)
+    axios
+      .post('http://localhost:8080/api/s/product', data, requestOptions)
       .then(result => {
         this.initApp();
       })
@@ -131,12 +131,15 @@ export class SellerProducts extends React.Component {
           }}
           className=' my-auto'
         />
-        <div
+        <img
           style={{ width: 100, height: 100 }}
           className='my-auto border text-center'
-        >
-          image
-        </div>
+          src={
+            !!element.picture
+              ? 'http://localhost:8080/files/' + element.picture
+              : ''
+          }
+        />
         <div className='col ml-2'>
           <div className='row'>
             <strong>Name: </strong> {element.name}

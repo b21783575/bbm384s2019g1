@@ -13,18 +13,18 @@ import com.humbo.humbo2.storage.StorageProperties;
 import com.humbo.humbo2.storage.StorageService;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"com.humbo.humbo2.repository"})
+@EnableJpaRepositories(basePackages = { "com.humbo.humbo2.repository" })
 @EnableConfigurationProperties(StorageProperties.class)
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-	@Bean
+    @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
-            storageService.deleteAll();
+            // storageService.deleteAll();
             storageService.init();
         };
     }

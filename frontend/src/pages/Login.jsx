@@ -3,6 +3,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
 import Authentication from '../helpers/Authentication';
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor(props) {
@@ -26,11 +27,20 @@ class Login extends React.Component {
             userInfo.email,
             response.data.token
           );
-          Authentication.getUser();
-          this.props.history.push(`/`);
+          axios
+            .get(`http://localhost:8080/api/userinfo`)
+            .then(res => {
+              res = res.data;
+              localStorage.setItem('userInfo', JSON.stringify(res));
+              this.props.login();
+              if (!!res && !!res.companyName)
+                this.props.history.push(`/seller`);
+              else this.props.history.push(`/`);
+            })
+            .catch(err => console.log(err));
         })
-        .catch(() => {
-          console.log('errorrr!!!!!!!!');
+        .catch(err => {
+          console.log(err);
           this.setState({ error: 'Invalid e-mail or password' });
         });
     this.props.login();
@@ -94,7 +104,7 @@ class Login extends React.Component {
                   ) {
                     errors.email = '*Invalid email address';
                   }
-                  if (values.password.length < 1) {
+                  if (values.password.length < 6) {
                     errors.password = 'Minimum 6 characters';
                   }
                   return errors;
@@ -166,10 +176,18 @@ class Login extends React.Component {
                 <h1>Become a member!</h1>
               </div>
               <div className='d-flex justify-content-around'>
-                <button type='button' className='btn btn-primary'>
+                <button
+                  type='button'
+                  className='btn btn-primary'
+                  onClick={() => this.props.history.push('register/seller')}
+                >
                   Sell Stuff
                 </button>
-                <button type='button' className='btn btn-primary'>
+                <button
+                  type='button'
+                  className='btn btn-primary'
+                  onClick={() => this.props.history.push('register/customer')}
+                >
                   Buy Stuff
                 </button>
               </div>

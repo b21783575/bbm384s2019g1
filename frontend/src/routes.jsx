@@ -9,7 +9,8 @@ import {
 import Home from './pages/Home';
 import Seller from './pages/Seller';
 import Login from './pages/Login';
-import Register from './pages/Register';
+import SellerRegister from './pages/SellerRegister';
+import CustomerRegister from './pages/CustomerRegister';
 import Products from './pages/Products';
 import Product from './pages/Product';
 import Demo from './pages/Demo';
@@ -27,7 +28,7 @@ export default class Routes extends React.Component {
     this.state = {
       isHeader: true,
       headerCart: true,
-      user: null
+      user: {}
     };
 
     this.routeChange = this.routeChange.bind(this);
@@ -38,13 +39,14 @@ export default class Routes extends React.Component {
 
   componentDidMount() {
     CartHelper.deleteCart();
-    Authentication.logout();
+    var token = Authentication.getToken();
+    if (!!token) Authentication.setupAxiosInterceptors(token);
     this.initialize();
   }
 
   initialize() {
-    //var user = Authentication.getUser();
-    //this.setState({ user });
+    var user = Authentication.getUser();
+    this.setState({ user });
   }
 
   login() {
@@ -94,9 +96,15 @@ export default class Routes extends React.Component {
                 )}
               />
               <Route
-                path='/register/:type'
+                path='/register/seller'
                 render={props => (
-                  <Register routeChange={this.routeChange} {...props} />
+                  <SellerRegister routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/register/customer'
+                render={props => (
+                  <CustomerRegister routeChange={this.routeChange} {...props} />
                 )}
               />
               <Route
@@ -121,13 +129,22 @@ export default class Routes extends React.Component {
               <Route
                 path='/seller'
                 render={props => (
-                  <Seller routeChange={this.routeChange} {...props} />
+                  <Seller
+                    routeChange={this.routeChange}
+                    seller={this.state.user}
+                    logout={this.logout}
+                    {...props}
+                  />
                 )}
               />
               <Route
                 path='/customer'
                 render={props => (
-                  <Customer routeChange={this.routeChange} {...props} />
+                  <Customer
+                    routeChange={this.routeChange}
+                    customer={this.state.user}
+                    {...props}
+                  />
                 )}
               />
               <Route

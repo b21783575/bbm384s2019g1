@@ -3,6 +3,7 @@ import React from 'react';
 import { SlideLabel } from '../components/SlideLabel';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Authentication from '../helpers/Authentication';
 
 const slideContext = [
   {
@@ -39,7 +40,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.routeChange('Home');
     console.log('home');
-    //Authentication.getUser();
+    console.log(Authentication.getUser());
   }
 
   toggleLogin() {

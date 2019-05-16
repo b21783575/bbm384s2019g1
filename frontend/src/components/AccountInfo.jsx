@@ -2,6 +2,7 @@ import React from 'react';
 
 import { FaPencilAlt, FaCheck } from 'react-icons/fa';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 export class AccountInfo extends React.Component {
   constructor(props) {
@@ -26,19 +27,14 @@ export class AccountInfo extends React.Component {
     this.validatePassword = this.validatePassword.bind(this);
   }
 
-  componentDidMount() {
-    fetch('api/s')
-      .then(response => {
-        return response.json();
-      })
-      .then(seller => {
-        this.setState({
-          name: seller.name,
-          email: seller.email,
-          phone: seller.phone
-        });
-      })
-      .catch(err => console.log(err));
+  componentWillReceiveProps(props) {
+    if (!!props.seller) {
+      this.setState({
+        name: props.seller.name,
+        email: props.seller.email,
+        phone: props.seller.phone
+      });
+    }
   }
 
   render() {

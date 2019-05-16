@@ -3,11 +3,6 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8080';
 
 class Authentication {
-  login(userInfo) {
-    console.log(userInfo);
-    localStorage.setItem('old_user', JSON.stringify(userInfo));
-  }
-
   executeJwtAuthenticationService(username, password) {
     console.log(username);
     return axios.post(`${API_URL}/authenticate`, {
@@ -16,9 +11,10 @@ class Authentication {
     });
   }
 
-  registerSuccessfulLoginForJwt(username, token) {
-    sessionStorage.setItem('user', username);
-    this.setupAxiosInterceptors(this.createJWTToken(token));
+  async registerSuccessfulLoginForJwt(username, token) {
+    var jwtToken = this.createJWTToken(token);
+    await sessionStorage.setItem('token', jwtToken);
+    await this.setupAxiosInterceptors(jwtToken);
   }
 
   createJWTToken(token) {
@@ -26,7 +22,8 @@ class Authentication {
   }
 
   logout() {
-    localStorage.removeItem('old_user');
+    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('token');
   }
 
   register(type, userInfo) {
@@ -36,21 +33,20 @@ class Authentication {
   }
 
   getUser() {
-    axios
-      .get(`${API_URL}/api/userinfo`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.log(err));
+    return JSON.parse(localStorage.getItem('userInfo'));
+  }
+
+  getToken() {
+    return sessionStorage.getItem('token');
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('user');
+    let user = sessionStorage.getItem('token');
     if (user === null) return false;
     return true;
   }
 
-  setupAxiosInterceptors(token) {
+  async setupAxiosInterceptors(token) {
     axios.interceptors.request.use(config => {
       if (this.isUserLoggedIn()) {
         config.headers.authorization = token;

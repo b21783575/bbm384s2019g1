@@ -24,6 +24,7 @@ export class ProductPopup extends React.Component {
         <Modal.Body>
           <Formik
             onSubmit={values => {
+              console.log(values);
               if (this.props.mtitle.includes('Edit'))
                 this.props.submitEdit(values);
               else this.props.submitNew(values);
@@ -66,17 +67,33 @@ export class ProductPopup extends React.Component {
               price: this.props.product.price,
               discount: this.props.product.discount,
               color: this.props.product.color,
-              description: this.props.product.description
+              description: this.props.product.description,
+              file: null
             }}
           >
-            {({ handleSubmit, handleChange, values, touched, errors }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              values,
+              touched,
+              errors,
+              setFieldValue
+            }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Row>
                   <div
                     style={{ width: 200, height: 200 }}
                     className='border mr-3 mb-3'
                   >
-                    image
+                    <input
+                      id='file'
+                      name='file'
+                      type='file'
+                      onChange={event => {
+                        setFieldValue('file', event.currentTarget.files[0]);
+                      }}
+                      className='form-control'
+                    />
                   </div>
                   <Col>
                     <Form.Group>

@@ -14,7 +14,8 @@ class Seller extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 'profile'
+      page: 'profile',
+      seller: {}
     };
   }
 
@@ -33,7 +34,7 @@ class Seller extends React.Component {
   renderPage() {
     switch (this.state.page) {
       case 'profile':
-        return <AccountInfo />;
+        return <AccountInfo seller={this.state.seller} />;
       case 'orders':
         return <SellerOrders />;
       case 'addresses':
@@ -45,6 +46,10 @@ class Seller extends React.Component {
       default:
         return <AccountInfo />;
     }
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ seller: props.seller });
   }
 
   render() {
@@ -116,7 +121,10 @@ class Seller extends React.Component {
               <hr />
               <h5
                 className={styles.link}
-                onClick={() => this.setState({ page: 'help' })}
+                onClick={() => {
+                  this.props.logout();
+                  this.props.history.push('/');
+                }}
               >
                 Logout
               </h5>

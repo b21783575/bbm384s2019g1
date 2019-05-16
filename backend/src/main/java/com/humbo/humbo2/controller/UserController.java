@@ -13,21 +13,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController{
+public class UserController {
 
     private SellerRepository sellerRepository;
     private CustomerRepository customerRepository;
 
-    public UserController(SellerRepository sellerRepository, CustomerRepository customerRepository){
+    public UserController(SellerRepository sellerRepository, CustomerRepository customerRepository) {
         this.sellerRepository = sellerRepository;
         this.customerRepository = customerRepository;
     }
 
     @GetMapping("/api/userinfo")
-    public ResponseEntity<?> returnUser(){
-        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+    public ResponseEntity<?> returnUser() {
+        System.out.println("------------------------------------"
+                + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+                .getUsername();
         Optional<Seller> seller = sellerRepository.findByEmail(username);
-        if(seller.isPresent()){
+        if (seller.isPresent()) {
             return ResponseEntity.ok().body(seller);
         }
         return ResponseEntity.ok().body(customerRepository.findByEmail(username));
