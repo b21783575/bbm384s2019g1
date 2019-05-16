@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { SlideLabel } from '../components/SlideLabel';
-import Authentication from '../helpers/Authentication';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import axios from 'axios';
+
 class Products extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,13 @@ class Products extends React.Component {
 
   componentDidMount() {
     this.props.routeChange('Products');
-    fetch('http://localhost:8080/api/products')
+    axios
+      .get('http://localhost:8080/api/products')
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+    /*fetch('http://localhost:8080/api/products')
       .then(response => {
         console.log(response);
         return response.json();
@@ -29,7 +37,7 @@ class Products extends React.Component {
         console.log(products);
         this.setState({ products });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));*/
   }
 
   render() {

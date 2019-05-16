@@ -12,7 +12,26 @@ class Login extends React.Component {
   }
 
   submit(userInfo) {
-    Authentication.login(userInfo);
+    console.log(userInfo);
+    if (!!userInfo)
+      Authentication.executeJwtAuthenticationService(
+        userInfo.email,
+        userInfo.password
+      )
+        .then(response => {
+          console.log(response);
+          console.log('response geliyo da');
+          Authentication.registerSuccessfulLoginForJwt(
+            userInfo.email,
+            response.data.token
+          );
+          this.props.history.push(`/`);
+        })
+        .catch(() => {
+          console.log('errorrr!!!!!!!!');
+          this.setState({ showSuccessMessage: false });
+          this.setState({ hasLoginFailed: true });
+        });
     this.props.login();
   }
 
@@ -74,7 +93,7 @@ class Login extends React.Component {
                   ) {
                     errors.email = 'Invalid email address';
                   }
-                  if (values.password.length < 6) {
+                  if (values.password.length < 1) {
                     errors.password = 'Minimum 6 characters';
                   }
                   return errors;
@@ -125,11 +144,7 @@ class Login extends React.Component {
                       <a href='/'>Forgot Password</a>
                     </Form.Group>
                     <div className='d-flex justify-content-center mb-3'>
-                      <button
-                        type='submit'
-                        className='btn btn-success'
-                        onClick={this.submit}
-                      >
+                      <button type='submit' className='btn btn-success'>
                         Log in
                       </button>
                     </div>

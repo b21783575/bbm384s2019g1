@@ -28,15 +28,16 @@ public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFil
 
     @Autowired
     private UserDetailsService jwtInMemoryUserDetailsService;
-    
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-    
+
     @Value("${jwt.http.request.header}")
     private String tokenHeader;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
         logger.debug("Authentication Request For '{}'", request.getRequestURL());
 
         final String requestTokenHeader = request.getHeader(this.tokenHeader);
@@ -62,8 +63,10 @@ public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFil
             UserDetails userDetails = this.jwtInMemoryUserDetailsService.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }

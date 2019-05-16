@@ -27,7 +27,7 @@ export default class Routes extends React.Component {
     this.state = {
       isHeader: true,
       headerCart: true,
-      user: {}
+      user: null
     };
 
     this.routeChange = this.routeChange.bind(this);
@@ -38,6 +38,7 @@ export default class Routes extends React.Component {
 
   componentDidMount() {
     CartHelper.deleteCart();
+    Authentication.logout();
     this.initialize();
   }
 
