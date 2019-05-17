@@ -53,16 +53,15 @@ class Products extends React.Component {
         className='mx-2 my-2 py-2 px-2 border'
         key={product.id}
       >
-        <div
+        <img
           style={{ width: '95%', height: '50%', cursor: 'pointer' }}
           className='mx-auto border mt-2'
           onClick={() => {
             console.log(product.name);
             this.props.history.push('/product/' + product.id);
           }}
-        >
-          IMAGE
-        </div>
+        src = {"http://localhost:8080/files/"+product.picture}
+        />
         <small>Seller Rating: {product.seller.avg_rating}</small>
         <div
           style={{

@@ -41,6 +41,7 @@ class Product extends React.Component {
           category = category.parent;
         }
         console.log(branch.reverse());
+        var product = response.data;
         this.setState({ branch, product });
       })
       .catch(err => console.log(err));
@@ -103,12 +104,11 @@ class Product extends React.Component {
           >
             <div className='col'>
               <div className='row'>
-                <div
+                <img
                   className='border mr-3'
                   style={{ width: 400, height: 400 }}
-                >
-                  IMAGE
-                </div>
+                  src={"http://localhost:8080/files/"+product.picture}
+                  />
                 <div className='col'>
                   <div
                     className='row border mb-2 pl-2 inline'
