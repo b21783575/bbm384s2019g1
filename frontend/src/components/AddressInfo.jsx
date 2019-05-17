@@ -27,13 +27,13 @@ export class AddressInfo extends React.Component {
       showPopup: false,
       popupTitle: ''
     };
-    
+
     this.openAdd = this.openAdd.bind(this);
     this.submitNew = this.submitNew.bind(this);
     this.deleteSelected = this.deleteSelected.bind(this);
     this.submitEdit = this.submitEdit.bind(this);
   }
-  
+
   componentDidMount() {
     this.initApp();
   }
@@ -42,7 +42,6 @@ export class AddressInfo extends React.Component {
     axios
       .get('http://localhost:8080/api/address')
       .then(response => {
-        console.log("BURADASIN");
         this.setState({ addresses: response.data });
         console.log(this.state.addresses);
       })
@@ -52,7 +51,7 @@ export class AddressInfo extends React.Component {
 
   openEdit(index) {
     this.setState({ address: this.state.addresses[index] }, () =>
-      this.setState({ 
+      this.setState({
         showPopup: true,
         popupTitle: 'Edit Address',
         currentIndex: index
@@ -74,15 +73,9 @@ export class AddressInfo extends React.Component {
         requestOptions
       )
       .then(result => {
-        if (result.ok) {
-          this.state.addresses[this.state.currentIndex] = oldAddress;
-          this.setState({ showPopup: false });
-          return result.json();
-        } else {
-          return result.json().then(err => {
-            this.setState({ err: 'Error: ' + err.message });
-          });
-        }
+        this.state.addresses[this.state.currentIndex] = oldAddress;
+
+        this.setState({ showPopup: false });
       })
       .catch(err => {
         console.log(err);
@@ -94,10 +87,11 @@ export class AddressInfo extends React.Component {
       {
         address: { name: '', country: '', region: '', address: '' }
       },
-      () => this.setState({ 
-        showPopup: true, 
-        popupTitle: 'Add Address' 
-      })
+      () =>
+        this.setState({
+          showPopup: true,
+          popupTitle: 'Add Address'
+        })
     );
   }
 
@@ -113,27 +107,40 @@ export class AddressInfo extends React.Component {
       .catch(err => console.log(err));
   }
 
-  deleteSelected(selected){
+  deleteSelected(selected) {
     var data = [];
-    for(var s=0;s<selected.length;s++) {if(selected[s] == true) {data.push(this.state.addresses[s].id);}}
+    for (var s = 0; s < selected.length; s++) {
+      if (selected[s] == true) {
+        data.push(this.state.addresses[s].id);
+      }
+    }
     console.log(selected);
     console.log(data);
     const requestOptions = {
       headers: { 'Content-Type': 'multipart/form-data' }
     };
-    axios.delete('http://localhost:8080/api/address?ids='+data.join(','), requestOptions).then(result => {
+    axios
+      .delete(
+        'http://localhost:8080/api/address?ids=' + data.join(','),
+        requestOptions
+      )
+      .then(result => {
         var addresses = this.state.addresses;
         var deleted_count = 0;
-        for(var s=0;s<selected.length;s++) {if(selected[s] == true) {addresses.splice(s-(deleted_count++),1)}};
-        this.setState({addresses});
-        selected.splice(0,selected.length);
-        this.setState({selected});
-        console.log("silindi");
-    })
-    .catch(err => {
-      console.log(data.join(','));
-      console.log(err);
-    });
+        for (var s = 0; s < selected.length; s++) {
+          if (selected[s] == true) {
+            addresses.splice(s - deleted_count++, 1);
+          }
+        }
+        this.setState({ addresses });
+        selected.splice(0, selected.length);
+        this.setState({ selected });
+        console.log('silindi');
+      })
+      .catch(err => {
+        console.log(data.join(','));
+        console.log(err);
+      });
   }
 
   render() {
@@ -199,9 +206,12 @@ export class AddressInfo extends React.Component {
             />
             <div className='col pl-0 ml-0'>Select All</div>
             <div style={{ color: '#00f' }} className='float-right mr-4'>
-            <a href="#" onClick={() => this.deleteSelected(this.state.selected) }>
-            Remove Selected Addresses
-          </a>
+              <a
+                href='#'
+                onClick={() => this.deleteSelected(this.state.selected)}
+              >
+                Remove Selected Addresses
+              </a>
             </div>
           </div>
         </div>

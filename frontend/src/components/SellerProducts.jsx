@@ -109,42 +109,48 @@ export class SellerProducts extends React.Component {
         requestOptions
       )
       .then(result => {
-        if (result.ok) {
-          this.state.products[this.state.currentIndex] = oldProduct;
-          this.setState({ showPopup: false });
-          return result.json();
-        } else {
-          return result.json().then(err => {
-            this.setState({ err: 'Error: ' + err.message });
-          });
-        }
+        this.state.products[this.state.currentIndex] = oldProduct;
+        this.setState({ showPopup: false });
+        return result;
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ Error: err });
       });
   }
 
-  deleteSelected(selected){
+  deleteSelected(selected) {
     var data = [];
-    for(var s=0;s<selected.length;s++) {if(selected[s] == true) {data.push(this.state.products[s].id);}}
+    for (var s = 0; s < selected.length; s++) {
+      if (selected[s] == true) {
+        data.push(this.state.products[s].id);
+      }
+    }
     console.log(selected);
     console.log(data);
     const requestOptions = {
       headers: { 'Content-Type': 'multipart/form-data' }
     };
-    axios.delete('http://localhost:8080/api/s/products?ids='+data.join(','), requestOptions).then(result => {
+    axios
+      .delete(
+        'http://localhost:8080/api/s/products?ids=' + data.join(','),
+        requestOptions
+      )
+      .then(result => {
         var products = this.state.products;
         var deleted_count = 0;
-        for(var s=0;s<selected.length;s++) {if(selected[s] == true) {products.splice(s-(deleted_count++),1)}};
-        this.setState({products});
-        selected.splice(0,selected.length);
-        this.setState({selected});
-        console.log("silindi");
-    })
-    .catch(err => {
-      console.log(data.join(','));
-      console.log(err);
-    });
+        for (var s = 0; s < selected.length; s++) {
+          if (selected[s] == true) {
+            products.splice(s - deleted_count++, 1);
+          }
+        }
+        this.setState({ products });
+        selected.splice(0, selected.length);
+        this.setState({ selected });
+        console.log('silindi');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -233,7 +239,10 @@ export class SellerProducts extends React.Component {
             />
             <div className='col pl-0 ml-0'>Select All</div>
             <div style={{ color: '#00f' }} className='float-right mr-4'>
-              <a href="#" onClick={() => this.deleteSelected(this.state.selected) }>
+              <a
+                href='#'
+                onClick={() => this.deleteSelected(this.state.selected)}
+              >
                 Remove Selected Products
               </a>
             </div>

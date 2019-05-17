@@ -3,6 +3,9 @@ import React from 'react';
 import { FaPencilAlt, FaCheck } from 'react-icons/fa';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import Authentication from '../helpers/Authentication';
+
+const API_URL = 'http://localhost:8080/';
 
 export class AccountInfo extends React.Component {
   constructor(props) {
@@ -11,7 +14,7 @@ export class AccountInfo extends React.Component {
       name: '',
       email: '',
       phone: '',
-      date: '1997-08-20',
+      date: '',
       password: '*********',
       errName: '',
       errEmail: '',
@@ -27,12 +30,26 @@ export class AccountInfo extends React.Component {
     this.validatePassword = this.validatePassword.bind(this);
   }
 
-  componentWillReceiveProps(props) {
-    if (!!props.seller) {
+  componentDidMount() {
+    const { seller } = this.props;
+    if (!!seller && !!seller.email) {
       this.setState({
-        name: props.seller.name,
-        email: props.seller.email,
-        phone: props.seller.phone
+        name: seller.name,
+        email: seller.email,
+        phone: seller.phone,
+        date: seller.birthdate
+      });
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    const { seller } = props;
+    if (!!seller) {
+      this.setState({
+        name: seller.name,
+        email: seller.email,
+        phone: seller.phone,
+        date: seller.birthdate
       });
     }
   }
@@ -232,11 +249,13 @@ export class AccountInfo extends React.Component {
       this.setState({ errName: 'Required' });
       return false;
     }
-    return await fetch('api/s/name?name=' + this.state.name, {
-      method: 'PUT'
-    })
+    return await axios
+      .put(API_URL + 'api/s/name?name=' + this.state.name)
       .then(result => {
-        return result.ok;
+        console.log(result);
+        Authentication.updateUser('name', this.state.name);
+        this.props.changeName(this.state.name);
+        return true;
       })
       .catch(err => {
         console.log(err);
@@ -256,27 +275,53 @@ export class AccountInfo extends React.Component {
     return true;
   }
 
-  validatePhone() {
+  async validatePhone() {
     if (!this.state.phone) {
       this.setState({ errPhone: 'Required' });
       return false;
     }
-    return true;
+    return await axios
+      .put(API_URL + 'api/s/phone?phone=' + this.state.phone)
+      .then(result => {
+        Authentication.updateUser('phone', this.state.phone);
+        return true;
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
   }
 
-  validateDate() {
+  async validateDate() {
     if (!this.state.date) {
       this.setState({ errDate: 'Required' });
       return false;
     }
-    return true;
+    return await axios
+      .put(API_URL + 'api/s/birthdate?birthdate=' + this.state.date)
+      .then(result => {
+        Authentication.updateUser('birthdate', this.state.date);
+        return true;
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
   }
 
-  validatePassword() {
+  async validatePassword() {
     if (!this.state.password) {
       this.setState({ errPassword: 'Required' });
       return false;
     }
-    return true;
+    return await axios
+      .put(API_URL + 'api/s/password?password=' + this.state.password)
+      .then(result => {
+        return true;
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
   }
 }

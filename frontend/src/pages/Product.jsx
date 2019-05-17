@@ -10,14 +10,15 @@ class Product extends React.Component {
       id: '',
       quantity: 1,
       product: {
-        brand: 'bran',
-        category: { name: 'cat' },
-        description: 'desc',
-        discount: 10,
-        id: 55,
-        name: 'name',
-        price: 555,
-        stock: 1,
+        brand: '',
+        category: { name: '' },
+        description: '',
+        discount: '',
+        id: '',
+        name: '',
+        price: '',
+        stock: '',
+        color: '',
         seller: {}
       },
       branch: []
@@ -107,8 +108,8 @@ class Product extends React.Component {
                 <img
                   className='border mr-3'
                   style={{ width: 400, height: 400 }}
-                  src={"http://localhost:8080/files/"+product.picture}
-                  />
+                  src={'http://localhost:8080/files/' + product.picture}
+                />
                 <div className='col'>
                   <div
                     className='row border mb-2 pl-2 inline'
@@ -212,8 +213,22 @@ class Product extends React.Component {
                   <div className='row'>OTHER SELLERS</div>
                 </div>
               </div>
-              <div className='row'> Product features</div>
-              <div className='row'> Description</div>
+              <div className='row'>
+                <div className='col'>
+                  <div>
+                    <b>Color: </b>
+                    {this.state.product.color}
+                  </div>
+                </div>
+                <div className='col'>
+                  <b>Brand: </b>
+                  {this.state.product.brand}
+                </div>
+              </div>
+              <div className='row'>
+                <b>Description:</b>
+                {this.state.product.description}
+              </div>
             </div>
           </div>
         </div>

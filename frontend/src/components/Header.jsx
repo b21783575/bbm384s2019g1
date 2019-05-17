@@ -142,16 +142,16 @@ export class Header extends React.Component {
             className='d-flex justify-content-around'
           >
             <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 1
+              TV
             </a>
             <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 2
+              Electronics
             </a>
             <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 3
+              Home
             </a>
             <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
-              Category 4
+              Furniture
             </a>
           </Nav>
           <div
@@ -161,7 +161,7 @@ export class Header extends React.Component {
             <div className='col text-center'>
               Free Shipping, in order min 150 tl
             </div>
-            <div className='col text-center'>24/7 Support</div>
+            <div className='col text-center'>7/24 Support</div>
           </div>
         </React.Fragment>
       );

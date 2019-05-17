@@ -32,6 +32,13 @@ class Authentication {
     login(userInfo);
   }
 
+  updateUser(attr, value) {
+    var user = this.getUser();
+    user[attr] = value;
+    localStorage.setItem('userInfo', JSON.stringify(user));
+    return user;
+  }
+
   getUser() {
     return JSON.parse(localStorage.getItem('userInfo'));
   }

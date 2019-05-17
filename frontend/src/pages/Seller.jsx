@@ -17,24 +17,29 @@ class Seller extends React.Component {
       page: 'profile',
       seller: {}
     };
+
+    this.changeName = this.changeName.bind(this);
   }
 
   componentDidMount() {
     this.props.routeChange('seller');
-    fetch('api/s')
-      .then(response => {
-        return response.json();
-      })
-      .then(seller => {
-        this.setState({ seller });
-      })
-      .catch(err => console.log(err));
+  }
+
+  changeName(name) {
+    var seller = this.state.seller;
+    seller['name'] = name;
+    this.setState({ seller });
   }
 
   renderPage() {
     switch (this.state.page) {
       case 'profile':
-        return <AccountInfo seller={this.state.seller} />;
+        return (
+          <AccountInfo
+            seller={this.state.seller}
+            changeName={this.changeName}
+          />
+        );
       case 'orders':
         return <SellerOrders />;
       case 'addresses':
@@ -50,6 +55,7 @@ class Seller extends React.Component {
 
   componentWillReceiveProps(props) {
     this.setState({ seller: props.seller });
+    console.log(props.seller);
   }
 
   render() {
@@ -63,11 +69,15 @@ class Seller extends React.Component {
         <div className='container pt-5 pb-5'>
           <div className='row'>
             <div
-              style={{ backgroundColor: '#fff' }}
+              style={{ backgroundColor: '#fff', minHeight: 600 }}
               className='col-3 mr-4 pt-4'
             >
-              <h4 className='text-center border border-dark'> {this.state.seller.name}</h4>
-              <h4 className='text-center border border-dark'> {this.state.seller.companyName}</h4>
+              <h4 className='text-center border border-dark'>
+                {this.state.seller.name}
+              </h4>
+              <h4 className='text-center border border-dark'>
+                {this.state.seller.companyName}
+              </h4>
               <br />
               <br />
               <h5

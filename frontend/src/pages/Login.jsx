@@ -21,9 +21,7 @@ class Login extends React.Component {
         userInfo.password
       )
         .then(async response => {
-          console.log(response);
-          console.log('response geliyo da');
-          Authentication.registerSuccessfulLoginForJwt(
+          await Authentication.registerSuccessfulLoginForJwt(
             userInfo.email,
             response.data.token
           );
@@ -31,6 +29,7 @@ class Login extends React.Component {
             .get(`http://localhost:8080/api/userinfo`)
             .then(res => {
               res = res.data;
+              console.log(res);
               localStorage.setItem('userInfo', JSON.stringify(res));
               this.props.login();
               if (!!res && !!res.companyName)
