@@ -66,8 +66,8 @@ class Seller extends React.Component {
               style={{ backgroundColor: '#fff' }}
               className='col-3 mr-4 pt-4'
             >
-              <h4 className='text-center border border-dark'> Name Surname</h4>
-              <h4 className='text-center border border-dark'> Company Name</h4>
+              <h4 className='text-center border border-dark'> {this.state.seller.name}</h4>
+              <h4 className='text-center border border-dark'> {this.state.seller.companyName}</h4>
               <br />
               <br />
               <h5
