@@ -31,6 +31,5 @@ public class Address{
 
 
     @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
-    @JsonIgnore
     private CustomUser user;
 }

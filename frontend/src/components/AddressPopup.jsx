@@ -45,7 +45,7 @@ export class AddressPopup extends React.Component {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id='contained-modal-title-vcenter'>Address</Modal.Title>
+          <Modal.Title id='contained-modal-title-vcenter'>{this.props.mtitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Formik
@@ -53,22 +53,24 @@ export class AddressPopup extends React.Component {
               var address = values; //TODO { ...values };
               address.country = this.state.country;
               address.region = this.state.region;
-              this.props.submit(address);
+              if (this.props.mtitle.includes('Edit'))
+                this.props.submitEdit(values);
+              else this.props.submitNew(values);
             }}
             validate={values => {
               let errors = {};
               if (!values.name) {
                 errors.name = 'Required';
               }
-              if (!values.description) {
-                errors.description = 'Required';
+              if (!values.address) {
+                errors.address = 'Required';
               }
 
               return errors;
             }}
             initialValues={{
               name: this.props.address.name,
-              description: this.props.address.description
+              address: this.props.address.address
             }}
           >
             {({
@@ -138,14 +140,14 @@ export class AddressPopup extends React.Component {
                     <Form.Control
                       as='textarea'
                       placeholder='Description'
-                      name='description'
-                      value={values.description}
+                      name='address'
+                      value={values.address}
                       onChange={handleChange}
-                      isInvalid={!!errors.description}
+                      isInvalid={!!errors.address}
                     />
 
                     <Form.Control.Feedback type='invalid'>
-                      {errors.description}
+                      {errors.address}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AddressPopup } from './AddressPopup';
 import { FaPencilAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 export class AddressInfo extends React.Component {
   constructor(props) {
@@ -12,40 +13,127 @@ export class AddressInfo extends React.Component {
           name: 'Home',
           country: 'Turkey',
           region: 'Ankara',
-          description: 'Neighborhood / Street / Apartment'
+          address: 'Neighborhood / Street / Apartment'
         },
         {
           name: 'Work',
           country: 'Turkey',
           region: 'Istanbul',
-          description: 'Neighborhood / Street / Apartment'
+          address: 'Neighborhood / Street / Apartment'
         }
       ],
       selected: [],
-      address: { name: '', country: '', region: '', description: '' },
-      showPopup: false
+      address: { name: '', country: '', region: '', address: '' },
+      showPopup: false,
+      popupTitle: ''
     };
-
+    
     this.openAdd = this.openAdd.bind(this);
+    this.submitNew = this.submitNew.bind(this);
+    this.deleteSelected = this.deleteSelected.bind(this);
+    this.submitEdit = this.submitEdit.bind(this);
+  }
+  
+  componentDidMount() {
+    this.initApp();
+  }
+
+  async initApp() {
+    axios
+      .get('http://localhost:8080/api/address')
+      .then(response => {
+        console.log("BURADASIN");
+        this.setState({ addresses: response.data });
+        console.log(this.state.addresses);
+      })
+      .catch(err => console.log(err));
+    this.setState({ showPopup: false });
   }
 
   openEdit(index) {
     this.setState({ address: this.state.addresses[index] }, () =>
-      this.setState({ showPopup: true })
+      this.setState({ 
+        showPopup: true,
+        popupTitle: 'Edit Address',
+        currentIndex: index
+      })
     );
+  }
+
+  submitEdit(address) {
+    var oldAddress = this.state.addresses[this.state.currentIndex];
+    for (var key in address) oldAddress[key] = address[key];
+
+    const requestOptions = {
+      headers: { 'Content-Type': 'application/json' }
+    };
+    axios
+      .put(
+        'http://localhost:8080/api/address/' + oldAddress.id,
+        oldAddress,
+        requestOptions
+      )
+      .then(result => {
+        if (result.ok) {
+          this.state.addresses[this.state.currentIndex] = oldAddress;
+          this.setState({ showPopup: false });
+          return result.json();
+        } else {
+          return result.json().then(err => {
+            this.setState({ err: 'Error: ' + err.message });
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   openAdd() {
     this.setState(
       {
-        address: { name: '', country: '', region: '', description: '' }
+        address: { name: '', country: '', region: '', address: '' }
       },
-      () => this.setState({ showPopup: true })
+      () => this.setState({ 
+        showPopup: true, 
+        popupTitle: 'Add Address' 
+      })
     );
   }
 
-  submit(val) {
-    console.log(val);
+  submitNew(address) {
+    const requestOptions = {
+      headers: { 'Content-Type': 'application/json' }
+    };
+    axios
+      .post('http://localhost:8080/api/address', address, requestOptions)
+      .then(result => {
+        this.initApp();
+      })
+      .catch(err => console.log(err));
+  }
+
+  deleteSelected(selected){
+    var data = [];
+    for(var s=0;s<selected.length;s++) {if(selected[s] == true) {data.push(this.state.addresses[s].id);}}
+    console.log(selected);
+    console.log(data);
+    const requestOptions = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    };
+    axios.delete('http://localhost:8080/api/address?ids='+data.join(','), requestOptions).then(result => {
+        var addresses = this.state.addresses;
+        var deleted_count = 0;
+        for(var s=0;s<selected.length;s++) {if(selected[s] == true) {addresses.splice(s-(deleted_count++),1)}};
+        this.setState({addresses});
+        selected.splice(0,selected.length);
+        this.setState({selected});
+        console.log("silindi");
+    })
+    .catch(err => {
+      console.log(data.join(','));
+      console.log(err);
+    });
   }
 
   render() {
@@ -77,7 +165,7 @@ export class AddressInfo extends React.Component {
         </div>
         <div className='col'>
           <div className='row'>
-            <strong>Description: </strong> {element.description}
+            <strong>Description: </strong> {element.address}
           </div>
         </div>
         <FaPencilAlt
@@ -111,7 +199,9 @@ export class AddressInfo extends React.Component {
             />
             <div className='col pl-0 ml-0'>Select All</div>
             <div style={{ color: '#00f' }} className='float-right mr-4'>
-              Remove Selected Items
+            <a href="#" onClick={() => this.deleteSelected(this.state.selected) }>
+            Remove Selected Addresses
+          </a>
             </div>
           </div>
         </div>
@@ -124,10 +214,12 @@ export class AddressInfo extends React.Component {
           Add
         </button>
         <AddressPopup
+          mtitle={this.state.popupTitle}
           address={this.state.address}
           show={this.state.showPopup}
           onHide={() => this.setState({ showPopup: false })}
-          submit={this.submit}
+          submitNew={this.submitNew}
+          submitEdit={this.submitEdit}
         />
       </div>
     );
