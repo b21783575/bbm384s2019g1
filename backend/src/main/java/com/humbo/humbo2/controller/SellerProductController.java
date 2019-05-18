@@ -101,7 +101,7 @@ class SellerProductController {
     }
 
     @DeleteMapping("/products")
-    public ResponseEntity<?> deleteProducts(@RequestParam(value="id") String[] ids){
+    public ResponseEntity<?> deleteProducts(@RequestParam String[] ids){
         for(String id:ids){
             this.productRepository.delete(this.productRepository.findById(Long.parseLong(id)).get());
         }

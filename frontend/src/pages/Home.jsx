@@ -1,9 +1,9 @@
 import React from "react";
 
 import { SlideLabel } from "../components/SlideLabel";
-import { getUser, logout } from "../helpers/authHelper";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Authentication from "../helpers/Authentication";
 
 const slideContext = [
   {
@@ -83,7 +83,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.routeChange("Home");
     console.log("home");
-    console.log(getUser());
+    console.log(Authentication.getUser());
   }
 
   toggleLogin() {
@@ -91,7 +91,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.state.products);
     var products = this.state.products.map(product => (
       <div
         className="container row border ml-1 mt-2"

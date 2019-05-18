@@ -3,39 +3,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
-import { register, getUser } from '../helpers/authHelper';
+import axios from 'axios';
 
-const types = { seller: 'seller', customer: 'customer' };
-
-class Register extends React.Component {
+class SellerRegister extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { type: 'customer', other: 'seller' };
 
     this.submit = this.submit.bind(this);
   }
 
   submit(userInfo) {
     delete userInfo['password2'];
-    if (types.customer === this.state.type) {
-      delete userInfo['companyName'];
-      delete userInfo['iban'];
-    }
-    register(this.state.type, userInfo);
-    console.log(getUser());
+
+    axios
+      .post('http://localhost:8080/api/registration/seller', userInfo)
+      .then(response => this.props.history.push('/login'))
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {
     this.props.routeChange('Register');
-    if (types.seller === this.props.match.params.type)
-      this.setState({ type: types.seller, other: types.customer });
-    else this.setState({ type: types.customer, other: types.seller });
-  }
-
-  componentWillReceiveProps(props) {
-    if (types.seller === props.match.params.type)
-      this.setState({ type: types.seller, other: types.customer });
-    else this.setState({ type: types.customer, other: types.seller });
   }
 
   render() {
@@ -50,10 +37,10 @@ class Register extends React.Component {
         >
           <div className='d-flex justify-content-between px-2 py-2'>
             <div>
-              <h3>Register as {this.state.type}</h3>
+              <h3>Register as seller</h3>
               <div>
-                <Link to={'/register/' + this.state.other}>
-                  Go to {this.state.other} register page
+                <Link to={'/register/customer'}>
+                  Go to customer register page
                 </Link>
               </div>
             </div>
@@ -67,8 +54,8 @@ class Register extends React.Component {
               onSubmit={this.submit}
               validate={values => {
                 let errors = {};
-                if (!values.firstName) {
-                  errors.firstName = 'Required';
+                if (!values.name) {
+                  errors.name = 'Required';
                 }
                 if (!values.email) {
                   errors.email = 'Required';
@@ -82,14 +69,19 @@ class Register extends React.Component {
                 } else if (values.password2 !== values.password) {
                   errors.password2 = 'Password not match';
                 }
+                if (!values.companyName) {
+                  errors.companyName = 'Required';
+                }
+                if (!values.iban) {
+                  errors.iban = 'Required';
+                }
                 if (!values.agree) {
                   errors.agree = 'Required';
                 }
                 return errors;
               }}
               initialValues={{
-                firstName: '',
-                lastName: '',
+                name: '',
                 companyName: '',
                 iban: '',
                 email: '',
@@ -100,60 +92,42 @@ class Register extends React.Component {
             >
               {({ handleSubmit, handleChange, values, touched, errors }) => (
                 <Form noValidate onSubmit={handleSubmit}>
-                  <Form.Row>
-                    <Form.Group className='mx-1'>
-                      <Form.Label>First Name</Form.Label>
-                      <Form.Control
-                        name='firstName'
-                        value={values.firstName}
-                        onChange={handleChange}
-                        isInvalid={touched.firstName && !!errors.firstName}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.firstName}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className='mx-1'>
-                      <Form.Label>Last Name</Form.Label>
-                      <Form.Control
-                        name='lastName'
-                        value={values.lastName}
-                        onChange={handleChange}
-                        isInvalid={touched.lastName && !!errors.lastName}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.lastName}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </Form.Row>
-                  {this.state.type === types.seller ? (
-                    <Form.Group>
-                      <Form.Label>Company Name</Form.Label>
-                      <Form.Control
-                        name='companyName'
-                        value={values.companyName}
-                        onChange={handleChange}
-                        isInvalid={touched.companyName && !!errors.companyName}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.companyName}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  ) : null}
-                  {this.state.type === types.seller ? (
-                    <Form.Group>
-                      <Form.Label>IBAN</Form.Label>
-                      <Form.Control
-                        name='iban'
-                        value={values.iban}
-                        onChange={handleChange}
-                        isInvalid={touched.iban && !!errors.iban}
-                      />
-                      <Form.Control.Feedback type='invalid'>
-                        {errors.iban}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  ) : null}
+                  <Form.Group>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      name='name'
+                      value={values.name}
+                      onChange={handleChange}
+                      isInvalid={touched.name && !!errors.name}
+                    />
+                    <Form.Control.Feedback type='invalid'>
+                      {errors.name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Company Name</Form.Label>
+                    <Form.Control
+                      name='companyName'
+                      value={values.companyName}
+                      onChange={handleChange}
+                      isInvalid={touched.companyName && !!errors.companyName}
+                    />
+                    <Form.Control.Feedback type='invalid'>
+                      {errors.companyName}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>IBAN</Form.Label>
+                    <Form.Control
+                      name='iban'
+                      value={values.iban}
+                      onChange={handleChange}
+                      isInvalid={touched.iban && !!errors.iban}
+                    />
+                    <Form.Control.Feedback type='invalid'>
+                      {errors.iban}
+                    </Form.Control.Feedback>
+                  </Form.Group>
                   <Form.Group>
                     <Form.Label>Email</Form.Label>
                     <Form.Control
@@ -226,4 +200,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+export default SellerRegister;

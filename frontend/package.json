@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.production.config.js --progress --profile --colors",
     "serve:build": "npm run build && node server.js",
-    "start": "webpack-dev-server --progress --profile --colors --hot",
+    "start": "webpack-dev-server --progress --profile --colors",
     "lint": "eslint --ext js --ext jsx src || exit 0",
     "dev": " webpack-dashboard -- webpack-dev-server",
     "test": "export NODE_ENV=test && jest"
@@ -19,6 +19,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ReactJSResources/react-webpack-babel#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "6.26.0",
     "bootstrap": "^4.3.1",
     "formik": "^1.5.4",
@@ -44,7 +45,7 @@
     "babel-runtime": "^6.26.0",
     "css-loader": "^0.28.7",
     "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-adapter-react-16": "^1.13.0",
     "eslint": "^4.13.1",
     "eslint-plugin-jest": "^21.5.0",
     "eslint-plugin-react": "^7.5.1",
@@ -56,7 +57,7 @@
     "loglevel": "^1.6.0",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.9",
-    "react-hot-loader": "^4.0.0",
+    "react-hot-loader": "^4.8.5",
     "react-icons": "^3.6.1",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.slf4j.Logger;
@@ -64,6 +65,14 @@ public class AddressController {
     public ResponseEntity<?> postAddress(@PathVariable Long id){
         this.addressRepository.deleteById(id);
         return ResponseEntity.ok().body(null);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<?> deleteAddresses(@RequestParam String[] ids){
+        for(String id:ids){
+            this.addressRepository.delete(this.addressRepository.findById(Long.parseLong(id)).get());
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

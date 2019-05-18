@@ -45,30 +45,39 @@ export class AddressPopup extends React.Component {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id='contained-modal-title-vcenter'>Address</Modal.Title>
+          <Modal.Title id='contained-modal-title-vcenter'>
+            {this.props.mtitle}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Formik
             onSubmit={values => {
-              var address = values; //TODO { ...values };
-              address.country = this.state.country;
-              address.region = this.state.region;
-              this.props.submit(address);
+              if (this.props.mtitle.includes('Edit'))
+                this.props.submitEdit(values);
+              else this.props.submitNew(values);
             }}
             validate={values => {
               let errors = {};
               if (!values.name) {
                 errors.name = 'Required';
               }
-              if (!values.description) {
-                errors.description = 'Required';
+              if (!values.address) {
+                errors.address = 'Required';
+              }
+              if (!values.country) {
+                errors.country = 'Required';
+              }
+              if (!values.region) {
+                errors.region = 'Required';
               }
 
               return errors;
             }}
             initialValues={{
               name: this.props.address.name,
-              description: this.props.address.description
+              address: this.props.address.address,
+              country: this.props.address.country,
+              region: this.props.address.region
             }}
           >
             {({
@@ -79,7 +88,7 @@ export class AddressPopup extends React.Component {
               touched,
               isValid,
               errors,
-              isSubmitting,
+              setFieldValue,
               dirty
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
@@ -93,10 +102,7 @@ export class AddressPopup extends React.Component {
                       onChange={handleChange}
                       isInvalid={touched.name && !!errors.name}
                     />
-                    <Form.Control.Feedback
-                      type='invalid'
-                      className='text-center'
-                    >
+                    <Form.Control.Feedback type='invalid'>
                       {errors.name}
                     </Form.Control.Feedback>
                   </Form.Group>
@@ -106,30 +112,22 @@ export class AddressPopup extends React.Component {
                     <Form.Label>Country</Form.Label>
                     <CountryDropdown
                       name='country'
-                      value={this.state.country}
-                      onChange={e => this.countryChange(e)}
+                      value={values.country}
+                      onChange={e => setFieldValue('country', e)}
                       className='form-control'
                     />
-                    <div style={{ color: '#B33A3A' }}>
-                      {this.state.submitted && this.state.country == ''
-                        ? 'Required'
-                        : null}
-                    </div>
+                    <div style={{ color: '#DC4145' }}>{errors.country}</div>
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Region</Form.Label>
                     <RegionDropdown
-                      country={this.state.country}
+                      country={values.country}
                       name='region'
-                      value={this.state.region}
-                      onChange={e => this.regionChange(e)}
+                      value={values.region}
+                      onChange={e => setFieldValue('region', e)}
                       className='form-control'
                     />
-                    <div style={{ color: '#B33A3A' }}>
-                      {this.state.submitted && this.state.region == ''
-                        ? 'Required'
-                        : null}
-                    </div>
+                    <div style={{ color: '#DC4145' }}>{errors.region}</div>
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
@@ -138,14 +136,14 @@ export class AddressPopup extends React.Component {
                     <Form.Control
                       as='textarea'
                       placeholder='Description'
-                      name='description'
-                      value={values.description}
+                      name='address'
+                      value={values.address}
                       onChange={handleChange}
-                      isInvalid={!!errors.description}
+                      isInvalid={!!errors.address}
                     />
 
                     <Form.Control.Feedback type='invalid'>
-                      {errors.description}
+                      {errors.address}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>

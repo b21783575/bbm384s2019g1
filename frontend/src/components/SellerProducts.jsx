@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ProductPopup } from './ProductPopup';
 import { FaPencilAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 export class SellerProducts extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ export class SellerProducts extends React.Component {
     this.submitNew = this.submitNew.bind(this);
     this.editProduct = this.editProduct.bind(this);
     this.submitEdit = this.submitEdit.bind(this);
+    this.deleteSelected = this.deleteSelected.bind(this);
   }
 
   componentDidMount() {
@@ -37,10 +39,10 @@ export class SellerProducts extends React.Component {
   }
 
   async initApp() {
-    await fetch('api/s/products')
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({ products: responseJson });
+    axios
+      .get('http://localhost:8080/api/s/products')
+      .then(response => {
+        this.setState({ products: response.data });
       })
       .catch(err => console.log(err));
     this.setState({ loading: false, showPopup: false });
@@ -65,13 +67,13 @@ export class SellerProducts extends React.Component {
 
   //add new product to database and reload products
   submitNew(product) {
-    console.log(product);
+    const data = new FormData();
+    for (var attr in product) data.append(attr, product[attr]);
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(product)
+      headers: { 'Content-Type': 'multipart/form-data' }
     };
-    fetch('/api/s/product', requestOptions)
+    axios
+      .post('http://localhost:8080/api/s/product', data, requestOptions)
       .then(result => {
         this.initApp();
       })
@@ -94,22 +96,57 @@ export class SellerProducts extends React.Component {
   submitEdit(product) {
     var oldProduct = this.state.products[this.state.currentIndex];
     for (var key in product) oldProduct[key] = product[key];
+
+    const data = new FormData();
+    for (var attr in product) data.append(attr, oldProduct[attr]);
     const requestOptions = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(oldProduct)
+      headers: { 'Content-Type': 'multipart/form-data' }
     };
-    fetch('/api/s/product/' + oldProduct.id, requestOptions)
+    axios
+      .put(
+        'http://localhost:8080/api/s/product/' + oldProduct.id,
+        data,
+        requestOptions
+      )
       .then(result => {
-        if (result.ok) {
-          this.state.products[this.state.currentIndex] = oldProduct;
-          this.setState({ showPopup: false });
-          return result.json();
-        } else {
-          return result.json().then(err => {
-            this.setState({ err: 'Error: ' + err.message });
-          });
+        this.state.products[this.state.currentIndex] = oldProduct;
+        this.setState({ showPopup: false });
+        return result;
+      })
+      .catch(err => {
+        this.setState({ Error: err });
+      });
+  }
+
+  deleteSelected(selected) {
+    var data = [];
+    for (var s = 0; s < selected.length; s++) {
+      if (selected[s] == true) {
+        data.push(this.state.products[s].id);
+      }
+    }
+    console.log(selected);
+    console.log(data);
+    const requestOptions = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    };
+    axios
+      .delete(
+        'http://localhost:8080/api/s/products?ids=' + data.join(','),
+        requestOptions
+      )
+      .then(result => {
+        var products = this.state.products;
+        var deleted_count = 0;
+        for (var s = 0; s < selected.length; s++) {
+          if (selected[s] == true) {
+            products.splice(s - deleted_count++, 1);
+          }
         }
+        this.setState({ products });
+        selected.splice(0, selected.length);
+        this.setState({ selected });
+        console.log('silindi');
       })
       .catch(err => {
         console.log(err);
@@ -130,12 +167,15 @@ export class SellerProducts extends React.Component {
           }}
           className=' my-auto'
         />
-        <div
+        <img
           style={{ width: 100, height: 100 }}
           className='my-auto border text-center'
-        >
-          image
-        </div>
+          src={
+            !!element.picture
+              ? 'http://localhost:8080/files/' + element.picture
+              : ''
+          }
+        />
         <div className='col ml-2'>
           <div className='row'>
             <strong>Name: </strong> {element.name}
@@ -199,7 +239,12 @@ export class SellerProducts extends React.Component {
             />
             <div className='col pl-0 ml-0'>Select All</div>
             <div style={{ color: '#00f' }} className='float-right mr-4'>
-              Remove Selected Items
+              <a
+                href='#'
+                onClick={() => this.deleteSelected(this.state.selected)}
+              >
+                Remove Selected Products
+              </a>
             </div>
           </div>
           {products}

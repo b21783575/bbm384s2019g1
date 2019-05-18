@@ -10,36 +10,18 @@ import { HelpMessage } from '../components/HelpMessage';
 
 const selectedColor = '#11f';
 
-class Seller extends React.Component {
+class Customer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 'profile',
-      seller: {}
+      page: 'profile'
     };
-
-    this.changeName = this.changeName.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.routeChange('seller');
-  }
-
-  changeName(name) {
-    var seller = this.state.seller;
-    seller['name'] = name;
-    this.setState({ seller });
   }
 
   renderPage() {
     switch (this.state.page) {
       case 'profile':
-        return (
-          <AccountInfo
-            seller={this.state.seller}
-            changeName={this.changeName}
-          />
-        );
+        return <AccountInfo />;
       case 'orders':
         return <SellerOrders />;
       case 'addresses':
@@ -53,31 +35,21 @@ class Seller extends React.Component {
     }
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({ seller: props.seller });
-    console.log(props.seller);
-  }
-
   render() {
     return (
       <div
         style={{
           backgroundColor: '#ccc'
         }}
-        className='pb-5 pt-5'
+        className='pb-5'
       >
-        <div className='container pt-5 pb-5'>
+        <div className='container pt-5'>
           <div className='row'>
             <div
-              style={{ backgroundColor: '#fff', minHeight: 600 }}
+              style={{ backgroundColor: '#fff' }}
               className='col-3 mr-4 pt-4'
             >
-              <h4 className='text-center border border-dark'>
-                {this.state.seller.name}
-              </h4>
-              <h4 className='text-center border border-dark'>
-                {this.state.seller.companyName}
-              </h4>
+              <h4 className='text-center border border-dark'> Name Surname</h4>
               <br />
               <br />
               <h5
@@ -112,9 +84,9 @@ class Seller extends React.Component {
                 style={{
                   color: this.state.page === 'products' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: 'products' })}
+                onClick={() => this.setState({ page: 'profile' })}
               >
-                Products
+                Notifications
               </h5>
               <br />
               <br />
@@ -131,10 +103,7 @@ class Seller extends React.Component {
               <hr />
               <h5
                 className={styles.link}
-                onClick={() => {
-                  this.props.logout();
-                  this.props.history.push('/');
-                }}
+                onClick={() => this.setState({ page: 'help' })}
               >
                 Logout
               </h5>
@@ -150,4 +119,4 @@ class Seller extends React.Component {
   }
 }
 
-export default Seller;
+export default Customer;

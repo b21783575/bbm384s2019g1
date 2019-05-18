@@ -1,129 +1,185 @@
-import React from 'react';
+import React from "react";
 
+import {
+  FaRegCreditCard,
+  FaCcMastercard,
+  FaCreditCard,
+  FaCcVisa,
+  FaPaypal,
+  FaAmazonPay
+} from "react-icons/fa";
+import {
+  MdLaptopChromebook,
+  MdTv,
+  MdPhoneAndroid,
+  MdSmartphone,
+  MdEmail,
+  MdBook,
+  MdHome
+} from "react-icons/md";
 export class Footer extends React.Component {
   render() {
     if (this.props.isFooter)
       return (
         <React.Fragment>
-          <div className='footer sticky-bottom'>
+          <div className="footer sticky-bottom">
             <div
-              style={{ backgroundColor: '#384E6E', width: '100%' }}
-              className='d-flex justify-content-around'
+              style={{ backgroundColor: "#384E6E", width: "100%" }}
+              className="d-flex justify-content-around"
             >
               <div
-                style={{ color: '#fff' }}
-                className='d-flex flex-column bd-highlight mb-3 mt-auto'
-                href='/'
+                style={{ color: "#fff" }}
+                className="d-flex flex-column bd-highlight mb-3 mt-auto"
+                href="/"
               >
                 <a
-                  style={{ color: '#999999', fontSize: '20px'}}
-                  className='p-1 bd-highlight'
+                  style={{ color: "#999999", fontSize: "20px" }}
+                  className="p-1 bd-highlight"
                 >
                   HUMBO
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/aboutUs"
                 >
                   About Us
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/contactUs"
                 >
                   Contact US
-                  <i style={{ marginLeft: 10 }} className="far fa-envelope"></i>
+                  <MdEmail
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"15px"}
+                  />
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
-                >
-                  Help
-                </a>
-                <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/ourPolicy"
                 >
                   Our Policy
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/seller"
                 >
                   My Account
                 </a>
                 <a style={{ marginTop: 15 }}>
-                  <i className="fab fa-cc-visa"></i>
-                  <i style={{ marginLeft: 10, fontSize: 10 }} className="fab fa-cc-mastercard"></i>
-                  <i style={{ marginLeft: 10 }} className="far fa-credit-card"></i>
-                  <i style={{ marginLeft: 10 }} className="fab fa-cc-amazon-pay"></i>
-                  <i style={{ marginLeft: 10 }} className="fab fa-cc-amex"></i>
-                  <i style={{ marginLeft: 10 }} className="fab fa-cc-apple-pay"></i>
+                  <FaCcMastercard
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"25px"}
+                  />
+                  <FaCreditCard
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"25px"}
+                  />
+                  <FaCcVisa
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"25px"}
+                  />
+                  <FaPaypal
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"25px"}
+                  />
+                  <FaAmazonPay
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"25px"}
+                  />
                 </a>
               </div>
               <div
-                style={{ color: '#fff' }}
-                className='d-flex flex-column bd-highlight mb-3'
-                href='/'
+                style={{ color: "#fff" }}
+                className="d-flex flex-column bd-highlight mb-3"
+                href="/"
               >
                 <a
-                  style={{ color: '#999999', fontSize: '20px' }}
-                  className='p-1 bd-highlight'
+                  style={{ color: "#999999", fontSize: "20px" }}
+                  className="p-1 bd-highlight"
                 >
                   CATEGORIES
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/products"
                 >
                   Laptop
-                  <i style={{ marginLeft: 10 }} className="fas fa-laptop"></i>
+                  <MdLaptopChromebook
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"15px"}
+                  />
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/products"
                 >
                   TV
-                  <i style={{ marginLeft: 10 }} className="fas fa-desktop"></i>
+                  <MdTv
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"15px"}
+                  />
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
-                >
-                  Book
-                  <i style={{ marginLeft: 10 }} className="fas fa-book-open"></i>
-                </a>
-                <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/products"
                 >
                   Smart Phone
-                  <i style={{ marginLeft: 10 }} className="fas fa-mobile"></i>
+                  <MdPhoneAndroid
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"15px"}
+                  />
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/products"
                 >
                   Cell Phone
-                  <i style={{ marginLeft: 10 }} class="fas fa-mobile"></i>
+                  <MdSmartphone
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"15px"}
+                  />
                 </a>
                 <a
-                  style={{ color: 'white' }}
-                  className='p-1 bd-highlight'
-                  href='/'
+                  style={{ color: "white" }}
+                  className="p-1 bd-highlight"
+                  href="/products"
                 >
-                  Sofa
-                  <i style={{ marginLeft: 10 }} className="fas fa-couch"></i>
+                  Home
+                  <MdHome
+                    style={{ marginLeft: 10 }}
+                    className="my-auto"
+                    color={"#fff"}
+                    size={"15px"}
+                  />
                 </a>
               </div>
             </div>

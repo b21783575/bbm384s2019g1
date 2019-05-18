@@ -2,15 +2,19 @@ import React from 'react';
 
 import { FaPencilAlt, FaCheck } from 'react-icons/fa';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
+import Authentication from '../helpers/Authentication';
 
-export class SellerAccount extends React.Component {
+const API_URL = 'http://localhost:8080/';
+
+export class AccountInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
       email: '',
       phone: '',
-      date: '1997-08-20',
+      date: '',
       password: '*********',
       errName: '',
       errEmail: '',
@@ -27,18 +31,27 @@ export class SellerAccount extends React.Component {
   }
 
   componentDidMount() {
-    fetch('api/s')
-      .then(response => {
-        return response.json();
-      })
-      .then(seller => {
-        this.setState({
-          name: seller.name,
-          email: seller.email,
-          phone: seller.phone
-        });
-      })
-      .catch(err => console.log(err));
+    const { seller } = this.props;
+    if (!!seller && !!seller.email) {
+      this.setState({
+        name: seller.name,
+        email: seller.email,
+        phone: seller.phone,
+        date: seller.birthdate
+      });
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    const { seller } = props;
+    if (!!seller) {
+      this.setState({
+        name: seller.name,
+        email: seller.email,
+        phone: seller.phone,
+        date: seller.birthdate
+      });
+    }
   }
 
   render() {
@@ -102,31 +115,6 @@ export class SellerAccount extends React.Component {
                 {this.state.errEmail}
               </Form.Control.Feedback>
             </div>
-            {this.state.editEmail ? (
-              <FaCheck
-                style={{
-                  backgroundColor: '#3b3',
-                  borderBottomLeftRadius: 8,
-                  padding: 5,
-                  cursor: 'pointer'
-                }}
-                size={'35px'}
-                onClick={() => {
-                  if (this.validateEmail()) this.setState({ editEmail: false });
-                }}
-              />
-            ) : (
-              <FaPencilAlt
-                style={{
-                  backgroundColor: '#bbb',
-                  borderBottomLeftRadius: 8,
-                  padding: 5,
-                  cursor: 'pointer'
-                }}
-                size={'35px'}
-                onClick={() => this.setState({ editEmail: true })}
-              />
-            )}
           </div>
           <div className='row border pl-3'>
             <div className='col my-2'>
@@ -261,11 +249,13 @@ export class SellerAccount extends React.Component {
       this.setState({ errName: 'Required' });
       return false;
     }
-    return await fetch('api/s/name?name=' + this.state.name, {
-      method: 'PUT'
-    })
+    return await axios
+      .put(API_URL + 'api/s/name?name=' + this.state.name)
       .then(result => {
-        return result.ok;
+        console.log(result);
+        Authentication.updateUser('name', this.state.name);
+        this.props.changeName(this.state.name);
+        return true;
       })
       .catch(err => {
         console.log(err);
@@ -285,27 +275,53 @@ export class SellerAccount extends React.Component {
     return true;
   }
 
-  validatePhone() {
+  async validatePhone() {
     if (!this.state.phone) {
       this.setState({ errPhone: 'Required' });
       return false;
     }
-    return true;
+    return await axios
+      .put(API_URL + 'api/s/phone?phone=' + this.state.phone)
+      .then(result => {
+        Authentication.updateUser('phone', this.state.phone);
+        return true;
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
   }
 
-  validateDate() {
+  async validateDate() {
     if (!this.state.date) {
       this.setState({ errDate: 'Required' });
       return false;
     }
-    return true;
+    return await axios
+      .put(API_URL + 'api/s/birthdate?birthdate=' + this.state.date)
+      .then(result => {
+        Authentication.updateUser('birthdate', this.state.date);
+        return true;
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
   }
 
-  validatePassword() {
+  async validatePassword() {
     if (!this.state.password) {
       this.setState({ errPassword: 'Required' });
       return false;
     }
-    return true;
+    return await axios
+      .put(API_URL + 'api/s/password?password=' + this.state.password)
+      .then(result => {
+        return true;
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
   }
 }

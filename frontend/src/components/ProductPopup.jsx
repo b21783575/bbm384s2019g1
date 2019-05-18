@@ -7,6 +7,19 @@ import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
 
 export class ProductPopup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { file: '', imagePreviewUrl: '' };
+  }
+
+  componentWillReceiveProps(props) {
+    if (!!props.product && !!props.product.picture) {
+      this.setState({
+        imagePreviewUrl: 'http://localhost:8080/files/' + props.product.picture
+      });
+    }
+  }
+
   render() {
     return (
       <Modal
@@ -24,6 +37,7 @@ export class ProductPopup extends React.Component {
         <Modal.Body>
           <Formik
             onSubmit={values => {
+              console.log(values);
               if (this.props.mtitle.includes('Edit'))
                 this.props.submitEdit(values);
               else this.props.submitNew(values);
@@ -66,17 +80,46 @@ export class ProductPopup extends React.Component {
               price: this.props.product.price,
               discount: this.props.product.discount,
               color: this.props.product.color,
-              description: this.props.product.description
+              description: this.props.product.description,
+              file: null
             }}
           >
-            {({ handleSubmit, handleChange, values, touched, errors }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              values,
+              touched,
+              errors,
+              setFieldValue
+            }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Row>
-                  <div
-                    style={{ width: 200, height: 200 }}
-                    className='border mr-3 mb-3'
-                  >
-                    image
+                  <div>
+                    <img
+                      style={{ width: 250, height: 250 }}
+                      className='border mr-3 mb-3'
+                      src={
+                        this.state.imagePreviewUrl
+                          ? this.state.imagePreviewUrl
+                          : ''
+                      }
+                    />
+                    <input
+                      style={{ width: 250 }}
+                      id='file'
+                      name='file'
+                      type='file'
+                      onChange={event => {
+                        let reader = new FileReader();
+                        let file = event.currentTarget.files[0];
+                        reader.onloadend = () => {
+                          setFieldValue('file', file);
+                          this.setState({ imagePreviewUrl: reader.result });
+                        };
+                        reader.readAsDataURL(file);
+                      }}
+                      className='form-control'
+                    />
                   </div>
                   <Col>
                     <Form.Group>
