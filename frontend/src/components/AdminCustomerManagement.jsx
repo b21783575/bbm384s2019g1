@@ -1,12 +1,12 @@
 import React from 'react';
 import { Table, FormControl, Button } from 'react-bootstrap';
 
-export class AdminProductManagement extends React.Component {
+export class AdminCustomerManagement extends React.Component {
   render() {
     return (
       <React.Fragment>
         <div className='container my-5'>
-          <h4>Product Management</h4>
+          <h4>Customer Management</h4>
           <br />
           <div className='col'>
             <div className='row container py-3'>
@@ -28,20 +28,20 @@ export class AdminProductManagement extends React.Component {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Product ID</th>
-                  <th>Category</th>
-                  <th>Product Name</th>
-                  <th>Stock Status</th>
-                  <th>Product Page</th>
+                  <th>Email</th>
+                  <th>Name Surname</th>
+                  <th>Former Orders</th>
+                  <th>Waiting Orders</th>
+                  <th>Customer Page</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>P6374838</td>
-                  <td>TV</td>
-                  <td>Television</td>
-                  <td>43234</td>
+                  <td>hardcoded@hardcoded.com</td>
+                  <td>Hard Coded</td>
+                  <td>234</td>
+                  <td>2</td>
                   <td>
                     {' '}
                     <Button
@@ -55,10 +55,10 @@ export class AdminProductManagement extends React.Component {
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>P5436345</td>
-                  <td>Smart Phone</td>
-                  <td>Smart Phone Smart</td>
-                  <td>232</td>
+                  <td>hardcoded2@hardcoded.com</td>
+                  <td>Hard2 Coded2</td>
+                  <td>321</td>
+                  <td>3</td>
                   <td>
                     {' '}
                     <Button
@@ -72,10 +72,10 @@ export class AdminProductManagement extends React.Component {
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td>P122346754</td>
-                  <td>Home</td>
-                  <td>Home Sweet Home</td>
-                  <td>1</td>
+                  <td>hardcoded3@hardcoded.com</td>
+                  <td>Hard3 Coded3</td>
+                  <td>123</td>
+                  <td>234</td>
                   <td>
                     {' '}
                     <Button

@@ -10,7 +10,7 @@ import { AdminPromotion } from '../components/AdminPromotion';
 import { AdminSales } from '../components/AdminSales';
 import { AdminSendNotification } from '../components/AdminSendNotification';
 import { AdminSellerManagement } from '../components/AdminSellerManagement';
-import { AdminUserManagement } from '../components/AdminUserManagement';
+import { AdminCustomerManagement } from '../components/AdminCustomerManagement';
 
 const selectedColor = '#11f';
 
@@ -40,8 +40,8 @@ class Admin extends React.Component {
         return <AdminAccount />;
       case 'sellerManagement':
         return <AdminSellerManagement />;
-      case 'userManagement':
-        return <AdminUserManagement />;
+      case 'customerManagement':
+        return <AdminCustomerManagement />;
       case 'productManagement':
         return <AdminProductManagement />;
       case 'promotion':
@@ -59,21 +59,28 @@ class Admin extends React.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: '#faf5f1' }}>
-        <div className='container'>
-          <div className='row mt-3'>
+      <div
+        style={{
+          backgroundColor: '#ccc'
+        }}
+        className='pb-5 pt-5'
+      >
+        <div className='container pt-5 pb-5'>
+          <div className='row'>
             <div
-              style={{ marginTop: 20, backgroundColor: '#fff' }}
+              style={{ backgroundColor: '#fff', minHeight: 600 }}
               className='col-3 mr-4 pt-4'
             >
-              <h4 style={{ fontSize: 35 }} href='/' className='text-center'> HUMBO </h4>
-              <br />
+              <h4 className='text-center border border-dark'>HUMBO</h4>
               <br />
               <br />
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === 'sellerManagement' ? selectedColor : null
+                  color:
+                    this.state.page === 'sellerManagement'
+                      ? selectedColor
+                      : null
                 }}
                 onClick={() => this.setState({ page: 'sellerManagement' })}
               >
@@ -83,17 +90,23 @@ class Admin extends React.Component {
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === 'userManagement' ? selectedColor : null
+                  color:
+                    this.state.page === 'customerManagement'
+                      ? selectedColor
+                      : null
                 }}
-                onClick={() => this.setState({ page: 'userManagement' })}
+                onClick={() => this.setState({ page: 'customerManagement' })}
               >
-                User Management
+                Customer Management
               </h5>
               <br />
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === 'productManagement' ? selectedColor : null
+                  color:
+                    this.state.page === 'productManagement'
+                      ? selectedColor
+                      : null
                 }}
                 onClick={() => this.setState({ page: 'productManagement' })}
               >
@@ -123,7 +136,10 @@ class Admin extends React.Component {
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === 'sendNotification' ? selectedColor : null
+                  color:
+                    this.state.page === 'sendNotification'
+                      ? selectedColor
+                      : null
                 }}
                 onClick={() => this.setState({ page: 'sendNotification' })}
               >
@@ -149,7 +165,8 @@ class Admin extends React.Component {
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === 'changePassword' ? selectedColor : null
+                  color:
+                    this.state.page === 'changePassword' ? selectedColor : null
                 }}
                 onClick={() => this.setState({ page: 'changePassword' })}
               >

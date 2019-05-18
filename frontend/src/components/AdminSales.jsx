@@ -1,38 +1,95 @@
 import React from 'react';
+import {
+  Table,
+  FormControl,
+  Button,
+  ToggleButton,
+  ToggleButtonGroup
+} from 'react-bootstrap';
 
 export class AdminSales extends React.Component {
   render() {
     return (
-      <div className='container my-5'>
-        <h4>Product Management</h4>
-        <br />
-        <div className='col'>
-          <div className='row container py-3'>
-            <div className='col'>
-              <strong className='row border'>Search</strong> <br />
-            </div>
-          </div>
-          <button
-              className='col-2 btn btn-primary bottom-right my-auto'
-              type='button'
-            >
-              Home
-            </button>
-          <div className='row border container py-3'>
-            <div className='col'>
-              <strong className='row border'>Notification ID: 0001</strong> <br />
-              <strong className='row border'>Name Surname: Onur C.</strong> <br />
-              <strong className='row border'>Message: Efenim? N'aptınız?</strong> <br />
-            </div>
-            <button
-              className='col-2 btn btn-primary bottom-right my-auto'
-              type='button'
-            >
-              Answer
-            </button>
+      <React.Fragment>
+        <div className='container my-5'>
+          <h4>Waiting Sales List</h4>
+          <br />
+          <div className='col'>
+            <Table responsive bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Product ID</th>
+                  <th>Customer ID</th>
+                  <th>Trader ID</th>
+                  <th>Order ID</th>
+                  <th>Date of Sale</th>
+                  <th>Confirm</th>
+                  <th>Reject</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>asdasd</td>
+                  <td>asdasd</td>
+                  <td>Tfdsfsd</td>
+                  <td>sdfsd</td>
+                  <td>sdfsdf</td>
+                  <td>
+                    {' '}
+                    <Button
+                      style={{ minWidth: 75 }}
+                      variant='success text-center'
+                      className='col-3'
+                    >
+                      Confirm
+                    </Button>
+                  </td>
+                  <td>
+                    {' '}
+                    <Button
+                      style={{ minWidth: 75 }}
+                      variant='danger text-center'
+                      className='col-3'
+                    >
+                      Reject
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>asdasd</td>
+                  <td>asdasd</td>
+                  <td>Tfdsfsd</td>
+                  <td>sdfsd</td>
+                  <td>sdfsdf</td>
+                  <td>
+                    {' '}
+                    <Button
+                      style={{ minWidth: 75 }}
+                      variant='success text-center'
+                      className='col-3'
+                    >
+                      Confirm
+                    </Button>
+                  </td>
+                  <td>
+                    {' '}
+                    <Button
+                      style={{ minWidth: 75 }}
+                      variant='danger text-center'
+                      className='col-3'
+                    >
+                      Reject
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
