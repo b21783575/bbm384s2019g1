@@ -38,8 +38,22 @@ export class AdminCustomerManagement extends React.Component {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>hardcoded@hardcoded.com</td>
-                  <td>Hard Coded</td>
+                  <td
+                    style={{
+                      'word-wrap': 'break-word',
+                      'max-width': '280px'
+                    }}
+                  >
+                    hardcoded@hardcoded.com
+                  </td>
+                  <td
+                    style={{
+                      'word-wrap': 'break-word',
+                      'max-width': '210px'
+                    }}
+                  >
+                    Hard Coded
+                  </td>
                   <td>234</td>
                   <td>2</td>
                   <td>

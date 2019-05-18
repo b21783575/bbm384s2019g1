@@ -78,7 +78,6 @@ export class AdminSendNotification extends React.Component {
               style={{ minWidth: 100 }}
               type='text'
               placeholder='Message'
-              className='py-0'
             />
           </div>
         </div>

@@ -57,7 +57,14 @@ export class AdminProductManagement extends React.Component {
                   <td>2</td>
                   <td>P5436345</td>
                   <td>Smart Phone</td>
-                  <td>Smart Phone Smart</td>
+                  <td
+                    style={{
+                      'word-wrap': 'break-word',
+                      'max-width': '280px'
+                    }}
+                  >
+                    Smart Phone Smart
+                  </td>
                   <td>232</td>
                   <td>
                     {' '}

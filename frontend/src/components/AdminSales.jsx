@@ -65,7 +65,6 @@ export class AdminSales extends React.Component {
                   <td>sdfsd</td>
                   <td>sdfsdf</td>
                   <td>
-                    {' '}
                     <Button
                       style={{ minWidth: 75 }}
                       variant='success text-center'

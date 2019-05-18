@@ -38,46 +38,25 @@ export class AdminSellerManagement extends React.Component {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Hardcoded</td>
-                  <td>Coded</td>
+                  <td
+                    style={{
+                      'word-wrap': 'break-word',
+                      'max-width': '250px'
+                    }}
+                  >
+                    Hard
+                  </td>
+                  <td
+                    style={{
+                      'word-wrap': 'break-word',
+                      'max-width': '180px'
+                    }}
+                  >
+                    Coded
+                  </td>
                   <td>4.5</td>
                   <td>2</td>
                   <td>
-                    {' '}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Hardcoded2</td>
-                  <td>Coded2</td>
-                  <td>4.2</td>
-                  <td>3</td>
-                  <td>
-                    {' '}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Hardcoded3</td>
-                  <td>Coded3</td>
-                  <td>1</td>
-                  <td>54353</td>
-                  <td>
-                    {' '}
                     <Button
                       style={{ minWidth: 75 }}
                       variant='outline-primary text-center'
