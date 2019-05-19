@@ -2,7 +2,68 @@ import React from 'react';
 import { Table, FormControl, Button } from 'react-bootstrap';
 
 export class AdminCustomerManagement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: [
+        {
+          email: 'email@email.com',
+          nameSurname: 'asdasd asfdasd',
+          formerOrders: '2',
+          waitingOrders: '123',
+          id: 1
+        },
+        {
+          email: 'email2@email.com',
+          nameSurname: 'zxczxc zczxc ',
+          formerOrders: '2',
+          waitingOrders: '7',
+          id: 2
+        },
+        {
+          email: 'email3@email.com',
+          nameSurname: '1qweqweqw eqwe qwe',
+          formerOrders: '4',
+          waitingOrders: '2',
+          id: 3
+        }
+      ]
+    };
+  }
+
   render() {
+    var customers = this.state.customers.map(customer => (
+      <tr key={customer.email}>
+        <td>{customer.id}</td>
+        <td
+          style={{
+            wordWrap: 'break-word',
+            maxWidth: '280px'
+          }}
+        >
+          {customer.email}
+        </td>
+        <td
+          style={{
+            wordWrap: 'break-word',
+            maxWidth: '210px'
+          }}
+        >
+          {customer.nameSurname}
+        </td>
+        <td>{customer.formerOrders}</td>
+        <td>{customer.waitingOrders}</td>
+        <td>
+          <Button
+            style={{ minWidth: 75 }}
+            variant='outline-primary text-center'
+            className='col-3'
+          >
+            Page
+          </Button>
+        </td>
+      </tr>
+    ));
     return (
       <React.Fragment>
         <div className='container my-5'>
@@ -35,73 +96,7 @@ export class AdminCustomerManagement extends React.Component {
                   <th>Customer Page</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td
-                    style={{
-                      'word-wrap': 'break-word',
-                      'max-width': '280px'
-                    }}
-                  >
-                    hardcoded@hardcoded.com
-                  </td>
-                  <td
-                    style={{
-                      'word-wrap': 'break-word',
-                      'max-width': '210px'
-                    }}
-                  >
-                    Hard Coded
-                  </td>
-                  <td>234</td>
-                  <td>2</td>
-                  <td>
-                    {' '}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>hardcoded2@hardcoded.com</td>
-                  <td>Hard2 Coded2</td>
-                  <td>321</td>
-                  <td>3</td>
-                  <td>
-                    {' '}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>hardcoded3@hardcoded.com</td>
-                  <td>Hard3 Coded3</td>
-                  <td>123</td>
-                  <td>234</td>
-                  <td>
-                    {' '}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody>{customers}</tbody>
             </Table>
           </div>
         </div>
