@@ -98,4 +98,13 @@ public class CustomerController{
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/all")
+    public Iterable<Customer> getAllCustomer(){
+        return customerRepository.findAll();
+    }
+    @GetMapping("/search")
+    public Iterable<Customer> searchCustomer(@RequestParam String searchToken){
+        return customerRepository.search(searchToken);
+    }
+
 }
