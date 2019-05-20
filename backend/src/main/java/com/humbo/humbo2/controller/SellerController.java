@@ -140,5 +140,12 @@ public class SellerController {
         }
         return ResponseEntity.ok().body(response);
     }
-
+    @GetMapping("/all")
+    public Iterable<Seller> getAllSeller(){
+        return sellerRepository.findAll();
+    }
+    @GetMapping("/search")
+    public Iterable<Seller> searchSeller(@RequestParam String searchToken){
+        return sellerRepository.search(searchToken);
+    }
 }
