@@ -5,11 +5,16 @@ import com.humbo.humbo2.repository.CategoryRepository;
 import com.humbo.humbo2.domain.Product;
 import com.humbo.humbo2.repository.ProductRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,29 +30,15 @@ class ProductController {
     }
 
     @GetMapping("/products")
-    Iterable<Product> products() {
-        return productRepository.findAll();
+    Page<Product> products(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     @GetMapping("/products/{categoryName}")
-    Iterable<Product> productsOfCategory(@PathVariable String categoryName) {
-        Category category = this.categoryRepository.findByName(categoryName);
-        if (category.getChildren().size() != 0) {
-            HashSet<Product> products = new HashSet<>(category.getProducts());
-            return getProducts(products, category);
-        }
-        return category.getProducts();
-    }
-
-    private HashSet<Product> getProducts(HashSet<Product> products, Category category) {
-        if (category.getChildren().size() == 0) {
-            return products;
-        }
-        for (Category child : category.getChildren()) {
-            products.addAll(child.getProducts());
-            products = getProducts(products, child);
-        }
-        return products;
+    Page<Product> productsOfCategory(@PathVariable String categoryName, Pageable pageable) {
+        Iterable<Category> categoryList = this.categoryRepository.findWithChilds(categoryName);
+        System.out.println("--------------------------"+categoryList+"-----------------------------");
+        return productRepository.findByCategoryIn(categoryList, pageable);
     }
 
     @GetMapping("/product/{id}")
@@ -57,8 +48,8 @@ class ProductController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @GetMapping("/products/search")
-    public Iterable<Product> search(@RequestParam String searchToken){
-        return productRepository.search(searchToken);
+    public Page<Product> search(@RequestParam String searchToken, Pageable pageable){
+        return productRepository.search(searchToken, pageable);
     }
 
 
