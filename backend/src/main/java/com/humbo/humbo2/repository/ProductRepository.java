@@ -1,5 +1,6 @@
 package com.humbo.humbo2.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,5 +23,11 @@ public interface ProductRepository extends CrudRepository<Product, Long>{
 	void delete(@Param("product") Product product);
 
 	Iterable<Product> findByCategory(Category category);
+	@Query(
+            value = "SELECT DISTINCT * FROM product WHERE name ILIKE %:searchToken% or brand ILIKE %:searchToken%" ,
+			nativeQuery = true
+	)
+	
+	Iterable<Product> search(@Param("searchToken") String searchToken) ;
 
 }

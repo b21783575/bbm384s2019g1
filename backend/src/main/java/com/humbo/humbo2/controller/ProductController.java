@@ -56,4 +56,10 @@ class ProductController {
         return product.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/products/search")
+    public Iterable<Product> search(@RequestParam String searchToken){
+        return productRepository.search(searchToken);
+    }
+
+
 }
