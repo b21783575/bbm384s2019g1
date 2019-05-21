@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import { ProductPopup } from './ProductPopup';
-import { FaPencilAlt } from 'react-icons/fa';
-import axios from 'axios';
+import { ProductPopup } from "./ProductPopup";
+import { FaPencilAlt } from "react-icons/fa";
+import Pagination from "react-bootstrap/Pagination";
+import axios from "axios";
 
 export class SellerProducts extends React.Component {
   constructor(props) {
@@ -10,21 +11,21 @@ export class SellerProducts extends React.Component {
     this.state = {
       products: [
         {
-          brand: 'bellona',
-          stock: '1000',
-          name: 'Chair',
+          brand: "bellona",
+          stock: "1000",
+          name: "Chair",
           price: 200,
-          description: 'Comfort',
-          category: 'Home',
-          discount: '5',
-          color: 'Brown'
+          description: "Comfort",
+          category: "Home",
+          discount: "5",
+          color: "Brown"
         }
       ],
       selected: [],
       mProduct: {},
       loading: true,
       showPopup: false,
-      popupTitle: ''
+      popupTitle: ""
     };
 
     this.addProduct = this.addProduct.bind(this);
@@ -40,7 +41,7 @@ export class SellerProducts extends React.Component {
 
   async initApp() {
     axios
-      .get('http://localhost:8080/api/s/products')
+      .get("http://localhost:8080/api/s/products")
       .then(response => {
         this.setState({ products: response.data });
       })
@@ -51,16 +52,16 @@ export class SellerProducts extends React.Component {
   addProduct() {
     this.setState({
       mProduct: {
-        brand: '',
-        stock: '',
-        name: '',
-        price: '',
-        description: '',
-        category: 'TV',
-        discount: '',
-        color: ''
+        brand: "",
+        stock: "",
+        name: "",
+        price: "",
+        description: "",
+        category: "TV",
+        discount: "",
+        color: ""
       },
-      popupTitle: 'Add Product',
+      popupTitle: "Add Product",
       showPopup: true
     });
   }
@@ -70,10 +71,10 @@ export class SellerProducts extends React.Component {
     const data = new FormData();
     for (var attr in product) data.append(attr, product[attr]);
     const requestOptions = {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { "Content-Type": "multipart/form-data" }
     };
     axios
-      .post('http://localhost:8080/api/s/product', data, requestOptions)
+      .post("http://localhost:8080/api/s/product", data, requestOptions)
       .then(result => {
         this.initApp();
       })
@@ -86,7 +87,7 @@ export class SellerProducts extends React.Component {
     if (mProduct.category.name) mProduct.category = mProduct.category.name;
     await this.setState({
       mProduct,
-      popupTitle: 'Edit Product',
+      popupTitle: "Edit Product",
       showPopup: true,
       currentIndex: index
     });
@@ -100,11 +101,11 @@ export class SellerProducts extends React.Component {
     const data = new FormData();
     for (var attr in product) data.append(attr, oldProduct[attr]);
     const requestOptions = {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { "Content-Type": "multipart/form-data" }
     };
     axios
       .put(
-        'http://localhost:8080/api/s/product/' + oldProduct.id,
+        "http://localhost:8080/api/s/product/" + oldProduct.id,
         data,
         requestOptions
       )
@@ -128,11 +129,11 @@ export class SellerProducts extends React.Component {
     console.log(selected);
     console.log(data);
     const requestOptions = {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { "Content-Type": "multipart/form-data" }
     };
     axios
       .delete(
-        'http://localhost:8080/api/s/products?ids=' + data.join(','),
+        "http://localhost:8080/api/s/products?ids=" + data.join(","),
         requestOptions
       )
       .then(result => {
@@ -146,7 +147,7 @@ export class SellerProducts extends React.Component {
         this.setState({ products });
         selected.splice(0, selected.length);
         this.setState({ selected });
-        console.log('silindi');
+        console.log("silindi");
       })
       .catch(err => {
         console.log(err);
@@ -172,8 +173,8 @@ export class SellerProducts extends React.Component {
           className='my-auto border text-center'
           src={
             !!element.picture
-              ? 'http://localhost:8080/files/' + element.picture
-              : ''
+              ? "http://localhost:8080/files/" + element.picture
+              : ""
           }
         />
         <div className='col ml-2'>
@@ -209,12 +210,12 @@ export class SellerProducts extends React.Component {
         </div>
         <FaPencilAlt
           style={{
-            backgroundColor: '#bbb',
+            backgroundColor: "#bbb",
             borderBottomLeftRadius: 8,
             padding: 5,
-            cursor: 'pointer'
+            cursor: "pointer"
           }}
-          size={'35px'}
+          size={"35px"}
           onClick={() => this.editProduct(index)}
         />
       </div>
@@ -238,7 +239,7 @@ export class SellerProducts extends React.Component {
               }}
             />
             <div className='col pl-0 ml-0'>Select All</div>
-            <div style={{ color: '#00f' }} className='float-right mr-4'>
+            <div style={{ color: "#00f" }} className='float-right mr-4'>
               <a
                 href='#'
                 onClick={() => this.deleteSelected(this.state.selected)}
@@ -255,6 +256,23 @@ export class SellerProducts extends React.Component {
         >
           Add
         </button>
+        <Pagination className='pagination justify-content-center align-items-end'>
+          <Pagination.First />
+          <Pagination.Prev />
+          <Pagination.Item active>{1}</Pagination.Item>
+          <Pagination.Item disabled>{2}</Pagination.Item>
+          <Pagination.Item disabled>{3}</Pagination.Item>
+          <Pagination.Ellipsis />
+
+          <Pagination.Item>{10}</Pagination.Item>
+          <Pagination.Item>{11}</Pagination.Item>
+          <Pagination.Item>{12}</Pagination.Item>
+
+          <Pagination.Ellipsis />
+          <Pagination.Item>{20}</Pagination.Item>
+          <Pagination.Next />
+          <Pagination.Last />
+        </Pagination>
         <ProductPopup
           mtitle={this.state.popupTitle}
           product={this.state.mProduct}

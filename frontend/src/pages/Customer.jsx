@@ -1,6 +1,8 @@
 import React from "react";
 
 import styles from "../app.sass";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 import { SellerOrders } from "../components/SellerOrders";
 import { AccountInfo } from "../components/AccountInfo";
@@ -14,9 +16,12 @@ class Customer extends React.Component {
     super(props);
     this.state = {
       page: "profile",
-      customer: {}
+      customer: {},
+      show: false
     };
     this.changeName = this.changeName.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +32,14 @@ class Customer extends React.Component {
     var customer = this.state.customer;
     customer["name"] = name;
     this.setState({ customer });
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
   }
 
   renderPage() {
@@ -57,15 +70,15 @@ class Customer extends React.Component {
         style={{
           backgroundColor: "#ccc"
         }}
-        className="pb-5"
+        className='pb-5'
       >
-        <div className="container pt-5">
-          <div className="row">
+        <div className='container pt-5'>
+          <div className='row'>
             <div
               style={{ backgroundColor: "#fff" }}
-              className="col-3 mr-4 pt-4"
+              className='col-3 mr-4 pt-4'
             >
-              <h4 className="text-center border border-dark">
+              <h4 className='text-center border border-dark'>
                 {this.state.customer.name}
               </h4>
               <br />
@@ -122,16 +135,52 @@ class Customer extends React.Component {
               <hr />
               <h5
                 className={styles.link}
-                onClick={() => {
-                  this.props.logout();
-                  this.props.history.push("/");
-                }}
+                onClick={() => this.setState({ show: true })}
               >
                 Logout
               </h5>
+              <Modal
+                aria-labelledby='contained-modal-title-vcenter'
+                centered
+                show={this.state.show}
+                onHide={this.handleClose}
+              >
+                <Modal.Body style={{ fontSize: 30, alignSelf: "center" }}>
+                  Are You Sure?
+                  <br />
+                  <Button
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "#384E6E",
+                      color: "white",
+                      justifyContent: "center",
+                      marginRight: 40
+                    }}
+                    variant='primary'
+                    onClick={() => {
+                      this.props.history.push("/");
+                    }}
+                  >
+                    YES
+                  </Button>
+                  <Button
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "red",
+                      color: "white",
+                      justifyContent: "center",
+                      marginLeft: 40
+                    }}
+                    variant='secondary'
+                    onClick={this.handleClose}
+                  >
+                    NO
+                  </Button>
+                </Modal.Body>
+              </Modal>
               <br />
             </div>
-            <div style={{ backgroundColor: "#fff" }} className="col">
+            <div style={{ backgroundColor: "#fff" }} className='col'>
               {this.renderPage()}
             </div>
           </div>

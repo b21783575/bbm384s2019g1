@@ -1,5 +1,6 @@
-import React from 'react';
-import { Table, FormControl, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, FormControl, Button } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 
 export class AdminCustomerManagement extends React.Component {
   render() {
@@ -40,16 +41,16 @@ export class AdminCustomerManagement extends React.Component {
                   <td>1</td>
                   <td
                     style={{
-                      'word-wrap': 'break-word',
-                      'max-width': '280px'
+                      wordwrap: "break-word",
+                      maxWidth: "280px"
                     }}
                   >
                     hardcoded@hardcoded.com
                   </td>
                   <td
                     style={{
-                      'word-wrap': 'break-word',
-                      'max-width': '210px'
+                      wordwrap: "break-word",
+                      maxWidth: "210px"
                     }}
                   >
                     Hard Coded
@@ -57,7 +58,7 @@ export class AdminCustomerManagement extends React.Component {
                   <td>234</td>
                   <td>2</td>
                   <td>
-                    {' '}
+                    {" "}
                     <Button
                       style={{ minWidth: 75 }}
                       variant='outline-primary text-center'
@@ -74,7 +75,7 @@ export class AdminCustomerManagement extends React.Component {
                   <td>321</td>
                   <td>3</td>
                   <td>
-                    {' '}
+                    {" "}
                     <Button
                       style={{ minWidth: 75 }}
                       variant='outline-primary text-center'
@@ -91,7 +92,7 @@ export class AdminCustomerManagement extends React.Component {
                   <td>123</td>
                   <td>234</td>
                   <td>
-                    {' '}
+                    {" "}
                     <Button
                       style={{ minWidth: 75 }}
                       variant='outline-primary text-center'
@@ -105,6 +106,23 @@ export class AdminCustomerManagement extends React.Component {
             </Table>
           </div>
         </div>
+        <Pagination className='pagination justify-content-center align-items-end'>
+          <Pagination.First />
+          <Pagination.Prev />
+          <Pagination.Item active>{1}</Pagination.Item>
+          <Pagination.Item disabled>{2}</Pagination.Item>
+          <Pagination.Item disabled>{3}</Pagination.Item>
+          <Pagination.Ellipsis />
+
+          <Pagination.Item>{10}</Pagination.Item>
+          <Pagination.Item>{11}</Pagination.Item>
+          <Pagination.Item>{12}</Pagination.Item>
+
+          <Pagination.Ellipsis />
+          <Pagination.Item>{20}</Pagination.Item>
+          <Pagination.Next />
+          <Pagination.Last />
+        </Pagination>
       </React.Fragment>
     );
   }

@@ -2,6 +2,8 @@ import React from "react";
 import "normalize.css";
 
 import styles from "../app.sass";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 import { AdminAccount } from "../components/AdminAccount";
 import { AdminFeedback } from "../components/AdminFeedback";
@@ -18,8 +20,20 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: "changePassword"
+      page: "changePassword",
+      show: false
     };
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
   }
 
   componentDidMount() {
@@ -63,15 +77,15 @@ class Admin extends React.Component {
         style={{
           backgroundColor: "#ccc"
         }}
-        className="pb-5 pt-5"
+        className='pb-5 pt-5'
       >
-        <div className="container pt-5 pb-5">
-          <div className="row">
+        <div className='container pt-5 pb-5'>
+          <div className='row'>
             <div
               style={{ backgroundColor: "#fff", minHeight: 600 }}
-              className="col-3 mr-4 pt-4"
+              className='col-3 mr-4 pt-4'
             >
-              <h4 className="text-center border border-dark">HUMBO</h4>
+              <h4 className='text-center border border-dark'>HUMBO</h4>
               <br />
               <br />
               <h5
@@ -175,17 +189,57 @@ class Admin extends React.Component {
               <hr />
               <h5
                 className={styles.link}
-                onClick={() => {
-                  this.props.logout();
-                  this.props.history.push("/");
+                style={{
+                  color: this.state.page === "logout" ? selectedColor : null
                 }}
+                onClick={() => this.setState({ show: true })}
               >
                 Logout
               </h5>
+
+              <Modal
+                aria-labelledby='contained-modal-title-vcenter'
+                centered
+                show={this.state.show}
+                onHide={this.handleClose}
+              >
+                <Modal.Body style={{ fontSize: 30, alignSelf: "center" }}>
+                  ARE YOU SURE?
+                  <br />
+                  <Button
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "#384E6E",
+                      color: "white",
+                      justifyContent: "center",
+                      marginRight: 40
+                    }}
+                    variant='primary'
+                    onClick={() => {
+                      this.props.history.push("/");
+                    }}
+                  >
+                    YES
+                  </Button>
+                  <Button
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "red",
+                      color: "white",
+                      justifyContent: "center",
+                      marginLeft: 40
+                    }}
+                    variant='secondary'
+                    onClick={this.handleClose}
+                  >
+                    NO
+                  </Button>
+                </Modal.Body>
+              </Modal>
               <br />
               <br />
             </div>
-            <div style={{ backgroundColor: "#fff" }} className="col">
+            <div style={{ backgroundColor: "#fff" }} className='col'>
               {this.renderPage()}
             </div>
           </div>

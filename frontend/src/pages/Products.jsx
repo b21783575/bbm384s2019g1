@@ -2,6 +2,7 @@ import React from "react";
 
 import axios from "axios";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import Pagination from "react-bootstrap/Pagination";
 
 class Products extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class Products extends React.Component {
           height: 350,
           position: "relative"
         }}
-        className="mx-2 my-2 py-2 px-2 border"
+        className='mx-2 my-2 py-2 px-2 border'
         key={product.id}
       >
         <img
@@ -60,7 +61,7 @@ class Products extends React.Component {
             height: "50%",
             cursor: "pointer"
           }}
-          className="mx-auto border mt-2"
+          className='mx-auto border mt-2'
           onClick={() => {
             console.log(product.name);
             this.props.history.push("/product/" + product.id);
@@ -84,8 +85,8 @@ class Products extends React.Component {
         >
           {product.name}
         </div>
-        <div className="row mr-1 my-2">
-          <div className="col">
+        <div className='row mr-1 my-2'>
+          <div className='col'>
             <strong>Brand: </strong>
             {product.brand}
           </div>
@@ -101,11 +102,11 @@ class Products extends React.Component {
         </div>
         <div
           style={{ position: "absolute", bottom: 0 }}
-          className="w-100 row justify-content-center"
+          className='w-100 row justify-content-center'
         >
           <button
-            type="button"
-            className="btn btn-primary"
+            type='button'
+            className='btn btn-primary'
             onClick={() => this.props.addProductToCart(product.id)}
           >
             Add to Cart
@@ -128,58 +129,77 @@ class Products extends React.Component {
         ) : null}
       </div>
     ));
+    <div>
+      <Pagination className='pagination justify-content-center align-items-end'>
+        <Pagination.First />
+        <Pagination.Prev />
+        <Pagination.Item active>{1}</Pagination.Item>
+        <Pagination.Item disabled>{2}</Pagination.Item>
+        <Pagination.Item disabled>{3}</Pagination.Item>
+        <Pagination.Ellipsis />
+
+        <Pagination.Item>{10}</Pagination.Item>
+        <Pagination.Item>{11}</Pagination.Item>
+        <Pagination.Item>{12}</Pagination.Item>
+
+        <Pagination.Ellipsis />
+        <Pagination.Item>{20}</Pagination.Item>
+        <Pagination.Next />
+        <Pagination.Last />
+      </Pagination>
+    </div>;
     return (
-      <div style={{ backgroundColor: "#F8F3EF" }} className="py-4 px-4">
+      <div style={{ backgroundColor: "#F8F3EF" }} className='py-4 px-4'>
         <div
           style={{ backgroundColor: "#F2EEEE" }}
-          className="py-4 px-3 border"
+          className='py-4 px-3 border'
         >
-          <div className="row px-3">
+          <div className='row px-3'>
             <div
               style={{
                 backgroundColor: "#fff",
                 minHeight: 600,
                 maxHeight: 900
               }}
-              className="col-3 border"
+              className='col-3 border'
             >
               <div
                 style={{ color: "darkblue", marginTop: 20, fontSize: 20 }}
-                className="filters"
+                className='filters'
               >
                 <b>All Categories</b>
                 <hr />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   TV
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   Mobile Phone
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   Smart Phone
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   Home
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   Furniture
                 </a>
@@ -190,21 +210,21 @@ class Products extends React.Component {
                 <hr />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "red" }}
-                  href="/products"
+                  href='/products'
                 >
                   Red
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "blue" }}
-                  href="/products"
+                  href='/products'
                 >
                   Blue
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "green" }}
-                  href="/products"
+                  href='/products'
                 >
                   Green
                 </a>
@@ -215,14 +235,14 @@ class Products extends React.Component {
                 <hr />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   Yes
                 </a>
                 <br />
                 <a
                   style={{ marginTop: 10, fontSize: 15, color: "black" }}
-                  href="/products"
+                  href='/products'
                 >
                   No
                 </a>
@@ -235,31 +255,31 @@ class Products extends React.Component {
                 <h2 style={{ fontSize: 12 }}>
                   <a
                     style={{ marginTop: 10, fontSize: 10, color: "#ff9900" }}
-                    href="/products"
+                    href='/products'
                   >
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaRegStar
                       style={{ marginRight: 5 }}
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
@@ -269,31 +289,31 @@ class Products extends React.Component {
                 <h2 style={{ fontSize: 12 }}>
                   <a
                     style={{ marginTop: 10, fontSize: 10, color: "#ff9900" }}
-                    href="/products"
+                    href='/products'
                   >
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaStar
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
                     <FaRegStar
                       style={{ marginRight: 5 }}
-                      className="my-auto"
+                      className='my-auto'
                       color={"#ff9900"}
                       size={"15px"}
                     />
@@ -303,34 +323,34 @@ class Products extends React.Component {
                 <br />
               </div>
             </div>
-            <div className="col ml-3 ">
-              <div style={{ backgroundColor: "#fff" }} className="border mb-3">
+            <div className='col ml-3 '>
+              <div style={{ backgroundColor: "#fff" }} className='border mb-3'>
                 <div
                   style={{ backgroundColor: "white" }}
-                  className="border mb-3 product-sorting d-flex"
+                  className='border mb-3 product-sorting d-flex'
                 >
                   <p style={{ fontSize: 15 }}>Sort by:</p>
                   <form
                     style={{ marginLeft: 20, marginTop: 5 }}
-                    action="#"
-                    method="get"
+                    action='#'
+                    method='get'
                   >
                     <select
                       style={{ fontSize: 13 }}
-                      name="select"
-                      id="sortByselect"
+                      name='select'
+                      id='sortByselect'
                     >
-                      <option value="value">Highest Rated</option>
-                      <option value="value">Discount Amount</option>
-                      <option value="value">Price Increasing</option>
-                      <option value="value">Price Decreasing</option>
+                      <option value='value'>Highest Rated</option>
+                      <option value='value'>Discount Amount</option>
+                      <option value='value'>Price Increasing</option>
+                      <option value='value'>Price Decreasing</option>
                     </select>
-                    <input type="submit" className="d-none" value="" />
+                    <input type='submit' className='d-none' value='' />
                   </form>
                 </div>
               </div>
-              <div style={{ backgroundColor: "#fff" }} className="border ">
-                <div className="row justify-content-center">
+              <div style={{ backgroundColor: "#fff" }} className='border '>
+                <div className='row justify-content-center'>
                   {products.length > 0 ? products : "No products found"}
                 </div>
               </div>
