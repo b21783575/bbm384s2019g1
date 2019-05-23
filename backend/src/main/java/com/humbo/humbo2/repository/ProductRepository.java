@@ -9,6 +9,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.humbo.humbo2.domain.Product;
 import com.humbo.humbo2.domain.Seller;
+
+import java.util.Set;
+
 import com.humbo.humbo2.domain.Category;
 
 // @PreAuthorize("hasRole('SELLER')")
@@ -28,6 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	Iterable<Product> findByCategory(Category category);
 	@Query(
             value = "SELECT DISTINCT * FROM product WHERE name ILIKE %:searchToken% or brand ILIKE %:searchToken%" ,
+			countQuery = "SELECT count(*) FROM Users", 
 			nativeQuery = true
 	)
 	
@@ -36,5 +40,24 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	Page<Product> findByCategoryIn(Iterable<Category> categoryList, Pageable pageable);
 
 	Page<Product> findAllBySeller(Seller seller, Pageable pageable);
+
+	@Query(value="SELECT MIN(price) FROM product WHERE category_id IN :categories", nativeQuery = true)
+	Double findMinPriceByCategory(Iterable<Category> categories);
+
+	@Query(value="SELECT MAX(price) FROM product WHERE category_id IN :categories", nativeQuery = true)
+	Double findMaxPriceByCategory(Iterable<Category> categories);
+	
+	@Query(value="SELECT DISTINCT color FROM product WHERE category_id IN :categories", nativeQuery = true)
+	Set<String> findAllColorsByCategory(Iterable<Category> categories);
+
+	@Query(value="SELECT DISTINCT brand FROM product WHERE category_id IN :categories", nativeQuery = true)
+	Set<String> findAllBrandsByCategory(Iterable<Category> categories);
+
+	@Query(value="SELECT DISTINCT seller.email FROM seller, product WHERE product.seller_email=seller.email and category_id IN :categories", nativeQuery = true)
+	Set<String> findAllSellersByCategory(Iterable<Category> categories);
+
+
+
+
 
 }
