@@ -7,6 +7,8 @@ import com.humbo.humbo2.domain.CustomUser;
 import com.humbo.humbo2.repository.AddressRepository;
 import com.humbo.humbo2.domain.Address;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,9 +37,9 @@ public class AddressController {
     }
 
     @GetMapping("")
-    public Set<Address> getAddress(){
+    public Page<Address> getAddress(Pageable pageable){
         CustomUser user = this.customUserRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
-        return user.getAddress();
+        return addressRepository.findAllByUser(user, pageable);
     }
 
     @PostMapping("")
