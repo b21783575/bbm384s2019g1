@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.humbo.humbo2.domain.Product;
+import com.humbo.humbo2.domain.Seller;
 import com.humbo.humbo2.domain.Category;
 
 // @PreAuthorize("hasRole('SELLER')")
@@ -33,5 +34,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	Page<Product> search(@Param("searchToken") String searchToken, Pageable pageable) ;
 
 	Page<Product> findByCategoryIn(Iterable<Category> categoryList, Pageable pageable);
+
+	Page<Product> findAllBySeller(Seller seller, Pageable pageable);
 
 }
