@@ -7,6 +7,8 @@ import com.humbo.humbo2.repository.CustomUserRepository;
 import com.humbo.humbo2.repository.SellerRepository;
 import com.humbo.humbo2.domain.Seller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -131,12 +133,14 @@ public class SellerController {
         }
         return ResponseEntity.ok().body(response);
     }
+
     @GetMapping("/all")
-    public Iterable<Seller> getAllSeller(){
-        return sellerRepository.findAll();
+    public Page<Seller> getAllSeller(Pageable pageable){
+        return sellerRepository.findAll(pageable);
     }
+
     @GetMapping("/search")
-    public Iterable<Seller> searchSeller(@RequestParam String searchToken){
-        return sellerRepository.search(searchToken);
+    public Iterable<Seller> searchSeller(@RequestParam String searchToken, Pageable pageable){
+        return sellerRepository.search(searchToken, pageable);
     }
 }
