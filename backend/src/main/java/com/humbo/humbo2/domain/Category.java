@@ -38,6 +38,7 @@ public class Category{
         this.name=name;
         this.products = new HashSet<>();
         this.children = new HashSet<>();
+        this.parent = null;
     }
     public Category(String name, Category parent){
         this.name = name;

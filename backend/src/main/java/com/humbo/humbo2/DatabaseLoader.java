@@ -31,11 +31,16 @@ public class DatabaseLoader implements CommandLineRunner {
         String[] categoryNames = { "Electronic", "Mobile Phones", "TV", "Smart Phones", "Home", "Furniture" };
 
         Category[] categories = new Category[categoryNames.length];
+        Category root = this.categoryRepository.findByName("root");
+        if(root == null){
+            root = new Category("root");
+            this.categoryRepository.save(root);
+        }
 
         for (int i = 0; i < categoryNames.length; i++) {
             categories[i] = this.categoryRepository.findByName(categoryNames[i]);
             if (categories[i] == null)
-                categories[i] = new Category(categoryNames[i]);
+                categories[i] = new Category(categoryNames[i], root);
         }
         categories[1].setParent(categories[0]);
         categories[2].setParent(categories[0]);
