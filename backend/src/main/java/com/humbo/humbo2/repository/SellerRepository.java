@@ -16,6 +16,7 @@ public interface SellerRepository extends JpaRepository<Seller, String>{
 
     @Query(
         value = "SELECT DISTINCT seller.email, seller.avg_rating, seller.balance, seller.company_name, seller.iban, custom_user.birthdate, custom_user.name, custom_user.phone, custom_user.password, custom_user.roles FROM seller, custom_user WHERE seller.email = custom_user.email and seller.email ILIKE %:searchToken%" ,
+        countQuery = "SELECT count(*) FROM seller, custom_user WHERE seller.email = custom_user.email and seller.email ILIKE %:searchToken%", 
         nativeQuery = true
     )
 
