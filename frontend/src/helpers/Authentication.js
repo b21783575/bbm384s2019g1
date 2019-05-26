@@ -6,7 +6,6 @@ let interceptor;
 
 class Authentication {
   executeJwtAuthenticationService(username, password, remember) {
-    console.log('2');
     if (remember) {
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
@@ -18,7 +17,6 @@ class Authentication {
   }
 
   async registerSuccessfulLoginForJwt(username, token) {
-    console.log('3.1');
     var jwtToken = this.createJWTToken(token);
     await sessionStorage.setItem('token', jwtToken);
     await this.setupAxiosInterceptors(jwtToken);
@@ -46,8 +44,8 @@ class Authentication {
   }
 
   getUser() {
-    console.log('getuser');
-    return JSON.parse(sessionStorage.getItem('userInfo'));
+    var user = JSON.parse(sessionStorage.getItem('userInfo'));
+    return user;
   }
 
   getToken() {

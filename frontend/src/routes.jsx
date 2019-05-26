@@ -40,6 +40,7 @@ export default class Routes extends React.Component {
 
   componentDidMount() {
     CartHelper.deleteCart();
+    this.initialize();
     var token = Authentication.getToken();
   }
 
@@ -49,7 +50,6 @@ export default class Routes extends React.Component {
   }
 
   login() {
-    console.log('6');
     this.initialize();
   }
 
