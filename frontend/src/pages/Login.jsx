@@ -14,23 +14,25 @@ class Login extends React.Component {
   }
 
   submit(userInfo) {
-    console.log(userInfo);
+    console.log('1');
     if (!!userInfo)
       Authentication.executeJwtAuthenticationService(
         userInfo.email,
         userInfo.password
       )
         .then(async response => {
+          console.log('3');
           await Authentication.registerSuccessfulLoginForJwt(
             userInfo.email,
             response.data.token
           );
+          console.log('4');
           await axios
             .get(`http://localhost:8080/api/userinfo`)
             .then(res => {
+              console.log('5');
               res = res.data;
-              console.log(res);
-              localStorage.setItem('userInfo', JSON.stringify(res));
+              sessionStorage.setItem('userInfo', JSON.stringify(res));
               this.props.login();
               if (!!res && !!res.companyName)
                 this.props.history.push(`/seller`);
@@ -42,7 +44,6 @@ class Login extends React.Component {
           console.log(err);
           this.setState({ error: 'Invalid e-mail or password' });
         });
-    this.props.login();
   }
 
   componentDidMount() {

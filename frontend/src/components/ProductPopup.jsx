@@ -13,10 +13,13 @@ export class ProductPopup extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (!!props.product && !!props.product.picture) {
-      this.setState({
-        imagePreviewUrl: 'http://localhost:8080/files/' + props.product.picture
-      });
+    if (!!props.product) {
+      if (!!props.product.picture)
+        this.setState({
+          imagePreviewUrl:
+            'http://localhost:8080/files/' + props.product.picture
+        });
+      else this.setState({ imagePreviewUrl: '' });
     }
   }
 
@@ -99,7 +102,7 @@ export class ProductPopup extends React.Component {
                       style={{ width: 250, height: 250 }}
                       className='border mr-3 mb-3'
                       src={
-                        this.state.imagePreviewUrl
+                        this.state.imagePreviewUrl !== ''
                           ? this.state.imagePreviewUrl
                           : ''
                       }
@@ -114,6 +117,7 @@ export class ProductPopup extends React.Component {
                         let file = event.currentTarget.files[0];
                         reader.onloadend = () => {
                           setFieldValue('file', file);
+                          console.log('ohoo');
                           this.setState({ imagePreviewUrl: reader.result });
                         };
                         reader.readAsDataURL(file);
