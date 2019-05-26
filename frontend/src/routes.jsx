@@ -8,6 +8,7 @@ import {
 
 import Home from './pages/Home';
 import Seller from './pages/Seller';
+import Admin from './pages/Admin';
 import Login from './pages/Login';
 import SellerRegister from './pages/SellerRegister';
 import CustomerRegister from './pages/CustomerRegister';
@@ -20,7 +21,7 @@ import Authentication from './helpers/Authentication';
 import Customer from './pages/Customer';
 import CartHelper from './helpers/CartHelper';
 
-const headerlessPages = ['Login', 'seller'];
+const headerlessPages = ['Login', 'seller', 'Admin'];
 
 export default class Routes extends React.Component {
   constructor(props) {
@@ -145,6 +146,12 @@ export default class Routes extends React.Component {
                     customer={this.state.user}
                     {...props}
                   />
+                )}
+              />
+              <Route
+                path='/admin'
+                render={props => (
+                  <Admin routeChange={this.routeChange} {...props} />
                 )}
               />
               <Route
