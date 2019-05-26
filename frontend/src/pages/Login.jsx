@@ -32,7 +32,8 @@ class Login extends React.Component {
             .then(res => {
               console.log('5');
               res = res.data;
-              sessionStorage.setItem('userInfo', JSON.stringify(res));
+              console.log(res);
+              localStorage.setItem('userInfo', JSON.stringify(res));
               this.props.login();
               if (!!res && !!res.companyName)
                 this.props.history.push(`/seller`);

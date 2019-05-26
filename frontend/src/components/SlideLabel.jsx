@@ -12,15 +12,14 @@ export class SlideLabel extends React.Component {
       <Carousel.Item key={index}>
         <a href={element.href}>
           <img
-            style={{ maxHeight: '300px' }}
+            style={{ maxHeight: '450px' }}
             className='d-block w-100'
             src={element.src}
             alt='slide'
           />
 
           <Carousel.Caption>
-            <h3 style={{ color: '#000' }}>{element.title}</h3>
-            <p style={{ color: '#000' }}>{element.info}</p>
+            <h3 style={{ color: '#66ffff' }}>{element.title}</h3>
           </Carousel.Caption>
         </a>
       </Carousel.Item>

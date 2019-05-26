@@ -1,11 +1,6 @@
 package com.humbo.humbo2;
 
-import java.util.Date;
 import java.util.Optional;
-import java.util.Random;
-
-import com.humbo.humbo2.domain.Product;
-import com.humbo.humbo2.repository.ProductRepository;
 import com.humbo.humbo2.domain.Seller;
 import com.humbo.humbo2.repository.SellerRepository;
 import com.humbo.humbo2.domain.Category;
@@ -15,24 +10,18 @@ import com.humbo.humbo2.repository.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
     private final SellerRepository sellerRepository;
     private final CustomerRepository customerRepository;
 
     @Autowired
-    public DatabaseLoader(CategoryRepository categoryRepository, ProductRepository productRepository,
-            SellerRepository sellerRepository, CustomerRepository customerRepository) {
+    public DatabaseLoader(CategoryRepository categoryRepository, SellerRepository sellerRepository, CustomerRepository customerRepository) {
         this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
         this.sellerRepository = sellerRepository;
         this.customerRepository = customerRepository;
     }
@@ -89,29 +78,5 @@ public class DatabaseLoader implements CommandLineRunner {
                     .of(new Customer("testcustomer2@gmail.com", "testc2", "testc2", "+90444", "01/01/01", "CUSTOMER"));
             this.customerRepository.save(customer2.get());
         }
-
-        /*
-         * Random random = new Random(); String[] colors = {"blue", "red", "brown",
-         * "green", "yellow"};
-         * 
-         * SecurityContextHolder.getContext().setAuthentication( new
-         * UsernamePasswordAuthenticationToken("test@test.com", "test",
-         * AuthorityUtils.createAuthorityList("SELLER")));
-         * 
-         * for(int i = 10; i>0; i--){ this.productRepository.save(new Product(seller,
-         * categories[random.nextInt(6)], "Test"+random.nextInt(100),
-         * "Test"+random.nextInt(6), colors[random.nextInt(5)],
-         * "Test"+random.nextInt(6), random.nextDouble(), 0, random.nextInt(100)+1)); }
-         * 
-         * SecurityContextHolder.getContext().setAuthentication( new
-         * UsernamePasswordAuthenticationToken("test2@test.com", "test2",
-         * AuthorityUtils.createAuthorityList("SELLER")));
-         * 
-         * for(int i = 10; i>0; i--){ this.productRepository.save(new Product(seller2,
-         * categories[random.nextInt(6)], "Test"+random.nextInt(100),
-         * "Test"+random.nextInt(6), colors[random.nextInt(5)],
-         * "Test"+random.nextInt(6), random.nextDouble(), 0, random.nextInt(100)+1)); }
-         * SecurityContextHolder.clearContext();
-         */
     }
 }
