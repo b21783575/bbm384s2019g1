@@ -62,14 +62,14 @@ class Login extends React.Component {
         }}
       >
         <div
-          className="d-flex justify-content-end"
+          className='d-flex justify-content-end'
           style={{ backgroundColor: "#384E6E" }}
         >
-          <a style={{ color: "#fff", marginRight: "25px" }} href="/login">
+          <a style={{ color: "#fff", marginRight: "25px" }} href='/login'>
             Contact us
           </a>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className='d-flex justify-content-center'>
           <h1
             style={{ color: "#fff", fontSize: 50, cursor: "pointer" }}
             onClick={() => this.props.history.push("/")}
@@ -79,17 +79,17 @@ class Login extends React.Component {
         </div>
         <div
           style={{ backgroundColor: "#F6F3EF" }}
-          className="d-flex justify-content-center py-3 px-5"
+          className='d-flex justify-content-center py-3 px-5'
         >
           <div
             style={{ backgroundColor: "#F2EEEE", width: "85%", minWidth: 700 }}
-            className="d-flex justify-content-center py-3 px-3"
+            className='d-flex justify-content-center py-3 px-3'
           >
             <div
               style={{ backgroundColor: "#fff", width: "45%", minWidth: 300 }}
-              className="border mr-3 container py-2"
+              className='border mr-3 container py-2'
             >
-              <div className="d-flex justify-content-center mb-3">Log in</div>
+              <div className='d-flex justify-content-center mb-3'>Log in</div>
               <Formik
                 onSubmit={this.submit}
                 validate={values => {
@@ -123,43 +123,43 @@ class Login extends React.Component {
                     ) : null}
                     <Form.Group>
                       <Form.Control
-                        placeholder="E-mail"
-                        name="email"
+                        placeholder='E-mail'
+                        name='email'
                         value={values.email}
                         onChange={handleChange}
                         isInvalid={touched.email && !!errors.email}
                       />
-                      <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type='invalid'>
                         {errors.email}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group>
                       <Form.Control
-                        placeholder="Password"
-                        type="password"
-                        name="password"
+                        placeholder='Password'
+                        type='password'
+                        name='password'
                         value={values.password}
                         onChange={handleChange}
                         isInvalid={touched.password && !!errors.password}
                       />
-                      <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type='invalid'>
                         {errors.password}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Form.Row}>
-                      <div className="col">
+                      <div className='col'>
                         <Form.Check
-                          type="checkbox"
-                          name="remember"
+                          type='checkbox'
+                          name='remember'
                           checked={values.remember}
                           onChange={handleChange}
-                          label="Remember me"
+                          label='Remember me'
                         />
                       </div>
-                      <a href="/">Forgot Password</a>
+                      <a href='/'>Forgot Password</a>
                     </Form.Group>
-                    <div className="d-flex justify-content-center mb-3">
-                      <button type="submit" className="btn btn-success">
+                    <div className='d-flex justify-content-center mb-3'>
+                      <button type='submit' className='btn btn-success'>
                         Log in
                       </button>
                     </div>
@@ -169,22 +169,22 @@ class Login extends React.Component {
             </div>
             <div
               style={{ backgroundColor: "#fff", width: "45%", minWidth: 300 }}
-              className="border ml-3 container"
+              className='border ml-3 container'
             >
-              <div className="d-flex justify-content-center mb-3 mt-5">
+              <div className='d-flex justify-content-center mb-3 mt-5'>
                 <h1>Become a member!</h1>
               </div>
-              <div className="d-flex justify-content-around">
+              <div className='d-flex justify-content-around'>
                 <button
-                  type="button"
-                  className="btn btn-primary"
+                  type='button'
+                  className='btn btn-primary'
                   onClick={() => this.props.history.push("register/seller")}
                 >
                   Sell Stuff
                 </button>
                 <button
-                  type="button"
-                  className="btn btn-primary"
+                  type='button'
+                  className='btn btn-primary'
                   onClick={() => this.props.history.push("register/customer")}
                 >
                   Buy Stuff

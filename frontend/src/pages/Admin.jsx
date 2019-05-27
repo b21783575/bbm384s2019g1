@@ -2,8 +2,6 @@ import React from "react";
 import "normalize.css";
 
 import styles from "../app.sass";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 import { AdminAccount } from "../components/AdminAccount";
 import { AdminFeedback } from "../components/AdminFeedback";
@@ -20,20 +18,8 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: "changePassword",
-      show: false
+      page: "changePassword"
     };
-
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-
-  handleClose() {
-    this.setState({ show: false });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
   }
 
   componentDidMount() {
@@ -187,55 +173,7 @@ class Admin extends React.Component {
                 Change Password
               </h5>
               <hr />
-              <h5
-                className={styles.link}
-                style={{
-                  color: this.state.page === "logout" ? selectedColor : null
-                }}
-                onClick={() => this.setState({ show: true })}
-              >
-                Logout
-              </h5>
-
-              <Modal
-                aria-labelledby='contained-modal-title-vcenter'
-                centered
-                show={this.state.show}
-                onHide={this.handleClose}
-              >
-                <Modal.Body style={{ fontSize: 30, alignSelf: "center" }}>
-                  ARE YOU SURE?
-                  <br />
-                  <Button
-                    style={{
-                      fontSize: 20,
-                      backgroundColor: "#384E6E",
-                      color: "white",
-                      justifyContent: "center",
-                      marginRight: 40
-                    }}
-                    variant='primary'
-                    onClick={() => {
-                      this.props.history.push("/");
-                    }}
-                  >
-                    YES
-                  </Button>
-                  <Button
-                    style={{
-                      fontSize: 20,
-                      backgroundColor: "red",
-                      color: "white",
-                      justifyContent: "center",
-                      marginLeft: 40
-                    }}
-                    variant='secondary'
-                    onClick={this.handleClose}
-                  >
-                    NO
-                  </Button>
-                </Modal.Body>
-              </Modal>
+              <h5>Logout</h5>
               <br />
               <br />
             </div>

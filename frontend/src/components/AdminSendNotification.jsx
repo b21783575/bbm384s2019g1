@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, FormControl, Button } from 'react-bootstrap';
+import React from "react";
+import { Form, FormControl, Button } from "react-bootstrap";
 
 export class AdminSendNotification extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export class AdminSendNotification extends React.Component {
         <br />
         <div className='col'>
           <div className='row container'>
-            <label for='usr'>To:</label>
+            <label>To:</label>
             <FormControl
               style={{ minWidth: 100 }}
               type='text'
@@ -71,7 +71,7 @@ export class AdminSendNotification extends React.Component {
             </label>
           </div>
           <div className='row container'>
-            <label for='usr'>Message:</label>
+            <label>Message:</label>
             <FormControl
               as='textarea'
               rows='10'

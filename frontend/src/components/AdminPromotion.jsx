@@ -1,12 +1,79 @@
-import React from 'react';
-import { Table, Form, Col, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, Form, Col, Button } from "react-bootstrap";
 
 export class AdminPromotion extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      promotions: [
+        {
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
+          promotion_slogan:
+            "discountdiscount discountdiscount discountdiscountdiscountdiscountdiscountdiscountdiscountdiscountdiscount",
+          id: 1
+          //promotion_picture: ""
+        },
+        {
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
+          promotion_slogan:
+            "discountdiscount discountdiscount discountasdasdasdasdasdsasdasasdasdasdasdasdsa",
+          id: 2
+          //promotion_picture: ""
+        },
+        {
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
+          promotion_slogan:
+            "discountdiscount discountdiscount discountasdasdasdassdfsdd",
+          id: 3
+          //promotion_picture: ""
+        }
+      ]
+    };
   }
 
   render() {
+    var promotions = this.state.promotions.map(promotion => (
+      <tr key={promotion.id}>
+        <td>
+          <input
+            style={{ width: 20, height: 20, margin: 0 }}
+            type='checkbox'
+            className=' my-auto mr-2'
+            /*value={this.state.selectAll}
+          onChange={event => {
+            var selected = new Array(this.state.addresses.length);
+            selected.fill(event.target.checked);
+            this.setState({ selectAll: event.target.checked, selected });
+          }}*/
+          />
+          {promotion.category}
+        </td>
+        <td
+          style={{
+            wordWrap: "break-word",
+            maxWidth: "400px"
+          }}
+        >
+          {promotion.promotion_slogan}
+        </td>
+        <td>{promotion.valid_date}</td>
+        <td>
+          <Button
+            style={{ minWidth: 75 }}
+            variant='outline-primary text-center'
+            className='col-3 float-right'
+          >
+            Edit
+          </Button>
+        </td>
+      </tr>
+    ));
     return (
       <div className='container my-5'>
         <h4>Add Promotion</h4>
@@ -80,7 +147,7 @@ export class AdminPromotion extends React.Component {
                       let reader = new FileReader();
                       let file = event.currentTarget.files[0];
                       reader.onloadend = () => {
-                        setFieldValue('file', file);
+                        setFieldValue("file", file);
                         this.setState({ imagePreviewUrl: reader.result });
                       };
                       reader.readAsDataURL(file);
@@ -134,47 +201,12 @@ export class AdminPromotion extends React.Component {
               }}*/
               />
               <div className='col pl-0 ml-0'>Select All</div>
-              <div style={{ color: '#00f' }} className='float-right mr-0'>
+              <div style={{ color: "#00f" }} className='float-right mr-0'>
                 Remove Selected Items
               </div>
 
               <Table responsive bordered hover>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input
-                        style={{ width: 20, height: 20, margin: 0 }}
-                        type='checkbox'
-                        className=' my-auto mr-2'
-                        /*value={this.state.selectAll}
-                        onChange={event => {
-                          var selected = new Array(this.state.addresses.length);
-                          selected.fill(event.target.checked);
-                          this.setState({ selectAll: event.target.checked, selected });
-                        }}*/
-                      />
-                      TV
-                    </td>
-                    <td
-                      style={{
-                        'word-wrap': 'break-word',
-                        'max-width': '400px'
-                      }}
-                    >
-                      30% asdasdasdasdasdasdasd
-                    </td>
-                    <td>11.11.1111</td>
-                    <td>
-                      <Button
-                        style={{ minWidth: 75 }}
-                        variant='outline-primary text-center'
-                        className='col-3 float-right'
-                      >
-                        Edit
-                      </Button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody>{promotions}</tbody>
               </Table>
             </div>
           </div>

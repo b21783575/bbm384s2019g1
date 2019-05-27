@@ -1,9 +1,69 @@
 import React from "react";
 import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 
 export class AdminSellerManagement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sellers: [
+        {
+          companyName: "Comp",
+          sellerSurname: "asfdasd",
+          rating: "2",
+          numOfWaitingSale: "123",
+          id: 1
+        },
+        {
+          companyName: "Comp2",
+          sellerSurname: "zxczxc",
+          rating: "2",
+          numOfWaitingSale: "7",
+          id: 2
+        },
+        {
+          companyName: "Comp3",
+          sellerSurname: "1qweqwe",
+          rating: "4",
+          numOfWaitingSale: "2",
+          id: 3
+        }
+      ]
+    };
+  }
+
   render() {
+    var sellers = this.state.sellers.map(seller => (
+      <tr key={seller.id}>
+        <td>{seller.id}</td>
+        <td
+          style={{
+            wordWrap: "break-word",
+            maxWidth: "250px"
+          }}
+        >
+          {seller.companyName}
+        </td>
+        <td
+          style={{
+            wordWrap: "break-word",
+            maxWidth: "180px"
+          }}
+        >
+          {seller.sellerSurname}
+        </td>
+        <td>{seller.rating}</td>
+        <td>{seller.numOfWaitingSale}</td>
+        <td>
+          <Button
+            style={{ minWidth: 75 }}
+            variant='outline-primary text-center'
+            className='col-3'
+          >
+            Page
+          </Button>
+        </td>
+      </tr>
+    ));
     return (
       <React.Fragment>
         <div className='container my-5'>
@@ -36,58 +96,10 @@ export class AdminSellerManagement extends React.Component {
                   <th>Seller Page</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td
-                    style={{
-                      wordwrap: "break-word",
-                      maxWidth: "250px"
-                    }}
-                  >
-                    Hard
-                  </td>
-                  <td
-                    style={{
-                      wordwrap: "break-word",
-                      maxWidth: "180px"
-                    }}
-                  >
-                    Coded
-                  </td>
-                  <td>4.5</td>
-                  <td>2</td>
-                  <td>
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody>{sellers}</tbody>
             </Table>
           </div>
         </div>
-        <Pagination className='pagination justify-content-center align-items-end'>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item active>{1}</Pagination.Item>
-          <Pagination.Item disabled>{2}</Pagination.Item>
-          <Pagination.Item disabled>{3}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item>{12}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
       </React.Fragment>
     );
   }

@@ -1,27 +1,27 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import Home from './pages/Home';
-import Seller from './pages/Seller';
-import Admin from './pages/Admin';
-import Login from './pages/Login';
-import SellerRegister from './pages/SellerRegister';
-import CustomerRegister from './pages/CustomerRegister';
-import Products from './pages/Products';
-import Product from './pages/Product';
-import Demo from './pages/Demo';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import Authentication from './helpers/Authentication';
-import Customer from './pages/Customer';
-import CartHelper from './helpers/CartHelper';
+import Home from "./pages/Home";
+import Seller from "./pages/Seller";
+import Admin from "./pages/Admin";
+import Login from "./pages/Login";
+import SellerRegister from "./pages/SellerRegister";
+import CustomerRegister from "./pages/CustomerRegister";
+import Products from "./pages/Products";
+import Product from "./pages/Product";
+import Demo from "./pages/Demo";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import Authentication from "./helpers/Authentication";
+import Customer from "./pages/Customer";
+import CartHelper from "./helpers/CartHelper";
 
-const headerlessPages = ['Login', 'seller', 'Admin'];
+const headerlessPages = ["Login", "seller", "Admin"];
 
 export default class Routes extends React.Component {
   constructor(props) {
@@ -67,7 +67,7 @@ export default class Routes extends React.Component {
   routeChange(page) {
     if (headerlessPages.includes(page)) this.setState({ isHeader: false });
     else if (!this.state.isHeader) this.setState({ isHeader: true });
-    if (page.includes('seller')) this.setState({ headerCart: false });
+    if (page.includes("seller")) this.setState({ headerCart: false });
     else if (!this.state.headerCart) this.setState({ headerCart: true });
   }
 

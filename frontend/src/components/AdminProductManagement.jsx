@@ -1,9 +1,61 @@
 import React from "react";
 import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 
 export class AdminProductManagement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [
+        {
+          productID: "P1231",
+          category: "TV",
+          productName: "TV TV TV",
+          stockStatus: "123",
+          id: 1
+        },
+        {
+          productID: "P1234",
+          category: "Smart Phone",
+          productName: "Phone Sweet Phone",
+          stockStatus: "123",
+          id: 2
+        },
+        {
+          productID: "P1235",
+          category: "Home",
+          productName: "Home Sweet Home",
+          stockStatus: "123",
+          id: 3
+        }
+      ]
+    };
+  }
   render() {
+    var products = this.state.products.map(product => (
+      <tr key={product.productID}>
+        <td>{product.id}</td>
+        <td>{product.productID}</td>
+        <td
+          style={{
+            wordWrap: "break-word",
+            maxWidth: "280px"
+          }}
+        >
+          {product.category}
+        </td>
+        <td>{product.productName}</td>
+        <td>{product.stockStatus}</td>
+        <td>
+          <Button
+            style={{ minWidth: 75 }}
+            variant='outline-primary text-center'
+            className='col-3'
+          >
+            Page
+          </Button>
+        </td>
+      </tr>
+    ));
     return (
       <React.Fragment>
         <div className='container my-5'>
@@ -36,86 +88,10 @@ export class AdminProductManagement extends React.Component {
                   <th>Product Page</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>P6374838</td>
-                  <td>TV</td>
-                  <td>Television</td>
-                  <td>43234</td>
-                  <td>
-                    {" "}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>P5436345</td>
-                  <td>Smart Phone</td>
-                  <td
-                    style={{
-                      wordwrap: "break-word",
-                      maxWidth: "280px"
-                    }}
-                  >
-                    Smart Phone Smart
-                  </td>
-                  <td>232</td>
-                  <td>
-                    {" "}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>P122346754</td>
-                  <td>Home</td>
-                  <td>Home Sweet Home</td>
-                  <td>1</td>
-                  <td>
-                    {" "}
-                    <Button
-                      style={{ minWidth: 75 }}
-                      variant='outline-primary text-center'
-                      className='col-3'
-                    >
-                      Page
-                    </Button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody>{products}</tbody>
             </Table>
           </div>
         </div>
-        <Pagination className='pagination justify-content-center align-items-end'>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item active>{1}</Pagination.Item>
-          <Pagination.Item disabled>{2}</Pagination.Item>
-          <Pagination.Item disabled>{3}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item>{12}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
       </React.Fragment>
     );
   }
