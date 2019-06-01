@@ -1,12 +1,13 @@
 package com.humbo.humbo2;
 
 import java.util.Optional;
-import com.humbo.humbo2.domain.Seller;
-import com.humbo.humbo2.repository.SellerRepository;
+
 import com.humbo.humbo2.domain.Category;
-import com.humbo.humbo2.repository.CategoryRepository;
 import com.humbo.humbo2.domain.Customer;
+import com.humbo.humbo2.domain.Seller;
+import com.humbo.humbo2.repository.CategoryRepository;
 import com.humbo.humbo2.repository.CustomerRepository;
+import com.humbo.humbo2.repository.SellerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -69,6 +70,13 @@ public class DatabaseLoader implements CommandLineRunner {
             seller3 = Optional.of(new Seller("test@test.com", "test", "Test", "TestCo", "684656415", "+905425896521",
                     "01/01/1970", "SELLER"));
             this.sellerRepository.save(seller3.get());
+        }
+
+        Optional<Seller> seller4 = this.sellerRepository.findByEmail("test4@test.com");
+        if (!seller4.isPresent()) {
+            seller4 = Optional.of(new Seller("test4@test.com", "testtest", "Test", "TestCo", "684656415", "+905425896521",
+                    "01/01/1970", "SELLER"));
+            this.sellerRepository.save(seller4.get());
         }
 
         Optional<Customer> customer = this.customerRepository.findByEmail("testcustomer1@gmail.com");
