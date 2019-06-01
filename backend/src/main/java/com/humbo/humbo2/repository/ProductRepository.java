@@ -31,7 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 	Page<Product> findByCategory(Category category, Pageable pageable);
 	@Query(
             value = "SELECT DISTINCT * FROM product WHERE name ILIKE %:searchToken% or brand ILIKE %:searchToken%" ,
-			countQuery = "SELECT count(*) FROM Users", 
+			countQuery = "SELECT count(distinct *) FROM FROM product WHERE name ILIKE %:searchToken% or brand ILIKE %:searchToken%", 
 			nativeQuery = true
 	)
 	
