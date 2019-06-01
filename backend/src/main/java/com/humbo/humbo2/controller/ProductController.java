@@ -116,8 +116,21 @@ class ProductController {
     @GetMapping("/product/{id}")
     ResponseEntity<?> getProduct(@PathVariable Long id) {
         Optional<Product> product = productRepository.findById(id);
-        return product.map(response -> ResponseEntity.ok().body(response))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Iterable<Product> like = null;
+        if(product.isPresent()){
+            like = productRepository.findLike(product.get());
+            return ResponseEntity.ok().body(new ProductResponseClass(product.get(), like));
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    class ProductResponseClass{
+        Product product;
+        Iterable<Product> like;
+        ProductResponseClass(Product product, Iterable<Product> like){
+            this.product = product;
+            this.like = like;
+        }
     }
 
     @GetMapping("/products/search")
