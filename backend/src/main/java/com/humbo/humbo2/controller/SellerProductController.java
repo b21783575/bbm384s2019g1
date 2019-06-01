@@ -11,6 +11,7 @@ import com.humbo.humbo2.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,7 +45,7 @@ class SellerProductController {
     }
 
     @GetMapping("/products")
-    Iterable<Product> getProductsOfSeller(Pageable pageable) {
+    Page<Product> getProductsOfSeller(Pageable pageable) {
         Optional<Seller> seller = this.sellerRepository.findByEmail(
                 ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         return productRepository.findAllBySeller(seller.get(), pageable);

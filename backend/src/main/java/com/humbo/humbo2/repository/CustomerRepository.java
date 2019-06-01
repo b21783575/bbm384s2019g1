@@ -4,11 +4,13 @@ import java.util.Optional;
 
 import com.humbo.humbo2.domain.Customer;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface CustomerRepository extends CrudRepository<Customer, String>{
+public interface CustomerRepository extends JpaRepository<Customer, String>{
     Optional<Customer> findByEmail(String email);
 
     @Query(
@@ -17,5 +19,5 @@ public interface CustomerRepository extends CrudRepository<Customer, String>{
         nativeQuery = true
     )
 
-    Iterable<Customer> search(@Param("searchToken") String searchToken) ;
+    Page<Customer> search(@Param("searchToken") String searchToken, Pageable pageable) ;
 }

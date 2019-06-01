@@ -140,7 +140,7 @@ public class SellerController {
     }
 
     @GetMapping("/search")
-    public Iterable<Seller> searchSeller(@RequestParam String searchToken, Pageable pageable){
+    public Page<Seller> searchSeller(@RequestParam String searchToken, Pageable pageable){
         return sellerRepository.search(searchToken, pageable);
     }
 }
