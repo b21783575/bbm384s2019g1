@@ -1,10 +1,9 @@
 package com.humbo.humbo2.controller;
 
-import java.util.HashMap;
 import java.util.Set;
 
+import com.humbo.humbo2.FilterWrapper;
 import com.humbo.humbo2.domain.Category;
-import com.humbo.humbo2.domain.Seller;
 import com.humbo.humbo2.repository.CategoryRepository;
 import com.humbo.humbo2.repository.ProductRepository;
 
@@ -48,12 +47,7 @@ public class SiteUtilController{
         Set<String> colors = this.productRepository.findAllColorsByCategory(categories);
         Set<String> sellers = this.productRepository.findAllSellersByCategory(categories);
         Set<String> brands = this.productRepository.findAllBrandsByCategory(categories);
-        HashMap<String, Object> response = new HashMap<>();
-        response.put("minPrice", minPrice);
-        response.put("maxPrice", maxPrice);
-        response.put("colors", colors);
-        response.put("brands", brands);
-        response.put("sellers", sellers);
-        return ResponseEntity.ok().body(response);
+        FilterWrapper filterWrapper = new FilterWrapper(minPrice, maxPrice, colors, sellers, brands, null);
+        return ResponseEntity.ok().body(filterWrapper);
     }
 }
