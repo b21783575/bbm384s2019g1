@@ -4,10 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.humbo.humbo2.domain.HelpMessage;
+import com.humbo.humbo2.domain.Promotion;
 
-public interface HelpMessageRepository extends JpaRepository<HelpMessage, Long>{
+public interface PromotionRepository extends JpaRepository<Promotion, Long>{
     
-    Page<HelpMessage> findAll(Pageable pageable);
+    Page<Promotion> findAll(Pageable pageable);
 }
     

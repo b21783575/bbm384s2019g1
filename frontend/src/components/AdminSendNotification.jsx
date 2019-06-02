@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, FormControl, Button } from 'react-bootstrap';
+import React from "react";
+import { Form, FormControl, Button } from "react-bootstrap";
 
 export class AdminSendNotification extends React.Component {
   constructor(props) {

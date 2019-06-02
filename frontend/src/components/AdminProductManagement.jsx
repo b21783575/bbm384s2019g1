@@ -1,5 +1,6 @@
-import React from 'react';
-import { Table, FormControl, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, FormControl, Button } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 
 export class AdminProductManagement extends React.Component {
   constructor(props) {
@@ -7,24 +8,24 @@ export class AdminProductManagement extends React.Component {
     this.state = {
       products: [
         {
-          productID: 'P1231',
-          category: 'TV',
-          productName: 'TV TV TV',
-          stockStatus: '123',
+          productID: "P1231",
+          category: "TV",
+          productName: "TV TV TV",
+          stockStatus: "123",
           id: 1
         },
         {
-          productID: 'P1234',
-          category: 'Smart Phone',
-          productName: 'Phone Sweet Phone',
-          stockStatus: '123',
+          productID: "P1234",
+          category: "Smart Phone",
+          productName: "Phone Sweet Phone",
+          stockStatus: "123",
           id: 2
         },
         {
-          productID: 'P1235',
-          category: 'Home',
-          productName: 'Home Sweet Home',
-          stockStatus: '123',
+          productID: "P1235",
+          category: "Home",
+          productName: "Home Sweet Home",
+          stockStatus: "123",
           id: 3
         }
       ]
@@ -37,8 +38,8 @@ export class AdminProductManagement extends React.Component {
         <td>{product.productID}</td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '280px'
+            wordWrap: "break-word",
+            maxWidth: "280px"
           }}
         >
           {product.category}
@@ -91,6 +92,19 @@ export class AdminProductManagement extends React.Component {
               <tbody>{products}</tbody>
             </Table>
           </div>
+          <Pagination className='pagination justify-content-center align-items-end'>
+            <Pagination.Prev />
+            <Pagination.Item active>{1}</Pagination.Item>
+            <Pagination.Item disabled>{2}</Pagination.Item>
+            <Pagination.Item disabled>{3}</Pagination.Item>
+
+            <Pagination.Ellipsis />
+
+            <Pagination.Item>{10}</Pagination.Item>
+            <Pagination.Item>{11}</Pagination.Item>
+            <Pagination.Item>{12}</Pagination.Item>
+            <Pagination.Next />
+          </Pagination>
         </div>
       </React.Fragment>
     );

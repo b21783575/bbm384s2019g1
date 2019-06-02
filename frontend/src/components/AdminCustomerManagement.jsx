@@ -1,5 +1,6 @@
-import React from 'react';
-import { Table, FormControl, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, FormControl, Button } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 
 export class AdminCustomerManagement extends React.Component {
   constructor(props) {
@@ -7,24 +8,24 @@ export class AdminCustomerManagement extends React.Component {
     this.state = {
       customers: [
         {
-          email: 'email@email.com',
-          nameSurname: 'asdasd asfdasd',
-          formerOrders: '2',
-          waitingOrders: '123',
+          email: "email@email.com",
+          nameSurname: "asdasd asfdasd",
+          formerOrders: "2",
+          waitingOrders: "123",
           id: 1
         },
         {
-          email: 'email2@email.com',
-          nameSurname: 'zxczxc zczxc ',
-          formerOrders: '2',
-          waitingOrders: '7',
+          email: "email2@email.com",
+          nameSurname: "zxczxc zczxc ",
+          formerOrders: "2",
+          waitingOrders: "7",
           id: 2
         },
         {
-          email: 'email3@email.com',
-          nameSurname: '1qweqweqw eqwe qwe',
-          formerOrders: '4',
-          waitingOrders: '2',
+          email: "email3@email.com",
+          nameSurname: "1qweqweqw eqwe qwe",
+          formerOrders: "4",
+          waitingOrders: "2",
           id: 3
         }
       ]
@@ -37,16 +38,16 @@ export class AdminCustomerManagement extends React.Component {
         <td>{customer.id}</td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '280px'
+            wordWrap: "break-word",
+            maxWidth: "280px"
           }}
         >
           {customer.email}
         </td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '210px'
+            wordWrap: "break-word",
+            maxWidth: "210px"
           }}
         >
           {customer.nameSurname}
@@ -99,6 +100,19 @@ export class AdminCustomerManagement extends React.Component {
               <tbody>{customers}</tbody>
             </Table>
           </div>
+          <Pagination className='pagination justify-content-center align-items-end'>
+            <Pagination.Prev />
+            <Pagination.Item active>{1}</Pagination.Item>
+            <Pagination.Item disabled>{2}</Pagination.Item>
+            <Pagination.Item disabled>{3}</Pagination.Item>
+
+            <Pagination.Ellipsis />
+
+            <Pagination.Item>{10}</Pagination.Item>
+            <Pagination.Item>{11}</Pagination.Item>
+            <Pagination.Item>{12}</Pagination.Item>
+            <Pagination.Next />
+          </Pagination>
         </div>
       </React.Fragment>
     );

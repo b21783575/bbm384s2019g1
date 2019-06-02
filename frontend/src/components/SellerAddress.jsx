@@ -50,33 +50,33 @@ export class SellerAddress extends React.Component {
 
   render() {
     var addresses = this.state.addresses.map((element, index) => (
-      <div key={index} className="row border">
+      <div key={index} className='row border'>
         <input
           style={{ width: 20, height: 20, margin: 7 }}
-          type="checkbox"
+          type='checkbox'
           checked={this.state.selected[index] == true ? true : false}
           onChange={event => {
             var selected = [...this.state.selected];
             selected[index] = event.target.checked;
             this.setState({ selected });
           }}
-          className=" my-auto"
+          className=' my-auto'
         />
-        <div className="col ml-2">
-          <div className="row">
+        <div className='col ml-2'>
+          <div className='row'>
             <strong>Name: </strong> {element.name}
           </div>
-          <div className="row">
+          <div className='row'>
             <strong>Contry: </strong>
             {element.country}
           </div>
-          <div className="row">
+          <div className='row'>
             <strong>Region: </strong>
             {element.region}
           </div>
         </div>
-        <div className="col">
-          <div className="row">
+        <div className='col'>
+          <div className='row'>
             <strong>Description: </strong> {element.description}
           </div>
         </div>
@@ -93,15 +93,15 @@ export class SellerAddress extends React.Component {
       </div>
     ));
     return (
-      <div className="container my-5">
+      <div className='container my-5'>
         <h4>Addresses</h4>
         <br />
-        <div className="col">
-          <div className="row pl-0 mb-3">
+        <div className='col'>
+          <div className='row pl-0 mb-3'>
             <input
               style={{ width: 20, height: 20, margin: 7 }}
-              type="checkbox"
-              className=" my-auto"
+              type='checkbox'
+              className=' my-auto'
               value={this.state.selectAll}
               onChange={event => {
                 var selected = new Array(this.state.addresses.length);
@@ -109,16 +109,16 @@ export class SellerAddress extends React.Component {
                 this.setState({ selectAll: event.target.checked, selected });
               }}
             />
-            <div className="col pl-0 ml-0">Select All</div>
-            <div style={{ color: "#00f" }} className="float-right mr-4">
+            <div className='col pl-0 ml-0'>Select All</div>
+            <div style={{ color: "#00f" }} className='float-right mr-4'>
               Remove Selected Items
             </div>
           </div>
         </div>
         {addresses}
         <button
-          className="btn btn-primary float-left mt-3 px-3"
-          type="button"
+          className='btn btn-primary float-left mt-3 px-3'
+          type='button'
           onClick={this.openAdd}
         >
           Add

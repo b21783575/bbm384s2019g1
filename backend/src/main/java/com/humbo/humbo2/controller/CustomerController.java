@@ -6,6 +6,8 @@ import java.util.Optional;
 import com.humbo.humbo2.repository.CustomerRepository;
 import com.humbo.humbo2.domain.Customer;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -90,12 +92,12 @@ public class CustomerController{
     }
 
     @GetMapping("/all")
-    public Iterable<Customer> getAllCustomer(){
-        return customerRepository.findAll();
+    public Page<Customer> getAllCustomer(Pageable pageable){
+        return customerRepository.findAll(pageable);
     }
     @GetMapping("/search")
-    public Iterable<Customer> searchCustomer(@RequestParam String searchToken){
-        return customerRepository.search(searchToken);
+    public Page<Customer> searchCustomer(@RequestParam String searchToken, Pageable pageable){
+        return customerRepository.search(searchToken, pageable);
     }
 
 }

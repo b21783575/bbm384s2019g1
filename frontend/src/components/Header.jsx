@@ -27,13 +27,13 @@ export class Header extends React.Component {
             logout
           </div>
           <div
-            className="row mr-5 align-items-center"
+            className='row mr-5 align-items-center'
             style={{ cursor: "pointer" }}
           >
-            <Link to="/customer" className="row">
-              <IoMdPerson className="my-auto" color={"#fff"} size={"30px"} />
+            <Link to='/customer' className='row'>
+              <IoMdPerson className='my-auto' color={"#fff"} size={"30px"} />
               <div
-                className="my-auto"
+                className='my-auto'
                 style={{ color: "#fff", textDecoration: "none" }}
               >
                 {this.props.user.email}
@@ -50,7 +50,7 @@ export class Header extends React.Component {
               }}
               onClick={this.props.logout}
             >
-              <IoMdCart className="my-auto" size={"20px"} />
+              <IoMdCart className='my-auto' size={"20px"} />
               <h4>Cart</h4>
             </button>
           ) : null}
@@ -66,11 +66,11 @@ export class Header extends React.Component {
           }}
           className="row float-right"
         >
-          <div className="col-sm align-items-center my-auto">
+          <div className='col-sm align-items-center my-auto'>
             <IoMdPerson color={"#fff"} size={"30px"} />
           </div>
           <div
-            className="col-sm d:block text-center"
+            className='col-sm d:block text-center'
             style={{ marginRight: " 10px" }}
           >
             <Link
@@ -85,8 +85,8 @@ export class Header extends React.Component {
             </Link>
             <Link
               style={{ color: "#fff", textDecoration: "none" }}
-              className="row bd-highlight"
-              to="/register/customer"
+              className='row bd-highlight'
+              to='/register/customer'
             >
               register
             </Link>
@@ -101,16 +101,16 @@ export class Header extends React.Component {
       return (
         <React.Fragment>
           <div
-            className="d-flex justify-content-end"
+            className='d-flex justify-content-end'
             style={{ backgroundColor: "#384E6E" }}
           >
-            <a style={{ color: "#fff", marginRight: "25px" }} href="/login">
+            <a style={{ color: "#fff", marginRight: "25px" }} href='/login'>
               Contact us
             </a>
           </div>
-          <Navbar style={{ backgroundColor: "#182B49" }} variant="dark">
-            <Navbar.Brand style={{ fontSize: 45 }} className="mr-auto">
-              <Link style={{ color: "#fff", textDecoration: "none" }} to="/">
+          <Navbar style={{ backgroundColor: "#182B49" }} variant='dark'>
+            <Navbar.Brand style={{ fontSize: 45 }} className='mr-auto'>
+              <Link style={{ color: "#fff", textDecoration: "none" }} to='/'>
                 HUMBO
               </Link>
             </Navbar.Brand>
@@ -139,24 +139,24 @@ export class Header extends React.Component {
           </Navbar>
           <Nav
             style={{ backgroundColor: "#384E6E", width: "100%" }}
-            className="d-flex justify-content-around"
+            className='d-flex justify-content-around'
           >
-            <a style={{ color: "#fff" }} className="bd-highlight" href="/">
+            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
               TV
             </a>
-            <a style={{ color: "#fff" }} className="bd-highlight" href="/">
+            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
               Electronics
             </a>
-            <a style={{ color: "#fff" }} className="bd-highlight" href="/">
+            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
               Home
             </a>
-            <a style={{ color: "#fff" }} className="bd-highlight" href="/">
+            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
               Furniture
             </a>
           </Nav>
           <div
             style={{ backgroundColor: "#fff", width: "100%" }}
-            className="row mx-0"
+            className='row mx-0'
           >
             <div className="col text-center">
               Free Shipping, in order min 150 tl

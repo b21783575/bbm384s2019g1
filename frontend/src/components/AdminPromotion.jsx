@@ -1,5 +1,5 @@
-import React from 'react';
-import { Table, Form, Col, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, Form, Col, Button } from "react-bootstrap";
 
 export class AdminPromotion extends React.Component {
   constructor(props) {
@@ -7,29 +7,29 @@ export class AdminPromotion extends React.Component {
     this.state = {
       promotions: [
         {
-          category: 'TV',
-          valid_date: '11.11.1111',
-          valid_time: '11:11',
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
           promotion_slogan:
-            'discountdiscount discountdiscount discountdiscountdiscountdiscountdiscountdiscountdiscountdiscountdiscount',
+            "discountdiscount discountdiscount discountdiscountdiscountdiscountdiscountdiscountdiscountdiscountdiscount",
           id: 1
           //promotion_picture: ""
         },
         {
-          category: 'TV',
-          valid_date: '11.11.1111',
-          valid_time: '11:11',
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
           promotion_slogan:
-            'discountdiscount discountdiscount discountasdasdasdasdasdsasdasasdasdasdasdasdsa',
+            "discountdiscount discountdiscount discountasdasdasdasdasdsasdasasdasdasdasdasdsa",
           id: 2
           //promotion_picture: ""
         },
         {
-          category: 'TV',
-          valid_date: '11.11.1111',
-          valid_time: '11:11',
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
           promotion_slogan:
-            'discountdiscount discountdiscount discountasdasdasdassdfsdd',
+            "discountdiscount discountdiscount discountasdasdasdassdfsdd",
           id: 3
           //promotion_picture: ""
         }
@@ -56,8 +56,8 @@ export class AdminPromotion extends React.Component {
         </td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '400px'
+            wordWrap: "break-word",
+            maxWidth: "400px"
           }}
         >
           {promotion.promotion_slogan}
@@ -147,7 +147,7 @@ export class AdminPromotion extends React.Component {
                       let reader = new FileReader();
                       let file = event.currentTarget.files[0];
                       reader.onloadend = () => {
-                        setFieldValue('file', file);
+                        setFieldValue("file", file);
                         this.setState({ imagePreviewUrl: reader.result });
                       };
                       reader.readAsDataURL(file);
@@ -201,7 +201,7 @@ export class AdminPromotion extends React.Component {
               }}*/
               />
               <div className='col pl-0 ml-0'>Select All</div>
-              <div style={{ color: '#00f' }} className='float-right mr-0'>
+              <div style={{ color: "#00f" }} className='float-right mr-0'>
                 Remove Selected Items
               </div>
 

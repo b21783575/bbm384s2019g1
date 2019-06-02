@@ -1,5 +1,6 @@
-import React from 'react';
-import { Table, FormControl, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, FormControl, Button } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 
 export class AdminSellerManagement extends React.Component {
   constructor(props) {
@@ -7,24 +8,24 @@ export class AdminSellerManagement extends React.Component {
     this.state = {
       sellers: [
         {
-          companyName: 'Comp',
-          sellerSurname: 'asfdasd',
-          rating: '2',
-          numOfWaitingSale: '123',
+          companyName: "Comp",
+          sellerSurname: "asfdasd",
+          rating: "2",
+          numOfWaitingSale: "123",
           id: 1
         },
         {
-          companyName: 'Comp2',
-          sellerSurname: 'zxczxc',
-          rating: '2',
-          numOfWaitingSale: '7',
+          companyName: "Comp2",
+          sellerSurname: "zxczxc",
+          rating: "2",
+          numOfWaitingSale: "7",
           id: 2
         },
         {
-          companyName: 'Comp3',
-          sellerSurname: '1qweqwe',
-          rating: '4',
-          numOfWaitingSale: '2',
+          companyName: "Comp3",
+          sellerSurname: "1qweqwe",
+          rating: "4",
+          numOfWaitingSale: "2",
           id: 3
         }
       ]
@@ -37,16 +38,16 @@ export class AdminSellerManagement extends React.Component {
         <td>{seller.id}</td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '250px'
+            wordWrap: "break-word",
+            maxWidth: "250px"
           }}
         >
           {seller.companyName}
         </td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '180px'
+            wordWrap: "break-word",
+            maxWidth: "180px"
           }}
         >
           {seller.sellerSurname}
@@ -99,6 +100,19 @@ export class AdminSellerManagement extends React.Component {
               <tbody>{sellers}</tbody>
             </Table>
           </div>
+          <Pagination className='pagination justify-content-center align-items-end'>
+            <Pagination.Prev />
+            <Pagination.Item active>{1}</Pagination.Item>
+            <Pagination.Item disabled>{2}</Pagination.Item>
+            <Pagination.Item disabled>{3}</Pagination.Item>
+
+            <Pagination.Ellipsis />
+
+            <Pagination.Item>{10}</Pagination.Item>
+            <Pagination.Item>{11}</Pagination.Item>
+            <Pagination.Item>{12}</Pagination.Item>
+            <Pagination.Next />
+          </Pagination>
         </div>
       </React.Fragment>
     );
