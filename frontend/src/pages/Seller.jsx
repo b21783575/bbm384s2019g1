@@ -1,8 +1,6 @@
 import React from "react";
 
 import styles from "../app.sass";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 import { SellerOrders } from "../components/SellerOrders";
 import { SellerProducts } from "../components/SellerProducts";
@@ -17,13 +15,10 @@ class Seller extends React.Component {
     super(props);
     this.state = {
       page: "profile",
-      seller: {},
-      show: false
+      seller: {}
     };
 
     this.changeName = this.changeName.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
   }
 
   componentDidMount() {
@@ -36,13 +31,6 @@ class Seller extends React.Component {
     this.setState({ seller });
   }
 
-  handleClose() {
-    this.setState({ show: false });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
-  }
   renderPage() {
     switch (this.state.page) {
       case "profile":
@@ -127,7 +115,8 @@ class Seller extends React.Component {
                 onClick={() => this.setState({ page: "products" })}
               >
                 Products
-              </h5>{" "}
+              </h5>
+              <br />
               <br />
               <hr />
               <h5
@@ -144,50 +133,11 @@ class Seller extends React.Component {
                 className={styles.link}
                 onClick={() => {
                   this.props.logout();
-                  this.setState({ show: true });
+                  this.props.history.push("/");
                 }}
               >
                 Logout
               </h5>
-              <Modal
-                aria-labelledby='contained-modal-title-vcenter'
-                centered
-                show={this.state.show}
-                onHide={this.handleClose}
-              >
-                <Modal.Body style={{ fontSize: 30, alignSelf: "center" }}>
-                  ARE YOU SURE?
-                  <br />
-                  <Button
-                    style={{
-                      fontSize: 20,
-                      backgroundColor: "#384E6E",
-                      color: "white",
-                      justifyContent: "center",
-                      marginRight: 40
-                    }}
-                    variant='primary'
-                    onClick={() => {
-                      this.props.history.push("/");
-                    }}
-                  >
-                    YES
-                  </Button>
-                  <Button
-                    style={{
-                      fontSize: 20,
-                      backgroundColor: "red",
-                      color: "white",
-                      justifyContent: "center",
-                      marginLeft: 40
-                    }}
-                    variant='secondary'
-                    onClick={this.handleClose}
-                  >
-                    NO
-                  </Button>
-                </Modal.Body>
-              </Modal>
               <br />
             </div>
             <div style={{ backgroundColor: "#fff" }} className='col'>
