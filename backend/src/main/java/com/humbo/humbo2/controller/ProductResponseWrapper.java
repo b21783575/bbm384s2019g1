@@ -1,4 +1,4 @@
-package com.humbo.humbo2;
+package com.humbo.humbo2.controller;
 
 import com.humbo.humbo2.domain.Product;
 

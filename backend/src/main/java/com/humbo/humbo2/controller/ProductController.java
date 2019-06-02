@@ -12,8 +12,6 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.validation.Valid;
 
-import com.humbo.humbo2.FilterWrapper;
-import com.humbo.humbo2.ProductResponseWrapper;
 import com.humbo.humbo2.domain.Category;
 import com.humbo.humbo2.domain.Product;
 import com.humbo.humbo2.domain.Seller;
