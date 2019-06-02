@@ -7,6 +7,7 @@ import { SellerProducts } from '../components/SellerProducts';
 import { AccountInfo } from '../components/AccountInfo';
 import { AddressInfo } from '../components/AddressInfo';
 import { HelpMessage } from '../components/HelpMessage';
+import { Notifications } from '../components/Notifications';
 
 const selectedColor = '#11f';
 
@@ -26,6 +27,8 @@ class Customer extends React.Component {
         return <SellerOrders />;
       case 'addresses':
         return <AddressInfo />;
+      case 'notifications':
+        return <Notifications />;
       case 'products':
         return <SellerProducts seller={'umut@gmail.com'} />; //TODO fix it
       case 'help':
@@ -82,9 +85,10 @@ class Customer extends React.Component {
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === 'products' ? selectedColor : null
+                  color:
+                    this.state.page === 'notifications' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: 'profile' })}
+                onClick={() => this.setState({ page: 'notifications' })}
               >
                 Notifications
               </h5>
