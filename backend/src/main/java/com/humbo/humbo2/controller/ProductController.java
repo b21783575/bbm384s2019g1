@@ -13,6 +13,7 @@ import javax.persistence.criteria.Subquery;
 import javax.validation.Valid;
 
 import com.humbo.humbo2.FilterWrapper;
+import com.humbo.humbo2.ProductResponseWrapper;
 import com.humbo.humbo2.domain.Category;
 import com.humbo.humbo2.domain.Product;
 import com.humbo.humbo2.domain.Seller;
@@ -117,20 +118,12 @@ class ProductController {
     ResponseEntity<?> getProduct(@PathVariable Long id) {
         Optional<Product> product = productRepository.findById(id);
         Iterable<Product> like = null;
-        if(product.isPresent()){
-            like = productRepository.findLike(product.get());
-            return ResponseEntity.ok().body(new ProductResponseClass(product.get(), like));
+        if (product.isPresent()) {
+            like = productRepository.findLike(product.get().getBrand(), product.get().getName(),
+                    product.get().getSeller().getEmail());
+            return ResponseEntity.ok().body(new ProductResponseWrapper(product.get(), like));
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    class ProductResponseClass{
-        Product product;
-        Iterable<Product> like;
-        ProductResponseClass(Product product, Iterable<Product> like){
-            this.product = product;
-            this.like = like;
-        }
     }
 
     @GetMapping("/products/search")

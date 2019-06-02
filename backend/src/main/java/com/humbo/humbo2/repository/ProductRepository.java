@@ -56,6 +56,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 	@Query(value="SELECT DISTINCT seller.email FROM seller, product WHERE product.seller_email=seller.email and category_id IN :categories", nativeQuery = true)
 	Set<String> findAllSellersByCategory(Iterable<Category> categories);
 
-	@Query(value="SELECT * FROM product WHERE name=:product.name and brand=:product.brand and seller_email<>product.seller_email", nativeQuery=true)
-	Iterable<Product> findLike(Product product);
+	@Query(value="SELECT * FROM product WHERE name=:name and brand=:brand and seller_email<>:email", nativeQuery=true)
+	Iterable<Product> findLike(String brand, String name, String email);
 }
