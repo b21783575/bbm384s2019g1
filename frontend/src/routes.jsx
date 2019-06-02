@@ -165,6 +165,12 @@ export default class Routes extends React.Component {
                 )}
               />
               <Route
+                path='/products/:category'
+                render={props => (
+                  <Products routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
                 path='/product/:id'
                 render={props => (
                   <Product routeChange={this.routeChange} {...props} />

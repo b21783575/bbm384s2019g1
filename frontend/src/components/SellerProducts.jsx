@@ -58,7 +58,7 @@ export class SellerProducts extends React.Component {
         description: '',
         category: 'TV',
         discount: '',
-        color: '',
+        color: 'red',
         picture: ''
       },
       popupTitle: 'Add Product',
