@@ -231,13 +231,28 @@ export class ProductPopup extends React.Component {
                   <Form.Group as={Col} md='3'>
                     <Form.Label>Color</Form.Label>
                     <Form.Control
-                      type='text'
+                      as='select'
                       placeholder='color'
                       name='color'
                       value={values.color}
                       onChange={handleChange}
                       isInvalid={touched.color && !!errors.color}
-                    />
+                    >
+                      <option>red</option>
+                      <option>blue</option>
+                      <option>green</option>
+                      <option>yellow</option>
+                      <option>black</option>
+                      <option>brown</option>
+                      <option>cyan</option>
+                      <option>fuchsia</option>
+                      <option>yellow</option>
+                      <option>grey</option>
+                      <option>silver</option>
+                      <option>lime</option>
+                      <option>orange</option>
+                      <option>pink</option>
+                    </Form.Control>
 
                     <Form.Control.Feedback
                       type='invalid'

@@ -45,7 +45,7 @@ class Seller extends React.Component {
       case 'addresses':
         return <AddressInfo />;
       case 'products':
-        return <SellerProducts seller={'umut@gmail.com'} />; //TODO fix it
+        return <SellerProducts />;
       case 'help':
         return <HelpMessage />;
       default:
