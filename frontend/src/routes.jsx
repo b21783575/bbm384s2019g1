@@ -15,6 +15,10 @@ import CustomerRegister from "./pages/CustomerRegister";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Demo from "./pages/Demo";
+import { ShoppingCart } from "./pages/ShoppingCart";
+import { OrderStep1 } from "./components/OrderStep1";
+import { OrderStep2 } from "./components/OrderStep2";
+import { OrderStep3 } from "./components/OrderStep3";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import Authentication from "./helpers/Authentication";
@@ -169,6 +173,30 @@ export default class Routes extends React.Component {
                 path='/product/:id'
                 render={props => (
                   <Product routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/order1'
+                render={props => (
+                  <OrderStep1 routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/order2'
+                render={props => (
+                  <OrderStep2 routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/order3'
+                render={props => (
+                  <OrderStep3 routeChange={this.routeChange} {...props} />
+                )}
+              />
+              <Route
+                path='/cart'
+                render={props => (
+                  <ShoppingCart routeChange={this.routeChange} {...props} />
                 )}
               />
               <Redirect from='/*' to='/' />

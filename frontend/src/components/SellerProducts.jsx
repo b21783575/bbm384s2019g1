@@ -257,21 +257,17 @@ export class SellerProducts extends React.Component {
           Add
         </button>
         <Pagination className='pagination justify-content-center align-items-end'>
-          <Pagination.First />
           <Pagination.Prev />
           <Pagination.Item active>{1}</Pagination.Item>
           <Pagination.Item disabled>{2}</Pagination.Item>
           <Pagination.Item disabled>{3}</Pagination.Item>
+
           <Pagination.Ellipsis />
 
           <Pagination.Item>{10}</Pagination.Item>
           <Pagination.Item>{11}</Pagination.Item>
           <Pagination.Item>{12}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
           <Pagination.Next />
-          <Pagination.Last />
         </Pagination>
         <ProductPopup
           mtitle={this.state.popupTitle}

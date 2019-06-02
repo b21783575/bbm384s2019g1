@@ -2,6 +2,8 @@ import React from "react";
 import "normalize.css";
 
 import styles from "../app.sass";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 import { AdminAccount } from "../components/AdminAccount";
 import { AdminFeedback } from "../components/AdminFeedback";
@@ -18,8 +20,12 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: "changePassword"
+      page: "changePassword",
+      show: false
     };
+
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +40,13 @@ class Admin extends React.Component {
       .catch(err => console.log(err));
   }
 
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
   renderPage() {
     switch (this.state.page) {
       case "changePassword":
@@ -173,7 +186,52 @@ class Admin extends React.Component {
                 Change Password
               </h5>
               <hr />
-              <h5>Logout</h5>
+              <h5
+                className={styles.link}
+                onClick={() => this.setState({ show: true })}
+              >
+                Logout
+              </h5>
+              <Modal
+                aria-labelledby='contained-modal-title-vcenter'
+                centered
+                show={this.state.show}
+                onHide={this.handleClose}
+              >
+                <Modal.Body style={{ fontSize: 30, alignSelf: "center" }}>
+                  Are You Sure?
+                  <br />
+                  <Button
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "#384E6E",
+                      color: "white",
+                      justifyContent: "center",
+                      marginRight: 40
+                    }}
+                    variant='primary'
+                    onClick={() => {
+                      this.props.history.push("/");
+                    }}
+                  >
+                    YES
+                  </Button>
+                  <Button
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "red",
+                      color: "white",
+                      justifyContent: "center",
+                      marginLeft: 40
+                    }}
+                    variant='secondary'
+                    onClick={this.handleClose}
+                  >
+                    NO
+                  </Button>
+                </Modal.Body>
+              </Modal>
+              <br />
               <br />
               <br />
             </div>

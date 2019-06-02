@@ -154,6 +154,22 @@ class Home extends React.Component {
             >
               Products
             </button>
+            <button
+              type='button'
+              onClick={() => {
+                this.props.history.push("/order1");
+              }}
+            >
+              Order
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                this.props.history.push("/cart");
+              }}
+            >
+              Cart
+            </button>
             <div className='w-75 mx-auto my-3'>
               <SlideLabel slideContext={slideContext} />
             </div>
