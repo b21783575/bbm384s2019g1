@@ -127,6 +127,16 @@ class Seller extends React.Component {
                 onClick={() => this.setState({ page: "products" })}
               >
                 Products
+              </h5>{' '}
+              <h5
+                className={styles.link}
+                style={{
+                  color:
+                    this.state.page === 'notifications' ? selectedColor : null
+                }}
+                onClick={() => this.setState({ page: 'notifications' })}
+              >
+                Notifications
               </h5>
               <br />
               <br />

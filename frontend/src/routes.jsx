@@ -33,7 +33,7 @@ export default class Routes extends React.Component {
     this.state = {
       isHeader: true,
       headerCart: true,
-      user: {}
+      user: null
     };
 
     this.routeChange = this.routeChange.bind(this);
@@ -44,9 +44,8 @@ export default class Routes extends React.Component {
 
   componentDidMount() {
     CartHelper.deleteCart();
-    var token = Authentication.getToken();
-    if (!!token) Authentication.setupAxiosInterceptors(token);
     this.initialize();
+    var token = Authentication.getToken();
   }
 
   initialize() {
@@ -60,7 +59,7 @@ export default class Routes extends React.Component {
 
   logout() {
     Authentication.logout();
-    this.initialize();
+    this.setState({ user: null });
   }
 
   addProductToCart(productId) {
@@ -167,6 +166,12 @@ export default class Routes extends React.Component {
                     addProductToCart={this.addProductToCart}
                     {...props}
                   />
+                )}
+              />
+              <Route
+                path='/products/:category'
+                render={props => (
+                  <Products routeChange={this.routeChange} {...props} />
                 )}
               />
               <Route

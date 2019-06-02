@@ -112,6 +112,7 @@ export class SellerProducts extends React.Component {
       .then(result => {
         this.state.products[this.state.currentIndex] = oldProduct;
         this.setState({ showPopup: false });
+        this.initApp();
         return result;
       })
       .catch(err => {

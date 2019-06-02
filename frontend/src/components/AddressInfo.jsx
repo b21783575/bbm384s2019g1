@@ -114,6 +114,7 @@ export class AddressInfo extends React.Component {
         data.push(this.state.addresses[s].id);
       }
     }
+    this.setState({ selectAll: false });
     console.log(selected);
     console.log(data);
     const requestOptions = {

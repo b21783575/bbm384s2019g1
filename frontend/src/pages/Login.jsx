@@ -14,7 +14,6 @@ class Login extends React.Component {
   }
 
   submit(userInfo) {
-    console.log(userInfo);
     if (!!userInfo)
       Authentication.executeJwtAuthenticationService(
         userInfo.email,
@@ -27,7 +26,7 @@ class Login extends React.Component {
           );
           await axios
             .get(`http://localhost:8080/api/userinfo`)
-            .then(res => {
+            .then(async res => {
               res = res.data;
               console.log(res);
               localStorage.setItem("userInfo", JSON.stringify(res));
@@ -42,7 +41,6 @@ class Login extends React.Component {
           console.log(err);
           this.setState({ error: "Invalid e-mail or password" });
         });
-    this.props.login();
   }
 
   componentDidMount() {

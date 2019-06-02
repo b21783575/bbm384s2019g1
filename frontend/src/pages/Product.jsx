@@ -189,6 +189,7 @@ class Product extends React.Component {
                     <div className='col border'>
                       <div className='row' style={{ fontSize: 30 }}>
                         <StarRatingComponent
+                          name='star'
                           value={this.state.product.seller.avg_rating}
                           editing={false}
                         />

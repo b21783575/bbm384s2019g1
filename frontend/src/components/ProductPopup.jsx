@@ -13,10 +13,13 @@ export class ProductPopup extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (!!props.product && !!props.product.picture) {
-      this.setState({
-        imagePreviewUrl: 'http://localhost:8080/files/' + props.product.picture
-      });
+    if (!!props.product) {
+      if (!!props.product.picture)
+        this.setState({
+          imagePreviewUrl:
+            'http://localhost:8080/files/' + props.product.picture
+        });
+      else this.setState({ imagePreviewUrl: '' });
     }
   }
 
@@ -99,7 +102,7 @@ export class ProductPopup extends React.Component {
                       style={{ width: 250, height: 250 }}
                       className='border mr-3 mb-3'
                       src={
-                        this.state.imagePreviewUrl
+                        this.state.imagePreviewUrl !== ''
                           ? this.state.imagePreviewUrl
                           : ''
                       }
@@ -114,6 +117,7 @@ export class ProductPopup extends React.Component {
                         let file = event.currentTarget.files[0];
                         reader.onloadend = () => {
                           setFieldValue('file', file);
+                          console.log('ohoo');
                           this.setState({ imagePreviewUrl: reader.result });
                         };
                         reader.readAsDataURL(file);
@@ -227,13 +231,28 @@ export class ProductPopup extends React.Component {
                   <Form.Group as={Col} md='3'>
                     <Form.Label>Color</Form.Label>
                     <Form.Control
-                      type='text'
+                      as='select'
                       placeholder='color'
                       name='color'
                       value={values.color}
                       onChange={handleChange}
                       isInvalid={touched.color && !!errors.color}
-                    />
+                    >
+                      <option>red</option>
+                      <option>blue</option>
+                      <option>green</option>
+                      <option>yellow</option>
+                      <option>black</option>
+                      <option>brown</option>
+                      <option>cyan</option>
+                      <option>fuchsia</option>
+                      <option>yellow</option>
+                      <option>grey</option>
+                      <option>silver</option>
+                      <option>lime</option>
+                      <option>orange</option>
+                      <option>pink</option>
+                    </Form.Control>
 
                     <Form.Control.Feedback
                       type='invalid'

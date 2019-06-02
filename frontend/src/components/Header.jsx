@@ -12,7 +12,7 @@ export class Header extends React.Component {
   renderHeaderRight() {
     if (!!this.props.user) {
       return (
-        <div className='row align-items-center float-right mr-2'>
+        <div className="row align-items-center float-right mr-2">
           <div
             style={{
               color: "#fff",
@@ -21,7 +21,7 @@ export class Header extends React.Component {
               right: 0,
               cursor: "pointer"
             }}
-            className='mr-3'
+            className="mr-3"
             onClick={this.props.logout}
           >
             logout
@@ -42,8 +42,8 @@ export class Header extends React.Component {
           </div>
           {this.props.cart ? (
             <button
-              type='button'
-              className='row align-items-center mt-2'
+              type="button"
+              className="row align-items-center mt-2"
               style={{
                 backgroundColor: "#F16530",
                 borderColor: "#F16530"
@@ -64,7 +64,7 @@ export class Header extends React.Component {
             borderTopLeftRadius: 5,
             borderBottomLeftRadius: 5
           }}
-          className='row float-right'
+          className="row float-right"
         >
           <div className='col-sm align-items-center my-auto'>
             <IoMdPerson color={"#fff"} size={"30px"} />
@@ -78,8 +78,8 @@ export class Header extends React.Component {
                 color: "#fff",
                 textDecoration: "none"
               }}
-              className='row border-bottom bd-highlight'
-              to='/login'
+              className="row border-bottom bd-highlight"
+              to="/login"
             >
               login
             </Link>
@@ -119,18 +119,18 @@ export class Header extends React.Component {
                 width: "40%"
               }}
               inline
-              className='mr-auto row'
+              className="mr-auto row"
             >
               <FormControl
                 style={{ minWidth: 75 }}
-                type='text'
-                placeholder='Search'
-                className='mr-sm-2 col-8'
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2 col-8"
               />
               <Button
                 style={{ minWidth: 75 }}
-                variant='outline-light text-center'
-                className='col-3'
+                variant="outline-light text-center"
+                className="col-3"
               >
                 Search
               </Button>
@@ -158,10 +158,10 @@ export class Header extends React.Component {
             style={{ backgroundColor: "#fff", width: "100%" }}
             className='row mx-0'
           >
-            <div className='col text-center'>
+            <div className="col text-center">
               Free Shipping, in order min 150 tl
             </div>
-            <div className='col text-center'>7/24 Support</div>
+            <div className="col text-center">7/24 Support</div>
           </div>
         </React.Fragment>
       );

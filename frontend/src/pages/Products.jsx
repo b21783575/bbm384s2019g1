@@ -17,7 +17,8 @@ class Products extends React.Component {
         price: 555,
         stock: 1
       },
-      products: []
+      products: [],
+      category: null
     };
   }
 
@@ -27,19 +28,17 @@ class Products extends React.Component {
       .get("http://localhost:8080/api/products")
       .then(res => {
         console.log(res);
-        this.setState({ products: res.data });
+        this.setState({ products: res.data.content });
       })
       .catch(err => console.log(err));
-    /*fetch('http://localhost:8080/api/products')
-      .then(response => {
-        console.log(response);
-        return response.json();
-      })
-      .then(products => {
-        console.log(products);
-        this.setState({ products });
-      })
-      .catch(err => console.log(err));*/
+  }
+
+  componentWillReceiveProps(props) {
+    var category = props.match.params.category;
+    if (this.state.category !== category) {
+      this.setState({ category });
+      this.initApp();
+    }
   }
 
   render() {
@@ -51,7 +50,7 @@ class Products extends React.Component {
           height: 350,
           position: "relative"
         }}
-        className='mx-2 my-2 py-2 px-2 border'
+        className='mt-2 mb-3 pb-2 px-2 pt-3 border'
         key={product.id}
       >
         <img
@@ -105,7 +104,7 @@ class Products extends React.Component {
         >
           <button
             type='button'
-            className='btn btn-primary'
+            className='btn btn-primary ml-2'
             onClick={() => this.props.addProductToCart(product.id)}
           >
             Add to Cart

@@ -5,8 +5,11 @@ const API_URL = 'http://localhost:8080';
 let interceptor;
 
 class Authentication {
-  executeJwtAuthenticationService(username, password) {
-    console.log(username);
+  executeJwtAuthenticationService(username, password, remember) {
+    if (remember) {
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+    }
     return axios.post(`${API_URL}/authenticate`, {
       username,
       password
@@ -24,26 +27,25 @@ class Authentication {
   }
 
   logout() {
-    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo');
     sessionStorage.removeItem('token');
     axios.interceptors.request.eject(interceptor);
   }
 
   register(type, userInfo) {
-    console.log('registered');
-    console.log(type);
     login(userInfo);
   }
 
   updateUser(attr, value) {
     var user = this.getUser();
     user[attr] = value;
-    localStorage.setItem('userInfo', JSON.stringify(user));
+    sessionStorage.setItem('userInfo', JSON.stringify(user));
     return user;
   }
 
   getUser() {
-    return JSON.parse(localStorage.getItem('userInfo'));
+    var user = JSON.parse(sessionStorage.getItem('userInfo'));
+    return user;
   }
 
   getToken() {
@@ -51,8 +53,8 @@ class Authentication {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('token');
-    if (user === null) return false;
+    let token = sessionStorage.getItem('token');
+    if (token === null) return false;
     return true;
   }
 
