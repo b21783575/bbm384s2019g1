@@ -1,5 +1,6 @@
 package com.humbo.humbo2.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,4 +32,9 @@ public class Basket{
     public void addOrder(Order order){
         orders.add(order);
     }
+
+	public Basket(Customer user) {
+        this.user = user;
+        orders = new HashSet<>();
+	}
 }
