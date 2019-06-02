@@ -17,17 +17,21 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class Order{
+public class ProductOrder{
     @Id 
     @GeneratedValue
     private Long id;
+
     private String status;
     
-    @OneToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
+    @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
     private Customer customer;
     
     @OneToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
     private Product product;
+
+    @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
+    private Basket basket;
     
     private Integer quantity;
     
@@ -38,9 +42,9 @@ public class Order{
     private Boolean isApproved;
     private Boolean isPaid;
     
-    public Order(Customer user, Product product, Integer quantity) {
+    public ProductOrder(Customer user, Product product, Seller seller, Integer quantity) {
         this.customer = user;
-        this.seller = product.getSeller();
+        this.seller = seller;
         this.product = product;
         this.quantity = quantity;
         this.status = null;

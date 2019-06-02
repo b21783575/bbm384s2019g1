@@ -23,18 +23,15 @@ public class Basket{
 
     @Id @GeneratedValue
     private Long id;
+
     @OneToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
-    private Customer user;
+    private Customer customer;
 
-    @OneToMany(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
-    private Set<Order> orders;
+    @OneToMany(targetEntity = ProductOrder.class, cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER, mappedBy = "basket")
+    private Set<ProductOrder> orders;
 
-    public void addOrder(Order order){
-        orders.add(order);
-    }
-
-	public Basket(Customer user) {
-        this.user = user;
+	public Basket(Customer customer) {
+        this.customer = customer;
         orders = new HashSet<>();
 	}
 }
