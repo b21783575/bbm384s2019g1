@@ -11,13 +11,14 @@ import com.humbo.humbo2.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -44,10 +45,10 @@ class SellerProductController {
     }
 
     @GetMapping("/products")
-    Iterable<Product> getProductsOfSeller() {
+    Page<Product> getProductsOfSeller(Pageable pageable) {
         Optional<Seller> seller = this.sellerRepository.findByEmail(
                 ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-        return seller.get().getProducts();
+        return productRepository.findAllBySeller(seller.get(), pageable);
     }
 
     @PostMapping("/product")

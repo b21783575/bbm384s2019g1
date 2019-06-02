@@ -9,33 +9,36 @@ import com.humbo.humbo2.repository.HelpMessageRepository;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/help")
 public class HelpMessageController {
-private HelpMessageRepository helpRepo;
-private CustomUserRepository customRepo;
+private HelpMessageRepository helpMessageRepository;
+private CustomUserRepository customUserRepository;
 
-HelpMessageController(HelpMessageRepository HelpRepository, CustomUserRepository customRepo){
-    helpRepo = HelpRepository;
-    this.customRepo = customRepo;
+HelpMessageController(HelpMessageRepository helpMessageRepository, CustomUserRepository customUserRepository){
+    this.helpMessageRepository = helpMessageRepository;
+    this.customUserRepository = customUserRepository;
 }
+
 @GetMapping("")
-public Iterable<HelpMessage> getHelpMessages() {
-    return helpRepo.findAll();
+public Page<HelpMessage> getHelpMessages(Pageable pageable) {
+    return helpMessageRepository.findAll(pageable);
 }
+
 @PostMapping("/create")
 public ResponseEntity<?> postHelpMessage(@Valid@RequestBody HelpMessage message){
-    CustomUser user = this.customRepo.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+    CustomUser user = this.customUserRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
     message.setUser(user);
-    return ResponseEntity.ok().body(helpRepo.save(message));
+    return ResponseEntity.ok().body(helpMessageRepository.save(message));
 }
 
 }

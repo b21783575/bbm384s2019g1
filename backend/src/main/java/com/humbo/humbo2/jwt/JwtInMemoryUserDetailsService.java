@@ -1,7 +1,5 @@
 package com.humbo.humbo2.jwt;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.humbo.humbo2.domain.CustomUser;

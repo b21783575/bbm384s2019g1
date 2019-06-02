@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080';
 
+let interceptor;
+
 class Authentication {
   executeJwtAuthenticationService(username, password) {
     console.log(username);
@@ -24,6 +26,7 @@ class Authentication {
   logout() {
     localStorage.removeItem('userInfo');
     sessionStorage.removeItem('token');
+    axios.interceptors.request.eject(interceptor);
   }
 
   register(type, userInfo) {
@@ -54,7 +57,7 @@ class Authentication {
   }
 
   async setupAxiosInterceptors(token) {
-    axios.interceptors.request.use(config => {
+    interceptor = axios.interceptors.request.use(config => {
       if (this.isUserLoggedIn()) {
         config.headers.authorization = token;
       }

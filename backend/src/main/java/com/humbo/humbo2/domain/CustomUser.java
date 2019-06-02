@@ -1,16 +1,5 @@
 package com.humbo.humbo2.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.ToString;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.io.Serializable;
 import java.util.Set;
 
@@ -20,7 +9,18 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @Entity
@@ -51,6 +51,11 @@ public class CustomUser implements Serializable{
     @JsonIgnore
     private Set<Address> address;
 
+    @ManyToMany(targetEntity = Notification.class, cascade={CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="to")
+    private Set<Notification> notifications;
+
+    private Boolean newNotification;
+
     public void setPassword(String password){
         this.password = PASSWORD_ENCODER.encode(password);
     }
@@ -62,5 +67,6 @@ public class CustomUser implements Serializable{
         this.phone = phone;
         this.birthdate = birthdate;
         this.roles = roles;
+        this.newNotification = false;
     }
 }

@@ -3,33 +3,25 @@ package com.humbo.humbo2.controller;
 import java.util.HashMap;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
+import com.humbo.humbo2.domain.Seller;
 import com.humbo.humbo2.repository.CustomUserRepository;
 import com.humbo.humbo2.repository.SellerRepository;
-import com.humbo.humbo2.domain.Seller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @RestController
 @RequestMapping("/api/s")
 public class SellerController {
-
-    private final Logger log = LoggerFactory.getLogger(SellerController.class);
 
     private SellerRepository sellerRepository;
     private CustomUserRepository customUserRepository;
@@ -45,6 +37,16 @@ public class SellerController {
                 ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         return seller.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/balance")
+    public ResponseEntity<?> getMoney(){
+        Seller seller = this.sellerRepository.findById(
+                ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+        Double balance = seller.getBalance();
+        seller.setBalance(0.0);
+        this.sellerRepository.save(seller);
+        return ResponseEntity.ok().body(String.format("%f sent to your iban: %s", balance, seller.getIban()));
     }
 
     @PutMapping("/password")
@@ -141,4 +143,13 @@ public class SellerController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/all")
+    public Page<Seller> getAllSeller(Pageable pageable){
+        return sellerRepository.findAll(pageable);
+    }
+
+    @GetMapping("/search")
+    public Page<Seller> searchSeller(@RequestParam String searchToken, Pageable pageable){
+        return sellerRepository.search(searchToken, pageable);
+    }
 }
