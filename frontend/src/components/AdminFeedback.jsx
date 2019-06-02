@@ -1,7 +1,84 @@
 import React from 'react';
 import { FormControl, Button } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
+
 export class AdminFeedback extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      feedbacks: [
+        {
+          email: 'email@gmail.com',
+          nameSurname: 'Name1 Surname1',
+          message:
+            'message message messagemessage messagemessage message message messagemessage messagemessage message message messagemessage messagemessage message message messagemessage messagemessage',
+          id: 1
+        },
+        {
+          email: 'email1@gmail.com',
+          nameSurname: 'Name2 Surname2',
+          message: 'message message messagemessage messagemessage',
+          id: 2
+        },
+        {
+          email: 'email2@gmail.com',
+          nameSurname: 'Name2 Surname2',
+          message: 'message message messagemessage messagemessage',
+          id: 3
+        }
+      ]
+    };
+  }
+
   render() {
+    var feedbacks = this.state.feedbacks.map(feedback => (
+      <div
+        key={feedback.id}
+        className='row border container py-3 mb-2 bg-light'
+      >
+        <div className='col'>
+          <FormControl
+            as='textarea'
+            rows='1'
+            style={{ minWidth: 100 }}
+            type='text'
+            defaultValue={'Notification ID:' + feedback.id}
+            readOnly
+            plaintext
+            className='row border bg-white mb-2 py-2 font-weight-bold'
+          />
+          <FormControl
+            as='textarea'
+            rows='1'
+            style={{ minWidth: 100 }}
+            type='text'
+            defaultValue={feedback.nameSurname}
+            readOnly
+            plaintext
+            className='row border bg-white mb-2 py-2 font-weight-bold'
+          />
+          <FormControl
+            as='textarea'
+            rows='4'
+            style={{ minWidth: 100 }}
+            type='text'
+            defaultValue={feedback.message}
+            readOnly
+            plaintext
+            className='row border bg-white py-2 font-weight-bold'
+          />
+        </div>
+        <a
+          className='text-white btn btn-primary col-2 mt-auto mr-2 ml-0'
+          style={{ minWidth: 60 }}
+          variant='primary text-center'
+          href={'mailto:' + feedback.email}
+          target='_blank'
+        >
+          Answer
+        </a>
+      </div>
+    ));
     return (
       <React.Fragment>
         <div className='container my-5'>
@@ -23,86 +100,20 @@ export class AdminFeedback extends React.Component {
                 Search
               </Button>
             </div>
-            <div className='row border container py-3 mb-2'>
-              <div className='col'>
-                <strong className='row border mb-2'>
-                  Notification ID: 0001
-                </strong>{' '}
-                <strong className='row border mb-2'>
-                  Name Surname: Onur C.
-                </strong>{' '}
-                <strong className='row border pb-5'>
-                  Message: Efenim? N'aptınız?
-                </strong>{' '}
-              </div>
-              <Button
-                style={{ minWidth: 75 }}
-                variant='primary text-center'
-                className='col-2 mt-auto mx-2'
-              >
-                Answer
-              </Button>
-            </div>
-            <div className='row border container py-3 mb-2'>
-              <div className='col'>
-                <strong className='row border mb-2'>
-                  Notification ID: 0002
-                </strong>{' '}
-                <strong className='row border mb-2'>
-                  Name Surname: Berat K.
-                </strong>{' '}
-                <strong className='row border pb-5'>
-                  Message: Allah'a Şükür İdare Ediyoruz. Ya Siz?
-                </strong>{' '}
-              </div>
-              <Button
-                style={{ minWidth: 75 }}
-                variant='primary text-center'
-                className='col-2 mt-auto mx-2'
-              >
-                Answer
-              </Button>
-            </div>
-            <div className='row border container py-3 mb-2'>
-              <div className='col'>
-                <strong className='row border mb-2'>
-                  Notification ID: 0003
-                </strong>{' '}
-                <strong className='row border mb-2'>
-                  Name Surname: Onur C.
-                </strong>{' '}
-                <strong className='row border pb-5'>
-                  Message: Yuvarlanıp Gidiyoruz Bakalım.
-                </strong>{' '}
-              </div>
-              <Button
-                style={{ minWidth: 75 }}
-                variant='primary text-center'
-                className='col-2 mt-auto mx-2'
-              >
-                Answer
-              </Button>
-            </div>
-            <div className='row border container py-3 mb-2'>
-              <div className='col'>
-                <strong className='row border mb-2'>
-                  Notification ID: 0004
-                </strong>{' '}
-                <strong className='row border mb-2'>
-                  Name Surname: Berak K.
-                </strong>{' '}
-                <strong className='row border pb-5'>
-                  Message: Hadi Bakiyim :D
-                </strong>{' '}
-              </div>
-              <Button
-                style={{ minWidth: 75 }}
-                variant='primary text-center'
-                className='col-2 mt-auto mx-2'
-              >
-                Answer
-              </Button>
-            </div>
+            {feedbacks}
+            <Pagination className='pagination justify-content-center align-items-end'>
+              <Pagination.Prev />
+              <Pagination.Item active>{1}</Pagination.Item>
+              <Pagination.Item disabled>{2}</Pagination.Item>
+              <Pagination.Item disabled>{3}</Pagination.Item>
+
+              <Pagination.Ellipsis />
+
+              <Pagination.Item>{10}</Pagination.Item>
+              <Pagination.Item>{11}</Pagination.Item>
+              <Pagination.Item>{12}</Pagination.Item>
+              <Pagination.Next />
+            </Pagination>
           </div>
         </div>
       </React.Fragment>
