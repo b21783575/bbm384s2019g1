@@ -11,12 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"customer", "basket", "seller", "product"})
 public class ProductOrder{
     @Id 
     @GeneratedValue
@@ -31,11 +35,13 @@ public class ProductOrder{
     private Product product;
 
     @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
+    @JsonIgnore
     private Basket basket;
     
     private Integer quantity;
     
     @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
+    @JsonIgnore
     private Seller seller;
     
     private Date date;

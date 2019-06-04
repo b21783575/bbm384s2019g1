@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ProductOrderRepository extends JpaRepository<ProductOrder, Long>{
 
-  @Query(value="SELECT * FROM product_order WHERE customer=:customer and product=:product and isPaid='f'", nativeQuery=true)
+  @Query(value="SELECT * FROM product_order WHERE customer_email=:customer and product_id=:product and is_paid='f'", nativeQuery=true)
 	ProductOrder findForUpdate(Customer customer, Product product);
     
   //  Page<ProductOrder> findAll(Pageable pageable);

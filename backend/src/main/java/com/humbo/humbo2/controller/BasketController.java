@@ -59,6 +59,7 @@ public class BasketController {
             order.setBasket(basket.get());
         }else{
             Basket temp = new Basket(user);
+            this.basketRepository.save(temp);
             order.setBasket(temp);
         }
         orderRepository.save(order);
@@ -66,21 +67,17 @@ public class BasketController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateProductOrder(@RequestParam Long productId, @RequestParam Integer quantity){
+    public ResponseEntity<?> updateProductOrder(@RequestParam Long orderId, @RequestParam Integer quantity){
         Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
-        Product product = this.productRepository.findById(productId).get();
-        ProductOrder order = this.orderRepository.findForUpdate(user, product);
+        ProductOrder order = this.orderRepository.findById(orderId).get();
         order.setQuantity(quantity);
         this.orderRepository.save(order);
-        return ResponseEntity.ok().body(String.format("Quantity of %l is updated to %d", productId, quantity));
+        return ResponseEntity.ok().body(String.format("Quantity of %d is updated to %d", order.getId(), quantity));
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> deleteProductOrder(@RequestParam Long productId){
-        Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
-        Product product = this.productRepository.findById(productId).get();
-        ProductOrder order = this.orderRepository.findForUpdate(user, product);
-        this.orderRepository.delete(order);
-        return ResponseEntity.ok().body(String.format("%l is deleted", productId));
+    public ResponseEntity<?> deleteProductOrder(@RequestParam Long orderId){
+        this.orderRepository.deleteById(orderId);;
+        return ResponseEntity.ok().body(String.format("%d is deleted", orderId));
     }
 }

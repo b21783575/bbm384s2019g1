@@ -23,7 +23,7 @@ public class Customer extends CustomUser implements Serializable{
     @JsonIgnore
     private Set<ProductOrder> orders;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = Basket.class, cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER, mappedBy = "customer")
     @JsonIgnore
     private Basket basket;
 
