@@ -35,8 +35,11 @@ public class Basket{
     @OneToMany(targetEntity = ProductOrder.class, cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER, mappedBy = "basket")
     private Set<ProductOrder> orders;
 
+    private Boolean active;
+
 	public Basket(Customer customer) {
         this.customer = customer;
         orders = new HashSet<>();
+        active = true;
 	}
 }

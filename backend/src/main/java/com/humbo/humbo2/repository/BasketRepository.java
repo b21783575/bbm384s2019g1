@@ -11,4 +11,6 @@ public interface BasketRepository extends JpaRepository<Basket, Long>{
 
 	Optional<Basket> findByCustomer(Customer customer);
 
+	Optional<Basket> findByCustomerAndActive(Customer user, boolean b);
+
 }

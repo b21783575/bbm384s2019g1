@@ -1,15 +1,18 @@
 package com.humbo.humbo2.controller;
 
 import java.util.Optional;
+import java.util.Set;
 
 import com.humbo.humbo2.domain.Basket;
 import com.humbo.humbo2.domain.Customer;
 import com.humbo.humbo2.domain.Product;
 import com.humbo.humbo2.domain.ProductOrder;
+import com.humbo.humbo2.domain.Seller;
 import com.humbo.humbo2.repository.BasketRepository;
 import com.humbo.humbo2.repository.CustomerRepository;
 import com.humbo.humbo2.repository.ProductOrderRepository;
 import com.humbo.humbo2.repository.ProductRepository;
+import com.humbo.humbo2.repository.SellerRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +34,13 @@ public class BasketController {
     private ProductRepository productRepository;
     private BasketRepository basketRepository;
     private ProductOrderRepository orderRepository;
+    private SellerRepository sellerRepository;
 
 
-    public BasketController (CustomerRepository customerRepository, ProductRepository productRepository, BasketRepository basketRepository,
+    public BasketController (CustomerRepository customerRepository, SellerRepository sellerRepository, ProductRepository productRepository, BasketRepository basketRepository,
                             ProductOrderRepository orderRepository  ){
         this.customerRepository = customerRepository;
+        this.sellerRepository = sellerRepository;
         this.productRepository = productRepository;
         this.basketRepository = basketRepository;
         this.orderRepository = orderRepository;
@@ -44,7 +49,13 @@ public class BasketController {
     @GetMapping("")
     public  ResponseEntity<?> getBasket(){
         Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
-        return basketRepository.findByCustomer(user).map(basket -> ResponseEntity.ok().body(basket)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Basket> basket = this.basketRepository.findByCustomerAndActive(user, true);
+        if(!basket.isPresent()){
+            Basket temp = new Basket(user);
+            this.basketRepository.save(temp);
+            return ResponseEntity.ok().body(temp);
+        }
+        return ResponseEntity.ok().body(basket.get());
     }
     
     @PostMapping("")
@@ -54,7 +65,7 @@ public class BasketController {
 
         ProductOrder order = new ProductOrder(user, product, product.getSeller(), quantity);
 
-        Optional<Basket> basket = this.basketRepository.findByCustomer(user);
+        Optional<Basket> basket = this.basketRepository.findByCustomerAndActive(user, true);
         if(basket.isPresent()){
             order.setBasket(basket.get());
         }else{
@@ -68,7 +79,7 @@ public class BasketController {
 
     @PutMapping("")
     public ResponseEntity<?> updateProductOrder(@RequestParam Long orderId, @RequestParam Integer quantity){
-        Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+        // Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
         ProductOrder order = this.orderRepository.findById(orderId).get();
         order.setQuantity(quantity);
         this.orderRepository.save(order);
@@ -79,5 +90,27 @@ public class BasketController {
     public ResponseEntity<?> deleteProductOrder(@RequestParam Long orderId){
         this.orderRepository.deleteById(orderId);;
         return ResponseEntity.ok().body(String.format("%d is deleted", orderId));
+    }
+
+    @PostMapping("/checkout")
+    public ResponseEntity<?> checkout(){
+        Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+        Basket basket = this.basketRepository.findByCustomerAndActive(user, true).get();
+        Set<ProductOrder> orders = basket.getOrders();
+        if(orders.size() == 0)
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        for(ProductOrder order : orders){
+            Seller seller = order.getSeller();
+            Product product = order.getProduct();
+            seller.setBalance(seller.getBalance() + ((product.getPrice() * ( 1 - product.getDiscount()/100)) * order.getQuantity()));
+            product.setStock(product.getStock() - order.getQuantity());
+            order.setIsPaid(true);
+            this.productRepository.save(product);
+            this.sellerRepository.save(seller);
+            this.orderRepository.save(order);
+        }
+        basket.setActive(false);
+        this.basketRepository.save(basket);
+        return ResponseEntity.ok().body("Payment is successful!");
     }
 }

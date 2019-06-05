@@ -12,20 +12,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 // @PreAuthorize("hasRole('SELLER')")
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product>{
 	@Override
-	@PreAuthorize("#product?.seller == null or #product?.seller?.email == authentication?.name")
+	// @PreAuthorize("#product?.seller == null or #product?.seller?.email == authentication?.name")
 	Product save(@Param("product") Product product);
 
 	@Override
-	@PreAuthorize("@productRepository.findById(#id)?.seller?.email == authentication?.name")
+	// @PreAuthorize("@productRepository.findById(#id)?.seller?.email == authentication?.name")
 	void deleteById(@Param("id") Long id);
 
 	@Override
-	@PreAuthorize("#product?.seller?.email == authentication?.name")
+	// @PreAuthorize("#product?.seller?.email == authentication?.name")
 	void delete(@Param("product") Product product);
 
 	Page<Product> findByCategory(Category category, Pageable pageable);
