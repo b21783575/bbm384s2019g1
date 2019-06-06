@@ -33,6 +33,10 @@ public class Seller extends CustomUser implements Serializable{
     @JsonIgnore
     private Set<Product> products;
 
+    @OneToMany(targetEntity = ProductOrder.class, cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER, mappedBy = "seller")
+    @JsonIgnore
+    private Set<ProductOrder> orders;
+
     public Seller(){
         super();
     }
