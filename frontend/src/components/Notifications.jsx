@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export class Notifications extends React.Component {
   constructor(props) {
@@ -6,19 +6,19 @@ export class Notifications extends React.Component {
     this.state = {
       notifications: [
         {
-          sender: 'Name1',
-          date: '11/11/1111',
-          message: 'This is a sample message from Name1 to me.'
+          sender: "Name1",
+          date: "11/11/1111",
+          message: "This is a sample message from Name1 to me."
         },
         {
-          sender: 'Name2',
-          date: '12/12/1212',
-          message: 'This is a sample message from Name1 to me.'
+          sender: "Name2",
+          date: "12/12/1212",
+          message: "This is a sample message from Name1 to me."
         },
         {
-          sender: 'Name3',
-          date: '10/10/1010',
-          message: 'This is a sample message from Name1 to me.'
+          sender: "Name3",
+          date: "10/10/1010",
+          message: "This is a sample message from Name1 to me."
         }
       ]
     };
@@ -63,7 +63,7 @@ export class Notifications extends React.Component {
               }}*/
             />
             <div className='col pl-0 ml-0'>Select All</div>
-            <div style={{ color: '#00f' }} className='float-right mr-4'>
+            <div style={{ color: "#00f" }} className='float-right mr-4'>
               Remove Selected Items
             </div>
           </div>
@@ -71,7 +71,7 @@ export class Notifications extends React.Component {
         <div className='col border'>
           <div
             className='row pl-0 mb-3 border'
-            style={{ backgroundColor: '#dedede' }}
+            style={{ backgroundColor: "#dedede" }}
           >
             <div className='col-6 pl-2 ml-0'>From</div>
             <div className='col-6 pl-3'>Date</div>
@@ -81,7 +81,7 @@ export class Notifications extends React.Component {
         <div className='col border mt-4'>
           <div
             className='row pl-0 mb-3 border'
-            style={{ backgroundColor: '#dedede' }}
+            style={{ backgroundColor: "#dedede" }}
           >
             <div className='col-6 pl-2 ml-0'>Delete</div>
           </div>

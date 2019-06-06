@@ -4,7 +4,7 @@ import styles from "../app.sass";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-import { SellerOrders } from "../components/SellerOrders";
+import { CustomerOrders } from "../components/CustomerOrders";
 import { AccountInfo } from "../components/AccountInfo";
 import { AddressInfo } from "../components/AddressInfo";
 import { HelpMessage } from "../components/HelpMessage";
@@ -52,7 +52,7 @@ class Customer extends React.Component {
           />
         );
       case "orders":
-        return <SellerOrders />;
+        return <CustomerOrders />;
       case "addresses":
         return <AddressInfo />;
       case "notification":

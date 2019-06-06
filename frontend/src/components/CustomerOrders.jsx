@@ -4,7 +4,7 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-export class SellerOrders extends React.Component {
+export class CustomerOrders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,27 +56,16 @@ export class SellerOrders extends React.Component {
           <div className='row'>
             <strong>Name: </strong> {element.name}
           </div>
+          <br />
           <div className='row'>
-            <strong>Stock: </strong> {element.stock}
-          </div>
-          <div className='row'>
-            <Form.Label>
-              <strong>Status: </strong>
-            </Form.Label>
-            <Form.Control as='select' name='status'>
-              <option value='Waiting'>Waiting</option>
-              <option value='Getting Prepared'>Getting Prepared</option>
-              <option value='On the Way'>On the Way</option>
-            </Form.Control>
+            <strong>Status: </strong> Waiting
           </div>
         </div>
         <div className='col'>
           <div className='row justify-content-end mr-1'>
-            <strong>Order ID: </strong>1
+            <strong>Order ID: </strong> 1
           </div>
-          <div className='row justify-content-end mr-1'>
-            <strong>Customer ID: </strong>u
-          </div>
+          <br />
           <div className='row justify-content-end mr-1'>
             <strong>Price: </strong> {element.price} $
           </div>

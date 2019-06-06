@@ -5,6 +5,9 @@ import { AddressPopup } from "./AddressPopup";
 export class OrderStep1 extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      quantity: 1
+    };
   }
 
   render() {
@@ -145,13 +148,52 @@ export class OrderStep1 extends React.Component {
                       <td>Walter White</td>
                       <td>Breaking Bad</td>
                       <td>
-                        <Form>
-                          <Form.Group as={Row}>
-                            <Col>
-                              <Form.Control type='number' placeholder='1' />
-                            </Col>
-                          </Form.Group>
-                        </Form>
+                        <div
+                          className='d-flex m-1 mr-4 py-1'
+                          style={{ borderRadius: 7, backgroundColor: "#fff" }}
+                        >
+                          <div
+                            className='text-center'
+                            style={{
+                              fontSize: 15,
+                              cursor: "pointer",
+                              width: 15
+                            }}
+                            onClick={() => {
+                              var quantity = this.state.quantity - 1;
+                              if (quantity >= 1) this.setState({ quantity });
+                            }}
+                          >
+                            -
+                          </div>
+                          <input
+                            className='text-center borderless'
+                            type='text'
+                            value={this.state.quantity}
+                            onChange={event => {
+                              var quantity = event.target.value;
+                              if (quantity <= 0) quantity = 0;
+                              else quantity = parseInt(quantity, 10);
+                              this.setState({ quantity });
+                            }}
+                            style={{ width: 50 }}
+                          />
+                          <div
+                            className='text-center'
+                            style={{
+                              fontSize: 15,
+                              cursor: "pointer",
+                              width: 15
+                            }}
+                            onClick={() =>
+                              this.setState({
+                                quantity: this.state.quantity + 1
+                              })
+                            }
+                          >
+                            +
+                          </div>
+                        </div>
                       </td>
                       <td>Description</td>
                     </tr>
@@ -170,13 +212,52 @@ export class OrderStep1 extends React.Component {
                       <td>Sherlock Holmes</td>
                       <td>Sherlock</td>
                       <td>
-                        <Form>
-                          <Form.Group as={Row}>
-                            <Col>
-                              <Form.Control type='number' placeholder='1' />
-                            </Col>
-                          </Form.Group>
-                        </Form>
+                        <div
+                          className='d-flex m-1 mr-4 py-1'
+                          style={{ borderRadius: 7, backgroundColor: "#fff" }}
+                        >
+                          <div
+                            className='text-center'
+                            style={{
+                              fontSize: 15,
+                              cursor: "pointer",
+                              width: 15
+                            }}
+                            onClick={() => {
+                              var quantity = this.state.quantity - 1;
+                              if (quantity >= 1) this.setState({ quantity });
+                            }}
+                          >
+                            -
+                          </div>
+                          <input
+                            className='text-center borderless'
+                            type='text'
+                            value={this.state.quantity}
+                            onChange={event => {
+                              var quantity = event.target.value;
+                              if (quantity <= 0) quantity = 0;
+                              else quantity = parseInt(quantity, 10);
+                              this.setState({ quantity });
+                            }}
+                            style={{ width: 50 }}
+                          />
+                          <div
+                            className='text-center'
+                            style={{
+                              fontSize: 15,
+                              cursor: "pointer",
+                              width: 15
+                            }}
+                            onClick={() =>
+                              this.setState({
+                                quantity: this.state.quantity + 1
+                              })
+                            }
+                          >
+                            +
+                          </div>
+                        </div>
                       </td>
                       <td>Description</td>
                     </tr>
@@ -195,13 +276,52 @@ export class OrderStep1 extends React.Component {
                       <td>Tony Stark</td>
                       <td>Iron Man</td>
                       <td>
-                        <Form>
-                          <Form.Group as={Row}>
-                            <Col>
-                              <Form.Control type='number' placeholder='1' />
-                            </Col>
-                          </Form.Group>
-                        </Form>
+                        <div
+                          className='d-flex m-1 mr-4 py-1'
+                          style={{ borderRadius: 7, backgroundColor: "#fff" }}
+                        >
+                          <div
+                            className='text-center'
+                            style={{
+                              fontSize: 15,
+                              cursor: "pointer",
+                              width: 15
+                            }}
+                            onClick={() => {
+                              var quantity = this.state.quantity - 1;
+                              if (quantity >= 1) this.setState({ quantity });
+                            }}
+                          >
+                            -
+                          </div>
+                          <input
+                            className='text-center borderless'
+                            type='text'
+                            value={this.state.quantity}
+                            onChange={event => {
+                              var quantity = event.target.value;
+                              if (quantity <= 0) quantity = 0;
+                              else quantity = parseInt(quantity, 10);
+                              this.setState({ quantity });
+                            }}
+                            style={{ width: 50 }}
+                          />
+                          <div
+                            className='text-center'
+                            style={{
+                              fontSize: 15,
+                              cursor: "pointer",
+                              width: 15
+                            }}
+                            onClick={() =>
+                              this.setState({
+                                quantity: this.state.quantity + 1
+                              })
+                            }
+                          >
+                            +
+                          </div>
+                        </div>
                       </td>
                       <td>Description</td>
                     </tr>
