@@ -51,6 +51,10 @@ class ProductController {
     Page<Product> productsOfCategory(@PathVariable String categoryName,
             @Valid @RequestBody(required = false) FilterWrapper filters, Pageable pageable) {
         Iterable<Category> categoryList = this.categoryRepository.findWithChilds(categoryName);
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
+        System.out.println(filters);
+        System.out.println("-----------------------------------------------------------------------------------------");
         if (filters == null) {
             return productRepository.findByCategoryIn(categoryList, pageable);
         } else {
