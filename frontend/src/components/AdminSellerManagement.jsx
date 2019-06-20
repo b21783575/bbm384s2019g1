@@ -1,58 +1,48 @@
-import React from "react";
-import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
+import React from 'react';
+import { Table, FormControl, Button } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
+import axios from 'axios';
 
 export class AdminSellerManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sellers: [
-        {
-          companyName: "Comp",
-          sellerSurname: "asfdasd",
-          rating: "2",
-          numOfWaitingSale: "123",
-          id: 1
-        },
-        {
-          companyName: "Comp2",
-          sellerSurname: "zxczxc",
-          rating: "2",
-          numOfWaitingSale: "7",
-          id: 2
-        },
-        {
-          companyName: "Comp3",
-          sellerSurname: "1qweqwe",
-          rating: "4",
-          numOfWaitingSale: "2",
-          id: 3
-        }
-      ]
+      sellers: []
     };
   }
 
+  componentDidMount() {
+    //this.props.routeChange('Products');
+    axios
+      .get('http://localhost:8080/api/s/all')
+      .then(res => {
+        console.log(res);
+        this.setState({ sellers: res.data.content });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
-    var sellers = this.state.sellers.map(seller => (
-      <tr key={seller.id}>
-        <td>{seller.id}</td>
+    var sellers = this.state.sellers.map((seller, index) => (
+      <tr key={index + 1}>
+        <td>{index + 1}</td>
         <td
           style={{
-            wordWrap: "break-word",
-            maxWidth: "250px"
+            wordWrap: 'break-word',
+            maxWidth: '250px'
           }}
         >
           {seller.companyName}
         </td>
         <td
           style={{
-            wordWrap: "break-word",
-            maxWidth: "180px"
+            wordWrap: 'break-word',
+            maxWidth: '180px'
           }}
         >
-          {seller.sellerSurname}
+          {seller.name}
         </td>
-        <td>{seller.rating}</td>
+        <td>{seller.avg_rating}</td>
         <td>{seller.numOfWaitingSale}</td>
         <td>
           <Button
@@ -103,8 +93,8 @@ export class AdminSellerManagement extends React.Component {
           <Pagination className='pagination justify-content-center align-items-end'>
             <Pagination.Prev />
             <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item disabled>{2}</Pagination.Item>
-            <Pagination.Item disabled>{3}</Pagination.Item>
+            <Pagination.Item>{2}</Pagination.Item>
+            <Pagination.Item>{3}</Pagination.Item>
 
             <Pagination.Ellipsis />
 
