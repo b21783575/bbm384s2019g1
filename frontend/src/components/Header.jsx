@@ -44,20 +44,19 @@ export class Header extends React.Component {
             </Link>
           </div>
           {this.props.cart ? (
-            <button
-              type='button'
-              className='row align-items-center mt-2'
-              style={{
-                backgroundColor: '#F16530',
-                borderColor: '#F16530'
-              }}
-              onClick={() => {
-                this.props.logout();
-              }}
-            >
-              <IoMdCart className='my-auto' size={'20px'} />
-              <h4>Cart</h4>
-            </button>
+            <Link to='/cart'>
+              <button
+                type='button'
+                className='row align-items-center mt-2'
+                style={{
+                  backgroundColor: '#F16530',
+                  borderColor: '#F16530'
+                }}
+              >
+                <IoMdCart className='my-auto' size={'20px'} />
+                <h4>Cart</h4>
+              </button>
+            </Link>
           ) : null}
         </div>
       );

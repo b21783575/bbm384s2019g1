@@ -49,7 +49,15 @@ class Product extends React.Component {
   }
 
   addToCart() {
-    console.log('add to cart');
+    axios
+      .post(
+        'http://localhost:8080/api/basket?productId=' +
+          this.state.product.id +
+          '&quantity=' +
+          this.state.quantity
+      )
+      .then(res => this.props.history.push('/cart'))
+      .catch(err => console.log(err));
   }
 
   renderPrice() {
