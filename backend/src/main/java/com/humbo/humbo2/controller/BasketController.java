@@ -3,16 +3,17 @@ package com.humbo.humbo2.controller;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import com.humbo.humbo2.domain.Basket;
 import com.humbo.humbo2.domain.Customer;
 import com.humbo.humbo2.domain.Product;
 import com.humbo.humbo2.domain.ProductOrder;
-import com.humbo.humbo2.domain.Seller;
+import com.humbo.humbo2.repository.AddressRepository;
 import com.humbo.humbo2.repository.BasketRepository;
 import com.humbo.humbo2.repository.CustomerRepository;
 import com.humbo.humbo2.repository.ProductOrderRepository;
 import com.humbo.humbo2.repository.ProductRepository;
-import com.humbo.humbo2.repository.SellerRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,16 +36,16 @@ public class BasketController {
     private ProductRepository productRepository;
     private BasketRepository basketRepository;
     private ProductOrderRepository orderRepository;
-    private SellerRepository sellerRepository;
+    private AddressRepository addressRepository;
 
 
-    public BasketController (CustomerRepository customerRepository, SellerRepository sellerRepository, ProductRepository productRepository, BasketRepository basketRepository,
-                            ProductOrderRepository orderRepository  ){
+    public BasketController (CustomerRepository customerRepository, ProductRepository productRepository, BasketRepository basketRepository,
+                            ProductOrderRepository orderRepository, AddressRepository addressRepository){
         this.customerRepository = customerRepository;
-        this.sellerRepository = sellerRepository;
         this.productRepository = productRepository;
         this.basketRepository = basketRepository;
         this.orderRepository = orderRepository;
+        this.addressRepository = addressRepository;
     }
 
     @GetMapping("")
@@ -63,7 +65,7 @@ public class BasketController {
         Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
         Product product = this.productRepository.findById(productId).get();
 
-        ProductOrder order = new ProductOrder(user, product, product.getSeller(), quantity);
+        ProductOrder order = new ProductOrder(user, product, product.getSeller(), quantity, null);
 
         Optional<Basket> basket = this.basketRepository.findByCustomerAndActive(user, true);
         if(basket.isPresent()){
@@ -93,24 +95,20 @@ public class BasketController {
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity<?> checkout(){
+    public ResponseEntity<?> checkout(@Valid @RequestBody PaymentWrapper payment){
         Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
         Basket basket = this.basketRepository.findByCustomerAndActive(user, true).get();
         Set<ProductOrder> orders = basket.getOrders();
         if(orders.size() == 0)
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         for(ProductOrder order : orders){
-            Seller seller = order.getSeller();
-            Product product = order.getProduct();
-            seller.setBalance(seller.getBalance() + ((product.getPrice() * ( 1 - product.getDiscount()/100)) * order.getQuantity()));
-            product.setStock(product.getStock() - order.getQuantity());
+            // Payment API (Customer to HUMBO)
             order.setIsPaid(true);
-            this.productRepository.save(product);
-            this.sellerRepository.save(seller);
+            order.setAddress(this.addressRepository.findById(payment.getAddressId()).get());
             this.orderRepository.save(order);
         }
         basket.setActive(false);
         this.basketRepository.save(basket);
-        return ResponseEntity.ok().body("Payment is successful!");
+        return ResponseEntity.ok().body("Operation is successful!");
     }
 }

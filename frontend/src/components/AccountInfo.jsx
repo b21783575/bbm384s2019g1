@@ -31,8 +31,9 @@ export class AccountInfo extends React.Component {
   }
 
   componentDidMount() {
-    const { seller } = this.props;
-    if (!!seller && !!seller.email) {
+    const { seller, customer } = this.props;
+    var user = !!customer ? customer : seller;
+    if (!!user && !!user.email) {
       this.setState({
         name: seller.name,
         email: seller.email,
@@ -43,13 +44,14 @@ export class AccountInfo extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    const { seller } = props;
-    if (!!seller) {
+    const { seller, customer } = props;
+    var user = !!customer ? customer : seller;
+    if (!!user) {
       this.setState({
-        name: seller.name,
-        email: seller.email,
-        phone: seller.phone,
-        date: seller.birthdate
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        date: user.birthdate
       });
     }
   }

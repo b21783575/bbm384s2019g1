@@ -27,6 +27,12 @@ class Customer extends React.Component {
 
   componentDidMount() {
     this.props.routeChange("customer");
+    this.setState({ customer: this.props.customer });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ customer: props.customer });
+    console.log(props.customer);
   }
 
   changeName(name) {

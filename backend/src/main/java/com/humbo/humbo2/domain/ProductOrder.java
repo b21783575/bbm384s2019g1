@@ -37,18 +37,21 @@ public class ProductOrder{
     @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
     @JsonIgnore
     private Basket basket;
+
+    @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
+    @JsonIgnore
+    private Address address;
     
     private Integer quantity;
     
     @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH}, fetch=FetchType.EAGER)
-    @JsonIgnore
     private Seller seller;
     
     private Date date;
     private Boolean isApproved;
     private Boolean isPaid;
     
-    public ProductOrder(Customer user, Product product, Seller seller, Integer quantity) {
+    public ProductOrder(Customer user, Product product, Seller seller, Integer quantity, Address address) {
         this.customer = user;
         this.seller = seller;
         this.product = product;
@@ -57,6 +60,7 @@ public class ProductOrder{
         this.isApproved = false;
         this.isPaid = false;
         this.date = Date.from(Instant.now());
+        this.address = address;
     }
     
 }
