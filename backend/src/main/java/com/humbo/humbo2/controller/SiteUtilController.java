@@ -2,7 +2,6 @@ package com.humbo.humbo2.controller;
 
 import java.util.Set;
 
-import com.humbo.humbo2.FilterWrapper;
 import com.humbo.humbo2.domain.Category;
 import com.humbo.humbo2.repository.CategoryRepository;
 import com.humbo.humbo2.repository.ProductRepository;
