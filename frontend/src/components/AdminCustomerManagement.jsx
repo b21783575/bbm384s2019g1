@@ -1,56 +1,46 @@
-import React from "react";
-import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
+import React from 'react';
+import { Table, FormControl, Button } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
+import axios from 'axios';
 
 export class AdminCustomerManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      customers: [
-        {
-          email: "email@email.com",
-          nameSurname: "asdasd asfdasd",
-          formerOrders: "2",
-          waitingOrders: "123",
-          id: 1
-        },
-        {
-          email: "email2@email.com",
-          nameSurname: "zxczxc zczxc ",
-          formerOrders: "2",
-          waitingOrders: "7",
-          id: 2
-        },
-        {
-          email: "email3@email.com",
-          nameSurname: "1qweqweqw eqwe qwe",
-          formerOrders: "4",
-          waitingOrders: "2",
-          id: 3
-        }
-      ]
+      customers: []
     };
   }
 
+  componentDidMount() {
+    //this.props.routeChange('Products');
+    axios
+      .get('http://localhost:8080/api/c/all')
+      .then(res => {
+        console.log(res);
+        this.setState({ customers: res.data.content });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
-    var customers = this.state.customers.map(customer => (
-      <tr key={customer.email}>
-        <td>{customer.id}</td>
+    var customers = this.state.customers.map((customer, index) => (
+      <tr key={index + 1}>
+        <td>{index + 1}</td>
         <td
           style={{
-            wordWrap: "break-word",
-            maxWidth: "280px"
+            wordWrap: 'break-word',
+            maxWidth: '280px'
           }}
         >
           {customer.email}
         </td>
         <td
           style={{
-            wordWrap: "break-word",
-            maxWidth: "210px"
+            wordWrap: 'break-word',
+            maxWidth: '210px'
           }}
         >
-          {customer.nameSurname}
+          {customer.name}
         </td>
         <td>{customer.formerOrders}</td>
         <td>{customer.waitingOrders}</td>

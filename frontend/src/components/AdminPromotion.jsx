@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Form, Col, Button } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination';
+import axios from 'axios';
 
 export class AdminPromotion extends React.Component {
   constructor(props) {
@@ -36,6 +37,17 @@ export class AdminPromotion extends React.Component {
         }
       ]
     };
+  }
+
+  componentDidMount() {
+    //this.props.routeChange('Products');
+    axios
+      .get('http://localhost:8080/api/promotion')
+      .then(res => {
+        console.log(res);
+        //this.setState({ products: res.data.content });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
