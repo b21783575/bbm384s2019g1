@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import Pagination from "react-bootstrap/Pagination";
-import Form from "react-bootstrap/Form";
-import axios from "axios";
+import Pagination from 'react-bootstrap/Pagination';
+import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 export class SellerOrders extends React.Component {
   constructor(props) {
@@ -10,14 +10,14 @@ export class SellerOrders extends React.Component {
     this.state = {
       products: [
         {
-          brand: "bellona",
-          stock: "1000",
-          name: "Chair",
+          brand: 'bellona',
+          stock: '1000',
+          name: 'Chair',
           price: 200,
-          description: "Comfort",
-          category: "Home",
-          discount: "5",
-          color: "Brown"
+          description: 'Comfort',
+          category: 'Home',
+          discount: '5',
+          color: 'Brown'
         }
       ],
       selected: [],
@@ -32,9 +32,9 @@ export class SellerOrders extends React.Component {
 
   async initApp() {
     axios
-      .get("http://localhost:8080/api/s/products")
+      .get('http://localhost:8080/api/s/products')
       .then(response => {
-        this.setState({ products: response.data });
+        this.setState({ products: response.data.content });
       })
       .catch(err => console.log(err));
     this.setState({ loading: false });
@@ -48,8 +48,8 @@ export class SellerOrders extends React.Component {
           className='my-auto border text-center'
           src={
             !!element.picture
-              ? "http://localhost:8080/files/" + element.picture
-              : ""
+              ? 'http://localhost:8080/files/' + element.picture
+              : ''
           }
         />
         <div className='col ml-2'>

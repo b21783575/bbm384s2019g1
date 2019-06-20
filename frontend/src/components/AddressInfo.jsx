@@ -42,7 +42,8 @@ export class AddressInfo extends React.Component {
     axios
       .get('http://localhost:8080/api/address')
       .then(response => {
-        this.setState({ addresses: response.data });
+        console.log(response);
+        this.setState({ addresses: response.data.content });
         console.log(this.state.addresses);
       })
       .catch(err => console.log(err));
