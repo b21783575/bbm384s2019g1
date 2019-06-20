@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,15 +43,19 @@ class ProductController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/products")
+    @PostMapping("/products")
     Page<Product> products(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
-    @GetMapping("/products/{categoryName}")
+    @PostMapping("/products/{categoryName}")
     Page<Product> productsOfCategory(@PathVariable String categoryName,
             @Valid @RequestBody(required = false) FilterWrapper filters, Pageable pageable) {
         Iterable<Category> categoryList = this.categoryRepository.findWithChilds(categoryName);
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
+        System.out.println(filters);
+        System.out.println("-----------------------------------------------------------------------------------------");
         if (filters == null) {
             return productRepository.findByCategoryIn(categoryList, pageable);
         } else {

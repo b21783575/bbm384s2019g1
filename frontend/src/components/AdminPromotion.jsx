@@ -1,5 +1,7 @@
-import React from 'react';
-import { Table, Form, Col, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, Form, Col, Button } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
+import axios from "axios";
 
 export class AdminPromotion extends React.Component {
   constructor(props) {
@@ -7,34 +9,45 @@ export class AdminPromotion extends React.Component {
     this.state = {
       promotions: [
         {
-          category: 'TV',
-          valid_date: '11.11.1111',
-          valid_time: '11:11',
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
           promotion_slogan:
-            'discountdiscount discountdiscount discountdiscountdiscountdiscountdiscountdiscountdiscountdiscountdiscount',
+            "discountdiscount discountdiscount discountdiscountdiscountdiscountdiscountdiscountdiscountdiscountdiscount",
           id: 1
           //promotion_picture: ""
         },
         {
-          category: 'TV',
-          valid_date: '11.11.1111',
-          valid_time: '11:11',
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
           promotion_slogan:
-            'discountdiscount discountdiscount discountasdasdasdasdasdsasdasasdasdasdasdasdsa',
+            "discountdiscount discountdiscount discountasdasdasdasdasdsasdasasdasdasdasdasdsa",
           id: 2
           //promotion_picture: ""
         },
         {
-          category: 'TV',
-          valid_date: '11.11.1111',
-          valid_time: '11:11',
+          category: "TV",
+          valid_date: "11.11.1111",
+          valid_time: "11:11",
           promotion_slogan:
-            'discountdiscount discountdiscount discountasdasdasdassdfsdd',
+            "discountdiscount discountdiscount discountasdasdasdassdfsdd",
           id: 3
           //promotion_picture: ""
         }
       ]
     };
+  }
+
+  componentDidMount() {
+    //this.props.routeChange('Products');
+    axios
+      .get("http://localhost:8080/api/promotion")
+      .then(res => {
+        console.log(res);
+        //this.setState({ products: res.data.content });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -56,8 +69,8 @@ export class AdminPromotion extends React.Component {
         </td>
         <td
           style={{
-            wordWrap: 'break-word',
-            maxWidth: '400px'
+            wordWrap: "break-word",
+            maxWidth: "400px"
           }}
         >
           {promotion.promotion_slogan}
@@ -147,7 +160,7 @@ export class AdminPromotion extends React.Component {
                       let reader = new FileReader();
                       let file = event.currentTarget.files[0];
                       reader.onloadend = () => {
-                        setFieldValue('file', file);
+                        setFieldValue("file", file);
                         this.setState({ imagePreviewUrl: reader.result });
                       };
                       reader.readAsDataURL(file);
@@ -201,7 +214,7 @@ export class AdminPromotion extends React.Component {
               }}*/
               />
               <div className='col pl-0 ml-0'>Select All</div>
-              <div style={{ color: '#00f' }} className='float-right mr-0'>
+              <div style={{ color: "#00f" }} className='float-right mr-0'>
                 Remove Selected Items
               </div>
 
@@ -210,6 +223,19 @@ export class AdminPromotion extends React.Component {
               </Table>
             </div>
           </div>
+          <Pagination className='pagination justify-content-center align-items-end'>
+            <Pagination.Prev />
+            <Pagination.Item active>{1}</Pagination.Item>
+            <Pagination.Item disabled>{2}</Pagination.Item>
+            <Pagination.Item disabled>{3}</Pagination.Item>
+
+            <Pagination.Ellipsis />
+
+            <Pagination.Item>{10}</Pagination.Item>
+            <Pagination.Item>{11}</Pagination.Item>
+            <Pagination.Item>{12}</Pagination.Item>
+            <Pagination.Next />
+          </Pagination>
         </div>
       </div>
     );

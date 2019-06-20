@@ -38,9 +38,9 @@ public class BasketController {
     private ProductOrderRepository orderRepository;
     private AddressRepository addressRepository;
 
-
-    public BasketController (CustomerRepository customerRepository, ProductRepository productRepository, BasketRepository basketRepository,
-                            ProductOrderRepository orderRepository, AddressRepository addressRepository){
+    public BasketController(CustomerRepository customerRepository, ProductRepository productRepository,
+            BasketRepository basketRepository, ProductOrderRepository orderRepository,
+            AddressRepository addressRepository) {
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
         this.basketRepository = basketRepository;
@@ -49,28 +49,32 @@ public class BasketController {
     }
 
     @GetMapping("")
-    public  ResponseEntity<?> getBasket(){
-        Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+    public ResponseEntity<?> getBasket() {
+        Customer user = this.customerRepository.findByEmail(
+                ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
+                .get();
         Optional<Basket> basket = this.basketRepository.findByCustomerAndActive(user, true);
-        if(!basket.isPresent()){
+        if (!basket.isPresent()) {
             Basket temp = new Basket(user);
             this.basketRepository.save(temp);
             return ResponseEntity.ok().body(temp);
         }
         return ResponseEntity.ok().body(basket.get());
     }
-    
+
     @PostMapping("")
-    public ResponseEntity<?> addProduct(@RequestParam Long productId, @RequestParam Integer quantity){
-        Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+    public ResponseEntity<?> addProduct(@RequestParam Long productId, @RequestParam Integer quantity) {
+        Customer user = this.customerRepository.findByEmail(
+                ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
+                .get();
         Product product = this.productRepository.findById(productId).get();
 
         ProductOrder order = new ProductOrder(user, product, product.getSeller(), quantity, null);
 
         Optional<Basket> basket = this.basketRepository.findByCustomerAndActive(user, true);
-        if(basket.isPresent()){
+        if (basket.isPresent()) {
             order.setBasket(basket.get());
-        }else{
+        } else {
             Basket temp = new Basket(user);
             this.basketRepository.save(temp);
             order.setBasket(temp);
@@ -80,8 +84,9 @@ public class BasketController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateProductOrder(@RequestParam Long orderId, @RequestParam Integer quantity){
-        // Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+    public ResponseEntity<?> updateProductOrder(@RequestParam Long orderId, @RequestParam Integer quantity) {
+        // Customer user = this.customerRepository.findByEmail(((UserDetails)
+        // SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
         ProductOrder order = this.orderRepository.findById(orderId).get();
         order.setQuantity(quantity);
         this.orderRepository.save(order);
@@ -89,22 +94,25 @@ public class BasketController {
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> deleteProductOrder(@RequestParam Long orderId){
-        this.orderRepository.deleteById(orderId);;
+    public ResponseEntity<?> deleteProductOrder(@RequestParam Long orderId) {
+        this.orderRepository.deleteById(orderId);
+        ;
         return ResponseEntity.ok().body(String.format("%d is deleted", orderId));
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity<?> checkout(@Valid @RequestBody PaymentWrapper payment){
-        Customer user = this.customerRepository.findByEmail(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).get();
+    public ResponseEntity<?> checkout(@Valid @RequestBody(required = false) PaymentWrapper payment) {
+        Customer user = this.customerRepository.findByEmail(
+                ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
+                .get();
         Basket basket = this.basketRepository.findByCustomerAndActive(user, true).get();
         Set<ProductOrder> orders = basket.getOrders();
-        if(orders.size() == 0)
+        if (orders.size() == 0)
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        for(ProductOrder order : orders){
+        for (ProductOrder order : orders) {
             // Payment API (Customer to HUMBO)
             order.setIsPaid(true);
-            order.setAddress(this.addressRepository.findById(payment.getAddressId()).get());
+            // order.setAddress(this.addressRepository.findById(payment.getAddressId()).get());
             this.orderRepository.save(order);
         }
         basket.setActive(false);

@@ -23,7 +23,7 @@ class Products extends React.Component {
         maxPrice: null,
         colors: [],
         brands: [],
-        minRate: 1
+        minRate: 0
       },
       availableFilters: {
         minPrice: null,
@@ -42,13 +42,24 @@ class Products extends React.Component {
     this.initApp();
   }
 
+  addProductToCart(productId) {
+    axios
+      .post(
+        "http://localhost:8080/api/basket?productId=" +
+          productId +
+          "&quantity=1"
+      )
+      .then(res => this.props.history.push("/cart"))
+      .catch(err => console.log(err));
+  }
+
   applyFilters() {
     const requestOptions = {
       headers: { "Content-Type": "application/json" }
     };
     console.log(this.state.filters);
     axios
-      .get(
+      .post(
         "http://localhost:8080/api/products/" + this.state.category,
         this.state.filters,
         requestOptions
@@ -66,7 +77,7 @@ class Products extends React.Component {
       url += "/" + category;
     }
     axios
-      .get(url)
+      .post(url)
       .then(res => {
         console.log(res);
         this.setState({ products: res.data.content });
@@ -171,7 +182,7 @@ class Products extends React.Component {
           <button
             type='button'
             className='btn btn-primary ml-2'
-            onClick={() => this.props.addProductToCart(product.id)}
+            onClick={() => this.addProductToCart(product.id)}
           >
             Add to Cart
           </button>
@@ -261,6 +272,18 @@ class Products extends React.Component {
                 <hr />
                 <div
                   style={{
+                    color: this.state.filters.minRate == 0 ? "#f00" : null
+                  }}
+                  onClick={() => {
+                    var filters = this.state.filters;
+                    filters.minRate = 0;
+                    this.setState({ filters });
+                  }}
+                >
+                  0+
+                </div>
+                <div
+                  style={{
                     color: this.state.filters.minRate == 1 ? "#f00" : null
                   }}
                   onClick={() => {
@@ -335,7 +358,6 @@ class Products extends React.Component {
                     }}
                     value={this.state.filters.minPrice}
                     type='text'
-                    placeholder='1'
                   />
                   -
                   <input
@@ -347,7 +369,6 @@ class Products extends React.Component {
                       this.setState(filters);
                     }}
                     type='text'
-                    placeholder='15000'
                   />
                 </div>
                 <hr />

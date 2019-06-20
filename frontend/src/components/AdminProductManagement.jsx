@@ -1,50 +1,42 @@
 import React from "react";
 import { Table, FormControl, Button } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
+import axios from "axios";
 
 export class AdminProductManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [
-        {
-          productID: "P1231",
-          category: "TV",
-          productName: "TV TV TV",
-          stockStatus: "123",
-          id: 1
-        },
-        {
-          productID: "P1234",
-          category: "Smart Phone",
-          productName: "Phone Sweet Phone",
-          stockStatus: "123",
-          id: 2
-        },
-        {
-          productID: "P1235",
-          category: "Home",
-          productName: "Home Sweet Home",
-          stockStatus: "123",
-          id: 3
-        }
-      ]
+      products: []
     };
   }
+
+  componentDidMount() {
+    //this.props.routeChange('Products');
+    axios
+      .get("http://localhost:8080/api/products")
+      .then(res => {
+        console.log(res);
+        this.setState({ products: res.data.content });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
-    var products = this.state.products.map(product => (
-      <tr key={product.productID}>
+    var products = this.state.products.map((product, index) => (
+      <tr key={index + 1}>
+        <td>{index + 1}</td>
         <td>{product.id}</td>
-        <td>{product.productID}</td>
         <td
           style={{
             wordWrap: "break-word",
             maxWidth: "280px"
           }}
         >
-          {product.category}
+          {product.category.name}
         </td>
-        <td>{product.productName}</td>
-        <td>{product.stockStatus}</td>
+        <td>{product.name}</td>
+        <td>{product.stock}</td>
         <td>
           <Button
             style={{ minWidth: 75 }}
