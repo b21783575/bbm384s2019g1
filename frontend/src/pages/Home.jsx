@@ -124,18 +124,6 @@ class Home extends React.Component {
       <div style={{ backgroundColor: '#F2EEEE' }}>
         <React.Fragment>
           <div className='mx-5 px-5 mt-md-2'>
-            <a href='/demo'>Demo</a>
-            <button type='button' onClick={this.toggleLogin}>
-              Toggle login
-            </button>
-            <button
-              type='button'
-              onClick={() => {
-                this.props.history.push('/seller');
-              }}
-            >
-              Seller Account Page
-            </button>
             <button
               type='button'
               onClick={() => {
@@ -144,41 +132,17 @@ class Home extends React.Component {
             >
               Admin Account Page
             </button>
-            <button
-              type='button'
-              onClick={() => {
-                this.props.history.push('/products');
-              }}
-            >
-              Products
-            </button>
-            <button
-              type='button'
-              onClick={() => {
-                this.props.history.push("/order1");
-              }}
-            >
-              Order
-            </button>
-            <button
-              type='button'
-              onClick={() => {
-                this.props.history.push("/cart");
-              }}
-            >
-              Cart
-            </button>
             <div className='w-75 mx-auto my-3'>
               <SlideLabel slideContext={slideContext} />
             </div>
-            <div style={{ height: "600px" }} className='row w-100 mx-auto mt-2'>
+            <div style={{ height: '600px' }} className='row w-100 mx-auto mt-2'>
               <div className='col text-center bg-light mr-3'>
                 RECOMMENDED PRODUCTS {products}
               </div>
               <div className='col w-100 bg-light'>
                 <div
                   className='row-4 h-25 w-100 text-center align-middle border'
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     this.props.history.push('/admin');
                   }}
@@ -189,12 +153,12 @@ class Home extends React.Component {
                       this.props.history.push('/admin');
                     }}
                     src='https://cdn2.techadvisor.co.uk/cmsdata/features/3214583/best_budget_laptop_thumb336.jpg'
-                    style={{ width: 325, height: 120, cursor: "pointer" }}
+                    style={{ width: 325, height: 120, cursor: 'pointer' }}
                   />
                 </div>
                 <div
                   className='row-6 h-50 text-center my-auto border'
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     this.props.history.push('/admin');
                   }}
@@ -205,12 +169,12 @@ class Home extends React.Component {
                       this.props.history.push('/admin');
                     }}
                     src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm3rDi_t-4eCzA-m860eicyKt-nr842qJwn3GWN_dIRBF3iS8w'
-                    style={{ width: 320, height: 250, cursor: "pointer" }}
+                    style={{ width: 320, height: 250, cursor: 'pointer' }}
                   />
                 </div>
                 <div
                   className='row-2 h-25 align-middle text-center border'
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     this.props.history.push('/admin');
                   }}
@@ -221,14 +185,14 @@ class Home extends React.Component {
                       this.props.history.push('/admin');
                     }}
                     src='https://www.incimages.com/uploaded_files/image/970x450/getty_508400521_2000133320009280263_305526.jpg'
-                    style={{ width: 325, height: 120, cursor: "pointer" }}
+                    style={{ width: 325, height: 120, cursor: 'pointer' }}
                   />
                 </div>
               </div>
               <div className='col bg-light ml-3'>
                 <div
                   className='row-4 h-25 w-100 text-center border'
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     this.props.history.push('/admin');
                   }}
@@ -239,12 +203,12 @@ class Home extends React.Component {
                       this.props.history.push('/admin');
                     }}
                     src='https://www.apple.com/v/iphone/home/z/images/meta/og.png?201905132138'
-                    style={{ width: 340, height: 120, cursor: "pointer" }}
+                    style={{ width: 340, height: 120, cursor: 'pointer' }}
                   />
                 </div>
                 <div
                   className='row-6 h-50 text-center border'
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     this.props.history.push('/admin');
                   }}
@@ -255,12 +219,12 @@ class Home extends React.Component {
                       this.props.history.push('/admin');
                     }}
                     src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQzPgoDKyA4EfaOWW88jnijTYFb-s7UObs-NGbmT6wOraNxS32FQ'
-                    style={{ width: 320, height: 250, cursor: "pointer" }}
+                    style={{ width: 320, height: 250, cursor: 'pointer' }}
                   />
                 </div>
                 <div
                   className='row-2 h-25 text-center border'
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     this.props.history.push('/admin');
                   }}
@@ -271,7 +235,7 @@ class Home extends React.Component {
                       this.props.history.push('/admin');
                     }}
                     src='http://biggiebestwebshop.co.za/images/furn%20%282%29%20%28Medium%29.jpg'
-                    style={{ width: 340, height: 120, cursor: "pointer" }}
+                    style={{ width: 340, height: 120, cursor: 'pointer' }}
                   />
                 </div>
               </div>
@@ -280,7 +244,7 @@ class Home extends React.Component {
           <Modal show={this.state.isLogin}>
             <Modal.Body
               className='text-center'
-              style={{ color: "#090", fontSize: 25 }}
+              style={{ color: '#090', fontSize: 25 }}
             >
               Successfully Edited
             </Modal.Body>

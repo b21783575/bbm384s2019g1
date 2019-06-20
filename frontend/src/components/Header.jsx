@@ -145,18 +145,34 @@ export class Header extends React.Component {
             style={{ backgroundColor: '#384E6E', width: '100%' }}
             className='d-flex justify-content-around'
           >
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
+            <Link
+              style={{ color: '#fff' }}
+              className='bd-highlight'
+              to='/products/TV'
+            >
               TV
-            </a>
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
+            </Link>
+            <Link
+              style={{ color: '#fff' }}
+              className='bd-highlight'
+              to='/products/Electronics'
+            >
               Electronics
-            </a>
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
+            </Link>
+            <Link
+              style={{ color: '#fff' }}
+              className='bd-highlight'
+              to='/products/Home'
+            >
               Home
-            </a>
-            <a style={{ color: '#fff' }} className='bd-highlight' href='/'>
+            </Link>
+            <Link
+              style={{ color: '#fff' }}
+              className='bd-highlight'
+              to='/products/Furniture'
+            >
               Furniture
-            </a>
+            </Link>
           </Nav>
           <div
             style={{ backgroundColor: '#fff', width: '100%' }}
