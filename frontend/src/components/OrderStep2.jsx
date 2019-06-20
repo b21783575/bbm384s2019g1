@@ -115,7 +115,7 @@ export class OrderStep2 extends React.Component {
                 </Form>
               </div>
               <div
-                style={{ backgroundColor: "#fff", maxHeight: 275 }}
+                style={{ backgroundColor: "#fff", maxHeight: 375 }}
                 className='col-2 ml-2' // kenarlara yapışmıyor!
               >
                 <div style={{ textAlign: "right" }}>
@@ -136,10 +136,6 @@ export class OrderStep2 extends React.Component {
                   <hr />
                   <h6>Shipping Fee</h6>
                   <h6>$ XX,xx</h6>
-                  <hr />
-                  <button className='col-12 btn btn-secondary'>
-                    Use Promotion Code
-                  </button>
                 </div>
               </div>
             </div>

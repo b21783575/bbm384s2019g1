@@ -37,7 +37,6 @@ class Products extends React.Component {
     var category = props.match.params.category;
     if (this.state.category !== category) {
       this.setState({ category });
-      this.initApp();
     }
   }
 
