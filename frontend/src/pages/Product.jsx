@@ -35,14 +35,14 @@ class Product extends React.Component {
     axios('http://localhost:8080/api/product/' + this.props.match.params.id)
       .then(response => {
         console.log(response);
-        var category = response.data.category;
+        var category = response.data.product.category;
         var branch = [];
         while (category) {
           branch.push(category.name);
           category = category.parent;
         }
         console.log(branch.reverse());
-        var product = response.data;
+        var product = response.data.product;
         this.setState({ branch, product });
       })
       .catch(err => console.log(err));
@@ -105,11 +105,20 @@ class Product extends React.Component {
           >
             <div className='col'>
               <div className='row'>
-                <img
-                  className='border mr-3'
-                  style={{ width: 400, height: 400 }}
-                  src={'http://localhost:8080/files/' + product.picture}
-                />
+                {product.picture ? (
+                  <img
+                    className='border mr-3'
+                    style={{ width: 400, height: 400 }}
+                    src={'http://localhost:8080/files/' + product.picture}
+                  />
+                ) : (
+                  <div
+                    className='border mr-3'
+                    style={{ width: 400, height: 400, textAlign: 'center' }}
+                  >
+                    No image
+                  </div>
+                )}
                 <div className='col'>
                   <div
                     className='row border mb-2 pl-2 inline'

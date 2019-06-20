@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { IoMdPerson, IoMdCart } from "react-icons/io";
-import { FaBell } from "react-icons/fa";
 
 export class Header extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ export class Header extends React.Component {
             className='mr-3'
             onClick={() => {
               this.props.logout();
-              window.location.assign('/');
+              window.location.assign("/");
             }}
           >
             logout
@@ -35,17 +34,12 @@ export class Header extends React.Component {
             style={{ cursor: "pointer" }}
           >
             <Link to='/customer' className='row'>
-              <FaBell
-                className='my-auto mr-3'
-                color={"#F16530"}
-                size={"20px"}
-              />
               <IoMdPerson className='my-auto' color={"#fff"} size={"30px"} />
               <div
-                className='my-auto mr-3'
+                className='my-auto'
                 style={{ color: "#fff", textDecoration: "none" }}
               >
-                {this.props.user.name}
+                {this.props.user.email}
               </div>
             </Link>
           </div>
@@ -115,7 +109,10 @@ export class Header extends React.Component {
             className='d-flex justify-content-end'
             style={{ backgroundColor: "#384E6E" }}
           >
-            <a style={{ color: "#fff", marginRight: "25px" }} href='/login'>
+            <a
+              style={{ color: "#fff", marginRight: "25px" }}
+              href='/user/helpMessage'
+            >
               Contact us
             </a>
           </div>
@@ -152,16 +149,28 @@ export class Header extends React.Component {
             style={{ backgroundColor: "#384E6E", width: "100%" }}
             className='d-flex justify-content-around'
           >
-            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
+            <a
+              style={{ color: "#fff" }}
+              className='bd-highlight'
+              href='/products/TV'
+            >
               TV
             </a>
             <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
               Electronics
             </a>
-            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
+            <a
+              style={{ color: "#fff" }}
+              className='bd-highlight'
+              href='/products/Home'
+            >
               Home
             </a>
-            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
+            <a
+              style={{ color: "#fff" }}
+              className='bd-highlight'
+              href='/products/Furniture'
+            >
               Furniture
             </a>
           </Nav>

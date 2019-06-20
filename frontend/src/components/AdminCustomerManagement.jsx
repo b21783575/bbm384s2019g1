@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 
 export class AdminCustomerManagement extends React.Component {
   constructor(props) {
@@ -100,19 +99,6 @@ export class AdminCustomerManagement extends React.Component {
               <tbody>{customers}</tbody>
             </Table>
           </div>
-          <Pagination className='pagination justify-content-center align-items-end'>
-            <Pagination.Prev />
-            <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item disabled>{2}</Pagination.Item>
-            <Pagination.Item disabled>{3}</Pagination.Item>
-
-            <Pagination.Ellipsis />
-
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>{11}</Pagination.Item>
-            <Pagination.Item>{12}</Pagination.Item>
-            <Pagination.Next />
-          </Pagination>
         </div>
       </React.Fragment>
     );

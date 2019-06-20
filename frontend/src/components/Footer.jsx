@@ -132,7 +132,7 @@ export class Footer extends React.Component {
                 <a
                   style={{ color: "white" }}
                   className='p-1 bd-highlight'
-                  href='/products'
+                  href='/products/TV'
                 >
                   TV
                   <MdTv
@@ -145,7 +145,7 @@ export class Footer extends React.Component {
                 <a
                   style={{ color: "white" }}
                   className='p-1 bd-highlight'
-                  href='/products'
+                  href='/products/Smart%20Phones'
                 >
                   Smart Phone
                   <MdPhoneAndroid
@@ -158,7 +158,7 @@ export class Footer extends React.Component {
                 <a
                   style={{ color: "white" }}
                   className='p-1 bd-highlight'
-                  href='/products'
+                  href='/products/Mobile%20Phones'
                 >
                   Cell Phone
                   <MdSmartphone
@@ -171,7 +171,7 @@ export class Footer extends React.Component {
                 <a
                   style={{ color: "white" }}
                   className='p-1 bd-highlight'
-                  href='/products'
+                  href='/products/Home'
                 >
                   Home
                   <MdHome

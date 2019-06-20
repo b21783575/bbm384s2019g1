@@ -1,22 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import styles from "../app.sass";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+import styles from '../app.sass';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
-import { CustomerOrders } from "../components/CustomerOrders";
-import { AccountInfo } from "../components/AccountInfo";
-import { AddressInfo } from "../components/AddressInfo";
-import { HelpMessage } from "../components/HelpMessage";
-import { Notifications } from "../components/Notifications";
+import { SellerOrders } from '../components/SellerOrders';
+import { AccountInfo } from '../components/AccountInfo';
+import { AddressInfo } from '../components/AddressInfo';
+import { HelpMessage } from '../components/HelpMessage';
 
-const selectedColor = "#11f";
+const selectedColor = '#11f';
 
 class Customer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: "profile",
+      page: 'profile',
       customer: {},
       show: false
     };
@@ -26,7 +25,7 @@ class Customer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.routeChange("customer");
+    this.props.routeChange('customer');
     this.setState({ customer: this.props.customer });
   }
 
@@ -37,7 +36,7 @@ class Customer extends React.Component {
 
   changeName(name) {
     var customer = this.state.customer;
-    customer["name"] = name;
+    customer['name'] = name;
     this.setState({ customer });
   }
 
@@ -51,23 +50,21 @@ class Customer extends React.Component {
 
   renderPage() {
     switch (this.state.page) {
-      case "profile":
+      case 'profile':
         return (
           <AccountInfo
             customer={this.state.customer}
             changeName={this.changeName}
           />
         );
-      case "orders":
-        return <CustomerOrders />;
-      case "addresses":
+      case 'orders':
+        return <SellerOrders />;
+      case 'addresses':
         return <AddressInfo />;
-      case "notification":
+      case 'notification':
         return <AccountInfo />;
-      case "help":
+      case 'help':
         return <HelpMessage />;
-      case "notifications":
-        return <Notifications />;
       default:
         return <AccountInfo />;
     }
@@ -77,14 +74,14 @@ class Customer extends React.Component {
     return (
       <div
         style={{
-          backgroundColor: "#ccc"
+          backgroundColor: '#ccc'
         }}
         className='pb-5'
       >
         <div className='container pt-5'>
           <div className='row'>
             <div
-              style={{ backgroundColor: "#fff" }}
+              style={{ backgroundColor: '#fff' }}
               className='col-3 mr-4 pt-4'
             >
               <h4 className='text-center border border-dark'>
@@ -95,27 +92,27 @@ class Customer extends React.Component {
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === "profile" ? selectedColor : null
+                  color: this.state.page === 'profile' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: "profile" })}
+                onClick={() => this.setState({ page: 'profile' })}
               >
                 Profile
               </h5>
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === "orders" ? selectedColor : null
+                  color: this.state.page === 'orders' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: "orders" })}
+                onClick={() => this.setState({ page: 'orders' })}
               >
                 Orders
               </h5>
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === "addresses" ? selectedColor : null
+                  color: this.state.page === 'addresses' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: "addresses" })}
+                onClick={() => this.setState({ page: 'addresses' })}
               >
                 Addresses
               </h5>
@@ -123,9 +120,9 @@ class Customer extends React.Component {
                 className={styles.link}
                 style={{
                   color:
-                    this.state.page === "notifications" ? selectedColor : null
+                    this.state.page === 'notification' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: "notifications" })}
+                onClick={() => this.setState({ page: 'notification' })}
               >
                 Notifications
               </h5>
@@ -135,9 +132,9 @@ class Customer extends React.Component {
               <h5
                 className={styles.link}
                 style={{
-                  color: this.state.page === "help" ? selectedColor : null
+                  color: this.state.page === 'help' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: "help" })}
+                onClick={() => this.setState({ page: 'help' })}
               >
                 Help
               </h5>
@@ -154,20 +151,20 @@ class Customer extends React.Component {
                 show={this.state.show}
                 onHide={this.handleClose}
               >
-                <Modal.Body style={{ fontSize: 30, alignSelf: "center" }}>
+                <Modal.Body style={{ fontSize: 30, alignSelf: 'center' }}>
                   Are You Sure?
                   <br />
                   <Button
                     style={{
                       fontSize: 20,
-                      backgroundColor: "#384E6E",
-                      color: "white",
-                      justifyContent: "center",
+                      backgroundColor: '#384E6E',
+                      color: 'white',
+                      justifyContent: 'center',
                       marginRight: 40
                     }}
                     variant='primary'
                     onClick={() => {
-                      this.props.history.push("/");
+                      this.props.history.push('/');
                     }}
                   >
                     YES
@@ -175,9 +172,9 @@ class Customer extends React.Component {
                   <Button
                     style={{
                       fontSize: 20,
-                      backgroundColor: "red",
-                      color: "white",
-                      justifyContent: "center",
+                      backgroundColor: 'red',
+                      color: 'white',
+                      justifyContent: 'center',
                       marginLeft: 40
                     }}
                     variant='secondary'
@@ -189,7 +186,7 @@ class Customer extends React.Component {
               </Modal>
               <br />
             </div>
-            <div style={{ backgroundColor: "#fff" }} className='col'>
+            <div style={{ backgroundColor: '#fff' }} className='col'>
               {this.renderPage()}
             </div>
           </div>

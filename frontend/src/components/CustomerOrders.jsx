@@ -1,7 +1,5 @@
 import React from "react";
 
-import Pagination from "react-bootstrap/Pagination";
-import Form from "react-bootstrap/Form";
 import axios from "axios";
 
 export class CustomerOrders extends React.Component {
@@ -78,19 +76,6 @@ export class CustomerOrders extends React.Component {
         <h4>Orders</h4>
         <br />
         <div className='col'>{products}</div>
-        <Pagination className='pagination justify-content-center align-items-end'>
-          <Pagination.Prev />
-          <Pagination.Item active>{1}</Pagination.Item>
-          <Pagination.Item disabled>{2}</Pagination.Item>
-          <Pagination.Item disabled>{3}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item>{12}</Pagination.Item>
-          <Pagination.Next />
-        </Pagination>
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React from "react";
 import { FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 
 export class AdminFeedback extends React.Component {
   constructor(props) {
