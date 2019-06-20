@@ -9,7 +9,6 @@ import { SellerProducts } from '../components/SellerProducts';
 import { AccountInfo } from '../components/AccountInfo';
 import { AddressInfo } from '../components/AddressInfo';
 import { HelpMessage } from '../components/HelpMessage';
-import { Notifications } from '../components/Notifications';
 
 const selectedColor = '#11f';
 
@@ -159,6 +158,7 @@ class Seller extends React.Component {
                 onClick={() => {
                   this.props.logout();
                   this.setState({ show: true });
+                  this.props.history.push('/');
                 }}
               >
                 Logout

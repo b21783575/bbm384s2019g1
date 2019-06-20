@@ -8,7 +8,6 @@ import { SellerOrders } from '../components/SellerOrders';
 import { AccountInfo } from '../components/AccountInfo';
 import { AddressInfo } from '../components/AddressInfo';
 import { HelpMessage } from '../components/HelpMessage';
-import { Notifications } from '../components/Notifications';
 
 const selectedColor = '#11f';
 
@@ -27,6 +26,12 @@ class Customer extends React.Component {
 
   componentDidMount() {
     this.props.routeChange('customer');
+    this.setState({ customer: this.props.customer });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ customer: props.customer });
+    console.log(props.customer);
   }
 
   changeName(name) {
@@ -117,9 +122,9 @@ class Customer extends React.Component {
                 className={styles.link}
                 style={{
                   color:
-                    this.state.page === 'notifications' ? selectedColor : null
+                    this.state.page === 'notification' ? selectedColor : null
                 }}
-                onClick={() => this.setState({ page: 'notifications' })}
+                onClick={() => this.setState({ page: 'notification' })}
               >
                 Notifications
               </h5>

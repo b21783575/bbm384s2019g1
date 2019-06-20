@@ -10,7 +10,6 @@ export class Header extends React.Component {
   }
 
   renderHeaderRight() {
-    console.log(this.props.user);
     if (!!this.props.user) {
       return (
         <div className='row align-items-center float-right mr-2'>
@@ -23,7 +22,10 @@ export class Header extends React.Component {
               cursor: 'pointer'
             }}
             className='mr-3'
-            onClick={this.props.logout}
+            onClick={() => {
+              this.props.logout();
+              window.location.assign('/');
+            }}
           >
             logout
           </div>
@@ -49,7 +51,9 @@ export class Header extends React.Component {
                 backgroundColor: '#F16530',
                 borderColor: '#F16530'
               }}
-              onClick={this.props.logout}
+              onClick={() => {
+                this.props.logout();
+              }}
             >
               <IoMdCart className='my-auto' size={'20px'} />
               <h4>Cart</h4>
