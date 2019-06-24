@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, Form, Col, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 import axios from "axios";
 
 export class AdminPromotion extends React.Component {
@@ -44,7 +43,6 @@ export class AdminPromotion extends React.Component {
     axios
       .get("http://localhost:8080/api/promotion")
       .then(res => {
-        console.log(res);
         //this.setState({ products: res.data.content });
       })
       .catch(err => console.log(err));
@@ -223,19 +221,6 @@ export class AdminPromotion extends React.Component {
               </Table>
             </div>
           </div>
-          <Pagination className='pagination justify-content-center align-items-end'>
-            <Pagination.Prev />
-            <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item disabled>{2}</Pagination.Item>
-            <Pagination.Item disabled>{3}</Pagination.Item>
-
-            <Pagination.Ellipsis />
-
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>{11}</Pagination.Item>
-            <Pagination.Item>{12}</Pagination.Item>
-            <Pagination.Next />
-          </Pagination>
         </div>
       </div>
     );

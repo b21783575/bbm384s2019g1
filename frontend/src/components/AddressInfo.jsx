@@ -1,31 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { AddressPopup } from './AddressPopup';
-import { FaPencilAlt } from 'react-icons/fa';
-import axios from 'axios';
+import { AddressPopup } from "./AddressPopup";
+import { FaPencilAlt } from "react-icons/fa";
+import axios from "axios";
 
 export class AddressInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addresses: [
-        {
-          name: 'Home',
-          country: 'Turkey',
-          region: 'Ankara',
-          address: 'Neighborhood / Street / Apartment'
-        },
-        {
-          name: 'Work',
-          country: 'Turkey',
-          region: 'Istanbul',
-          address: 'Neighborhood / Street / Apartment'
-        }
-      ],
+      addresses: [],
       selected: [],
-      address: { name: '', country: '', region: '', address: '' },
+      address: { name: "", country: "", region: "", address: "" },
       showPopup: false,
-      popupTitle: ''
+      popupTitle: ""
     };
 
     this.openAdd = this.openAdd.bind(this);
@@ -40,11 +27,9 @@ export class AddressInfo extends React.Component {
 
   async initApp() {
     axios
-      .get('http://localhost:8080/api/address')
+      .get("http://localhost:8080/api/address")
       .then(response => {
-        console.log(response);
         this.setState({ addresses: response.data.content });
-        console.log(this.state.addresses);
       })
       .catch(err => console.log(err));
     this.setState({ showPopup: false });
@@ -54,7 +39,7 @@ export class AddressInfo extends React.Component {
     this.setState({ address: this.state.addresses[index] }, () =>
       this.setState({
         showPopup: true,
-        popupTitle: 'Edit Address',
+        popupTitle: "Edit Address",
         currentIndex: index
       })
     );
@@ -65,11 +50,11 @@ export class AddressInfo extends React.Component {
     for (var key in address) oldAddress[key] = address[key];
 
     const requestOptions = {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" }
     };
     axios
       .put(
-        'http://localhost:8080/api/address/' + oldAddress.id,
+        "http://localhost:8080/api/address/" + oldAddress.id,
         oldAddress,
         requestOptions
       )
@@ -86,22 +71,22 @@ export class AddressInfo extends React.Component {
   openAdd() {
     this.setState(
       {
-        address: { name: '', country: '', region: '', address: '' }
+        address: { name: "", country: "", region: "", address: "" }
       },
       () =>
         this.setState({
           showPopup: true,
-          popupTitle: 'Add Address'
+          popupTitle: "Add Address"
         })
     );
   }
 
   submitNew(address) {
     const requestOptions = {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" }
     };
     axios
-      .post('http://localhost:8080/api/address', address, requestOptions)
+      .post("http://localhost:8080/api/address", address, requestOptions)
       .then(result => {
         this.initApp();
       })
@@ -116,14 +101,12 @@ export class AddressInfo extends React.Component {
       }
     }
     this.setState({ selectAll: false });
-    console.log(selected);
-    console.log(data);
     const requestOptions = {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { "Content-Type": "multipart/form-data" }
     };
     axios
       .delete(
-        'http://localhost:8080/api/address?ids=' + data.join(','),
+        "http://localhost:8080/api/address?ids=" + data.join(","),
         requestOptions
       )
       .then(result => {
@@ -137,11 +120,8 @@ export class AddressInfo extends React.Component {
         this.setState({ addresses });
         selected.splice(0, selected.length);
         this.setState({ selected });
-        console.log('silindi');
       })
       .catch(err => {
-        console.log(data.join(','));
-        console.log(err);
       });
   }
 
@@ -179,12 +159,12 @@ export class AddressInfo extends React.Component {
         </div>
         <FaPencilAlt
           style={{
-            backgroundColor: '#bbb',
+            backgroundColor: "#bbb",
             borderBottomLeftRadius: 8,
             padding: 5,
-            cursor: 'pointer'
+            cursor: "pointer"
           }}
-          size={'35px'}
+          size={"35px"}
           onClick={() => this.openEdit(index)}
         />
       </div>
@@ -207,7 +187,7 @@ export class AddressInfo extends React.Component {
               }}
             />
             <div className='col pl-0 ml-0'>Select All</div>
-            <div style={{ color: '#00f' }} className='float-right mr-4'>
+            <div style={{ color: "#00f" }} className='float-right mr-4'>
               <a
                 href='#'
                 onClick={() => this.deleteSelected(this.state.selected)}

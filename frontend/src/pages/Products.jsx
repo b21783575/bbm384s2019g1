@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import axios from "axios";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import axios from 'axios';
+import { FaStar, FaRegStar } from 'react-icons/fa';
 
 class Products extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       mProduct: {
-        brand: "brand",
-        category: { name: "cat" },
-        description: "desc",
+        brand: 'brand',
+        category: { name: 'cat' },
+        description: 'desc',
         discount: 10,
         id: 55,
-        name: "name",
+        name: 'name',
         price: 555,
         stock: 1
       },
@@ -38,56 +38,52 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-    this.props.routeChange("Products");
+    this.props.routeChange('Products');
     this.initApp();
   }
 
   addProductToCart(productId) {
     axios
       .post(
-        "http://localhost:8080/api/basket?productId=" +
+        'http://localhost:8080/api/basket?productId=' +
           productId +
-          "&quantity=1"
+          '&quantity=1'
       )
-      .then(res => this.props.history.push("/cart"))
+      .then(res => this.props.history.push('/cart'))
       .catch(err => console.log(err));
   }
 
   applyFilters() {
     const requestOptions = {
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     };
-    console.log(this.state.filters);
     axios
       .post(
-        "http://localhost:8080/api/products/" + this.state.category,
+        'http://localhost:8080/api/products/' + this.state.category,
         this.state.filters,
         requestOptions
       )
       .then(res => {
-        console.log(res);
       });
   }
 
   initApp() {
     var category = this.props.match.params.category;
-    var url = "http://localhost:8080/api/products";
+    var url = 'http://localhost:8080/api/products';
     if (!!category) {
       this.setState({ category });
-      url += "/" + category;
+      url += '/' + category;
     }
     axios
       .post(url)
       .then(res => {
-        console.log(res);
         this.setState({ products: res.data.content });
       })
       .catch(err => console.log(err));
-    if (!category) category = "root";
+    if (!category) category = 'root';
     axios
-      .get("http://localhost:8080/api/filters/" + category)
+      .get('http://localhost:8080/api/filters/' + category)
       .then(res => {
-        console.log(res);
         this.setState({ availableFilters: res.data });
       })
       .catch(err => console.log(err));
@@ -104,7 +100,7 @@ class Products extends React.Component {
   render() {
     var colors = this.state.availableFilters.colors.map(color => (
       <div
-        style={{ cursor: "pointer" }}
+        style={{ cursor: 'pointer' }}
         onClick={() => {
           var filters = this.state.filters;
           if (!filters.colors.includes(color)) filters.colors.push(color);
@@ -122,40 +118,38 @@ class Products extends React.Component {
     var products = this.state.products.map(product => (
       <div
         style={{
-          width: "30%",
+          width: '30%',
           minWidth: 210,
           height: 350,
-          position: "relative"
+          position: 'relative'
         }}
         className='mt-2 mb-3 pb-2 px-2 pt-3 border'
         key={product.id}
       >
         <img
           style={{
-            width: "95%",
-            height: "50%",
-            cursor: "pointer"
+            width: '95%',
+            height: '50%',
+            cursor: 'pointer'
           }}
           className='mx-auto border mt-2'
           onClick={() => {
-            console.log(product.name);
-            this.props.history.push("/product/" + product.id);
+            this.props.history.push('/product/' + product.id);
           }}
-          src={"http://localhost:8080/files/" + product.picture}
+          src={'http://localhost:8080/files/' + product.picture}
         />
         <small>Seller Rating: {product.seller.avg_rating}</small>
         <div
           style={{
-            color: "#056866",
+            color: '#056866',
             maxHeight: 60,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
             fontSize: 14,
-            cursor: "pointer"
+            cursor: 'pointer'
           }}
           onClick={() => {
-            console.log(product.name);
-            this.props.history.push("/product/" + product.id);
+            this.props.history.push('/product/' + product.id);
           }}
         >
           {product.name}
@@ -165,18 +159,18 @@ class Products extends React.Component {
             <strong>Brand: </strong>
             {product.brand}
           </div>
-          <div style={{ color: "#f00" }}>
+          <div style={{ color: '#f00' }}>
             $
             {(product.price - (product.price * product.discount) / 100)
               .toFixed(2)
-              .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+              .replace(/\d(?=(\d{3})+\.)/g, '$&,')}
           </div>
           <sub>
             <del>${product.discount > 0 ? product.price : null}</del>
           </sub>
         </div>
         <div
-          style={{ position: "absolute", bottom: 0 }}
+          style={{ position: 'absolute', bottom: 0 }}
           className='w-100 row justify-content-center'
         >
           <button
@@ -190,13 +184,13 @@ class Products extends React.Component {
         {product.discount > 0 ? (
           <div
             style={{
-              backgroundColor: "#f95447",
-              position: "absolute",
+              backgroundColor: '#f95447',
+              position: 'absolute',
               right: 0,
               top: 0,
               width: 50,
-              textAlign: "center",
-              color: "#fff"
+              textAlign: 'center',
+              color: '#fff'
             }}
           >
             -%{product.discount}
@@ -205,62 +199,62 @@ class Products extends React.Component {
       </div>
     ));
     return (
-      <div style={{ backgroundColor: "#F8F3EF" }} className='py-4 px-4'>
+      <div style={{ backgroundColor: '#F8F3EF' }} className='py-4 px-4'>
         <div
-          style={{ backgroundColor: "#F2EEEE" }}
+          style={{ backgroundColor: '#F2EEEE' }}
           className='py-4 px-3 border'
         >
           <div className='row px-3'>
             <div
               style={{
-                backgroundColor: "#fff",
+                backgroundColor: '#fff',
                 minHeight: 900,
                 maxHeight: 1200
               }}
               className='col-3 border'
             >
               <div
-                style={{ color: "darkblue", marginTop: 20, fontSize: 20 }}
+                style={{ color: 'darkblue', marginTop: 20, fontSize: 20 }}
                 className='filters'
               >
                 <b>All Categories</b>
                 <hr />
                 <a
-                  style={{ marginTop: 10, fontSize: 15, color: "black" }}
+                  style={{ marginTop: 10, fontSize: 15, color: 'black' }}
                   href='/products/TV'
                 >
                   TV
                 </a>
                 <br />
                 <a
-                  style={{ marginTop: 10, fontSize: 15, color: "black" }}
+                  style={{ marginTop: 10, fontSize: 15, color: 'black' }}
                   href='/products/Mobile%20Phones'
                 >
                   Mobile Phone
                 </a>
                 <br />
                 <a
-                  style={{ marginTop: 10, fontSize: 15, color: "black" }}
+                  style={{ marginTop: 10, fontSize: 15, color: 'black' }}
                   href='/products/Smart%20Phones'
                 >
                   Smart Phone
                 </a>
                 <br />
                 <a
-                  style={{ marginTop: 10, fontSize: 15, color: "black" }}
+                  style={{ marginTop: 10, fontSize: 15, color: 'black' }}
                   href='/products/Home'
                 >
                   Home
                 </a>
                 <br />
                 <a
-                  style={{ marginTop: 10, fontSize: 15, color: "black" }}
+                  style={{ marginTop: 10, fontSize: 15, color: 'black' }}
                   href='/products/Furniture'
                 >
                   Furniture
                 </a>
                 <hr />
-                <h1 style={{ color: "darkblue", marginTop: 15, fontSize: 16 }}>
+                <h1 style={{ color: 'darkblue', marginTop: 15, fontSize: 16 }}>
                   <b>Colors</b>
                 </h1>
                 <hr />
@@ -272,7 +266,7 @@ class Products extends React.Component {
                 <hr />
                 <div
                   style={{
-                    color: this.state.filters.minRate == 0 ? "#f00" : null
+                    color: this.state.filters.minRate == 0 ? '#f00' : null
                   }}
                   onClick={() => {
                     var filters = this.state.filters;
@@ -284,7 +278,7 @@ class Products extends React.Component {
                 </div>
                 <div
                   style={{
-                    color: this.state.filters.minRate == 1 ? "#f00" : null
+                    color: this.state.filters.minRate == 1 ? '#f00' : null
                   }}
                   onClick={() => {
                     var filters = this.state.filters;
@@ -296,7 +290,7 @@ class Products extends React.Component {
                 </div>
                 <div
                   style={{
-                    color: this.state.filters.minRate == 2 ? "#f00" : null
+                    color: this.state.filters.minRate == 2 ? '#f00' : null
                   }}
                   onClick={() => {
                     var filters = this.state.filters;
@@ -308,7 +302,7 @@ class Products extends React.Component {
                 </div>
                 <div
                   style={{
-                    color: this.state.filters.minRate == 3 ? "#f00" : null
+                    color: this.state.filters.minRate == 3 ? '#f00' : null
                   }}
                   onClick={() => {
                     var filters = this.state.filters;
@@ -320,7 +314,7 @@ class Products extends React.Component {
                 </div>
                 <div
                   style={{
-                    color: this.state.filters.minRate == 4 ? "#f00" : null
+                    color: this.state.filters.minRate == 4 ? '#f00' : null
                   }}
                   onClick={() => {
                     var filters = this.state.filters;
@@ -332,7 +326,7 @@ class Products extends React.Component {
                 </div>
                 <div
                   style={{
-                    color: this.state.filters.minRate == 5 ? "#f00" : null
+                    color: this.state.filters.minRate == 5 ? '#f00' : null
                   }}
                   onClick={() => {
                     var filters = this.state.filters;
@@ -347,11 +341,10 @@ class Products extends React.Component {
                   <b>Price</b>
                 </h1>
                 <br />
-                <div style={{ alignItems: "center" }}>
+                <div style={{ alignItems: 'center' }}>
                   <input
                     style={{ width: 100 }}
                     onChange={e => {
-                      console.log(e.target.value);
                       var filters = this.state.filters;
                       filters.minPrice = e.target.value;
                       this.setState(filters);
@@ -379,9 +372,9 @@ class Products extends React.Component {
               </div>
             </div>
             <div className='col ml-3 '>
-              <div style={{ backgroundColor: "#fff" }} className='border mb-3'>
+              <div style={{ backgroundColor: '#fff' }} className='border mb-3'>
                 <div
-                  style={{ backgroundColor: "white" }}
+                  style={{ backgroundColor: 'white' }}
                   className='border mb-3 product-sorting d-flex'
                 >
                   <p style={{ fontSize: 15 }}>Sort by:</p>
@@ -404,9 +397,9 @@ class Products extends React.Component {
                   </form>
                 </div>
               </div>
-              <div style={{ backgroundColor: "#fff" }} className='border '>
+              <div style={{ backgroundColor: '#fff' }} className='border '>
                 <div className='row justify-content-center'>
-                  {products.length > 0 ? products : "No products found"}
+                  {products.length > 0 ? products : 'No products found'}
                 </div>
               </div>
             </div>

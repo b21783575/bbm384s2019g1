@@ -44,20 +44,19 @@ export class Header extends React.Component {
             </Link>
           </div>
           {this.props.cart ? (
-            <button
-              type='button'
-              className='row align-items-center mt-2'
-              style={{
-                backgroundColor: "#F16530",
-                borderColor: "#F16530"
-              }}
-              onClick={() => {
-                this.props.logout();
-              }}
-            >
-              <IoMdCart className='my-auto' size={"20px"} />
-              <h4>Cart</h4>
-            </button>
+            <Link to='/cart'>
+              <button
+                type='button'
+                className='row align-items-center mt-2'
+                style={{
+                  backgroundColor: "#F16530",
+                  borderColor: "#F16530"
+                }}
+              >
+                <IoMdCart className='my-auto' size={"20px"} />
+                <h4>Cart</h4>
+              </button>
+            </Link>
           ) : null}
         </div>
       );
@@ -109,10 +108,7 @@ export class Header extends React.Component {
             className='d-flex justify-content-end'
             style={{ backgroundColor: "#384E6E" }}
           >
-            <a
-              style={{ color: "#fff", marginRight: "25px" }}
-              href='/user/helpMessage'
-            >
+            <a style={{ color: "#fff", marginRight: "25px" }} href='/login'>
               Contact us
             </a>
           </div>
@@ -149,37 +145,41 @@ export class Header extends React.Component {
             style={{ backgroundColor: "#384E6E", width: "100%" }}
             className='d-flex justify-content-around'
           >
-            <a
+            <Link
               style={{ color: "#fff" }}
               className='bd-highlight'
-              href='/products/TV'
+              to='/products/TV'
             >
               TV
-            </a>
-            <a style={{ color: "#fff" }} className='bd-highlight' href='/'>
-              Electronics
-            </a>
-            <a
+            </Link>
+            <Link
               style={{ color: "#fff" }}
               className='bd-highlight'
-              href='/products/Home'
+              to='/products/Electronic'
+            >
+              Electronics
+            </Link>
+            <Link
+              style={{ color: "#fff" }}
+              className='bd-highlight'
+              to='/products/Home'
             >
               Home
-            </a>
-            <a
+            </Link>
+            <Link
               style={{ color: "#fff" }}
               className='bd-highlight'
-              href='/products/Furniture'
+              to='/products/Furniture'
             >
               Furniture
-            </a>
+            </Link>
           </Nav>
           <div
             style={{ backgroundColor: "#fff", width: "100%" }}
             className='row mx-0'
           >
             <div className='col text-center'>
-              Free Shipping, in order min 150 tl
+              Free Shipping, in order min $ 300
             </div>
             <div className='col text-center'>7/24 Support</div>
           </div>

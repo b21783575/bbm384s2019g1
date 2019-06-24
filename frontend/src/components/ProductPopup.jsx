@@ -40,7 +40,6 @@ export class ProductPopup extends React.Component {
         <Modal.Body>
           <Formik
             onSubmit={values => {
-              console.log(values);
               if (this.props.mtitle.includes('Edit'))
                 this.props.submitEdit(values);
               else this.props.submitNew(values);
@@ -117,7 +116,6 @@ export class ProductPopup extends React.Component {
                         let file = event.currentTarget.files[0];
                         reader.onloadend = () => {
                           setFieldValue('file', file);
-                          console.log('ohoo');
                           this.setState({ imagePreviewUrl: reader.result });
                         };
                         reader.readAsDataURL(file);

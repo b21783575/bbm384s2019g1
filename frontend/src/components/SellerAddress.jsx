@@ -7,20 +7,7 @@ export class SellerAddress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addresses: [
-        {
-          name: "Home",
-          country: "Turkey",
-          region: "Ankara",
-          description: "Neighborhood / Street / Apartment"
-        },
-        {
-          name: "Work",
-          country: "Turkey",
-          region: "Istanbul",
-          description: "Neighborhood / Street / Apartment"
-        }
-      ],
+      addresses: [],
       selected: [],
       address: { name: "", country: "", region: "", description: "" },
       showPopup: false

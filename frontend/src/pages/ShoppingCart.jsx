@@ -1,6 +1,6 @@
-import React from "react";
-import { Table, Form, Col, Row } from "react-bootstrap";
-import axios from "axios";
+import React from 'react';
+import { Table, Form, Col, Row } from 'react-bootstrap';
+import axios from 'axios';
 
 export class ShoppingCart extends React.Component {
   constructor(props) {
@@ -10,9 +10,8 @@ export class ShoppingCart extends React.Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:8080/api/basket")
+      .get('http://localhost:8080/api/basket')
       .then(res => {
-        console.log(res);
         this.setState({ orders: res.data.orders });
         this.calculateTotalPrice(res.data.orders);
       })
@@ -52,7 +51,7 @@ export class ShoppingCart extends React.Component {
               onClick={() => {
                 axios
                   .delete(
-                    "http://localhost:8080/api/basket?orderId=" + order.id
+                    'http://localhost:8080/api/basket?orderId=' + order.id
                   )
                   .then(res => {
                     var orders = this.state.orders;
@@ -75,7 +74,7 @@ export class ShoppingCart extends React.Component {
       case 0:
         return (
           <div>
-            <h4 style={{ color: "blue" }}>Your Cart</h4>
+            <h4 style={{ color: 'blue' }}>Your Cart</h4>
             <hr />
             <Table responsive bordered hover>
               <thead>
@@ -97,10 +96,10 @@ export class ShoppingCart extends React.Component {
       case 1:
         return (
           <div>
-            <h4 style={{ color: "blue" }}>Delivery Information</h4>
+            <h4 style={{ color: 'blue' }}>Delivery Information</h4>
             <h6>Please specify your delivery address.</h6>
             <hr />
-            <h4 style={{ color: "blue" }}>Address Selection</h4>
+            <h4 style={{ color: 'blue' }}>Address Selection</h4>
             <Table responsive bordered hover>
               <thead>
                 <tr>
@@ -162,7 +161,7 @@ export class ShoppingCart extends React.Component {
       case 3:
         return (
           <div>
-            <h4 style={{ color: "blue" }}>Payment Information</h4>
+            <h4 style={{ color: 'blue' }}>Payment Information</h4>
             <hr />
             <Form>
               <Form.Group as={Row}>
@@ -214,22 +213,22 @@ export class ShoppingCart extends React.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: "#F8F3EF" }} className='py-4 px-4 border'>
-        <div style={{ backgroundColor: "#F2EEEE" }} className='py-4 border'>
+      <div style={{ backgroundColor: '#F8F3EF' }} className='py-4 px-4 border'>
+        <div style={{ backgroundColor: '#F2EEEE' }} className='py-4 border'>
           <div className='px-5 py-3'>
             <div className='row'>
               <div
-                style={{ backgroundColor: "#fff", minHeight: 500 }}
+                style={{ backgroundColor: '#fff', minHeight: 500 }}
                 className='col-9 mr-2 pt-2'
               >
                 {this.renderSteps()}
               </div>
               <div
-                style={{ backgroundColor: "#fff", maxHeight: 275 }}
+                style={{ backgroundColor: '#fff', maxHeight: 275 }}
                 className='col ml-2' // kenarlara yapışmıyor!
               >
-                <div style={{ textAlign: "right" }}>
-                  <h4 style={{ color: "blue" }}>Order Summary</h4>
+                <div style={{ textAlign: 'right' }}>
+                  <h4 style={{ color: 'blue' }}>Order Summary</h4>
                   <h6>{this.state.orders.length} Orders</h6>
                   <button
                     className='col-12 btn btn-primary'
@@ -237,14 +236,14 @@ export class ShoppingCart extends React.Component {
                       var orderStep = this.state.orderStep;
                       orderStep += 1;
                       this.setState({ orderStep });
-                      if (orderStep == 3) this.props.history.push("/order3");
+                      if (orderStep == 3) this.props.history.push('/order3');
                     }}
                   >
                     Continue
                   </button>
                   <hr />
                   <h6>Total Price Of Products</h6>
-                  <h6 style={{ color: "gray" }}>[VAT Included.]</h6>
+                  <h6 style={{ color: 'gray' }}>[VAT Included.]</h6>
                   <h6>$ {this.state.totalPrice}</h6>
                   <hr />
                 </div>

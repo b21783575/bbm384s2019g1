@@ -31,7 +31,6 @@ class Customer extends React.Component {
 
   componentWillReceiveProps(props) {
     this.setState({ customer: props.customer });
-    console.log(props.customer);
   }
 
   changeName(name) {

@@ -67,7 +67,6 @@ class Seller extends React.Component {
 
   componentWillReceiveProps(props) {
     this.setState({ seller: props.seller });
-    console.log(props.seller);
   }
 
   render() {

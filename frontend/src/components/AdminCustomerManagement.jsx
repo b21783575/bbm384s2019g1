@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 import axios from "axios";
 
 export class AdminCustomerManagement extends React.Component {
@@ -16,7 +15,6 @@ export class AdminCustomerManagement extends React.Component {
     axios
       .get("http://localhost:8080/api/c/all")
       .then(res => {
-        console.log(res);
         this.setState({ customers: res.data.content });
       })
       .catch(err => console.log(err));

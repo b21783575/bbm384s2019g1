@@ -32,8 +32,6 @@ export class AccountInfo extends React.Component {
 
   componentDidMount() {
     const { seller, customer } = this.props;
-    console.log(seller);
-    console.log(customer);
     var user = !!customer ? customer : seller;
     if (!!user && !!user.email) {
       this.setState({
@@ -46,7 +44,6 @@ export class AccountInfo extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
     const { seller, customer } = props;
     var user = !!customer ? customer : seller;
     if (!!user && !!user.email) {
@@ -257,7 +254,6 @@ export class AccountInfo extends React.Component {
     return await axios
       .put(API_URL + "api/s/name?name=" + this.state.name)
       .then(result => {
-        console.log(result);
         Authentication.updateUser("name", this.state.name);
         this.props.changeName(this.state.name);
         return true;

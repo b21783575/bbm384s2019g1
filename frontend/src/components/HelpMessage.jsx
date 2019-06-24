@@ -17,7 +17,6 @@ export class HelpMessage extends React.Component {
       })
       .then(response => {
         this.setState({ input: '' });
-        console.log(response);
       })
       .catch(err => console.log(err));
   }

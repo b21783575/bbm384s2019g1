@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, FormControl, Button } from "react-bootstrap";
-import Pagination from "react-bootstrap/Pagination";
 import axios from "axios";
 
 export class AdminProductManagement extends React.Component {
@@ -16,7 +15,6 @@ export class AdminProductManagement extends React.Component {
     axios
       .get("http://localhost:8080/api/products")
       .then(res => {
-        console.log(res);
         this.setState({ products: res.data.content });
       })
       .catch(err => console.log(err));

@@ -28,7 +28,6 @@ class Login extends React.Component {
             .get(`http://localhost:8080/api/userinfo`)
             .then(async res => {
               res = res.data;
-              console.log(res);
               sessionStorage.setItem('userInfo', JSON.stringify(res));
               this.props.login();
               if (!!res && !!res.companyName)
